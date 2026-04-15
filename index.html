@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beach House 🏖️ Balneario Santa Rosa</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="public/css/style.css" />
+</head>
+
+<body class="theme-playa">
+
+  <div id="themeFlash" class="theme-flash"></div>
+
+  <div class="blob-bg">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div id="toastWrap"
+    style="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:9998;display:flex;flex-direction:column;align-items:center;pointer-events:none;">
+  </div>
+
+  <div id="navbar-container"></div>
+
+  <section id="hero" class="hero-wrapper d-flex align-items-center">
+    <div class="container text-center text-white position-relative z-1 py-5 mt-4">
+
+      <div class="badge bg-premium-orange shadow-orange rounded-pill px-4 py-2 mb-4 text-uppercase fw-bold"
+        style="letter-spacing: 1px; font-size: 0.75rem;">
+        <i class="bi bi-geo-alt-fill text-white fs-6 align-middle me-1"></i> Balneario Santa Rosa · Ancón, Lima
+      </div>
+
+      <h1 class="hero-title font-pacifico mb-3">
+        Beach <span class="font-pacifico text-gold fw-normal">House</span>
+      </h1>
+      <p class="hero-subtitle mb-5 fw-light">Tu escape soñado junto al mar 🌊 &nbsp;·&nbsp; Piscina · Parrilla · Azotea
+        · Eventos</p>
+
+      <div class="d-flex gap-3 justify-content-center flex-wrap mb-5">
+        <a href="#paquetes" class="btn btn-orange-glow btn-lg rounded-pill fw-bold px-5 py-3">🏖️ Ver Paquetes</a>
+        <button class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold backdrop-blur"
+          onclick="openBookingPanel()">📅 Reservar Ahora</button>
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+        <div
+          class="hero-stat-box rounded-4 p-3 text-center d-flex flex-column justify-content-center align-items-center">
+          <strong>4</strong>
+          <small>Habitaciones</small>
+        </div>
+
+        <div
+          class="hero-stat-box rounded-4 p-3 text-center d-flex flex-column justify-content-center align-items-center">
+          <strong>20</strong>
+          <small>Pax máx.</small>
+        </div>
+
+        <div
+          class="hero-stat-box rounded-4 p-3 text-center d-flex flex-column justify-content-center align-items-center">
+          <span class="fs-4">🏊</span>
+          <small>Piscina Privada</small>
+        </div>
+
+        <div
+          class="hero-stat-box rounded-4 p-3 text-center d-flex flex-column justify-content-center align-items-center">
+          <span class="fs-4">🌅</span>
+          <small>Vista al Mar</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LA CASA - CARRUSEL -->
+
+  <section id="la-casa" class="py-5 bg-magico">
+    <div class="container py-5">
+
+      <div class="text-center mb-5">
+        <span class="badge badge-premium rounded-pill px-4 py-2 mb-3">🏡 La Casa</span>
+
+        <h2 class="section-title">Todo para tu <span class="font-pacifico text-theme fw-normal">estadía perfecta</span>
+        </h2>
+        <p class="section-subtitle">Comodidad, diversión y vistas al mar en un solo lugar</p>
+
+        <div class="title-underline"></div>
+      </div>
+
+      <div id="carruselCasaDesktop" class="carousel slide d-none d-md-block px-4" data-bs-ride="carousel">
+        <div class="carousel-inner pb-4">
+
+          <div class="carousel-item active">
+            <div class="row g-4 justify-content-center text-center">
+
+              <div class="col-md-6 col-lg-3">
+                <div class="feature-card card h-100 border-0 rounded-4 p-4">
+                  <div
+                    class="icon-box-premium mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-house-heart-fill fs-2 text-white"></i>
+                  </div>
+                  <h5 class="fw-bold text-dark">4 Habitaciones</h5>
+                  <p class="text-muted small mb-0">Cómodas y equipadas</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="feature-card card h-100 border-0 rounded-4 p-4">
+                  <div
+                    class="icon-box-premium mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-droplet-fill fs-2 text-white"></i>
+                  </div>
+                  <h5 class="fw-bold text-dark">2 Baños</h5>
+                  <p class="text-muted small mb-0">Bien mantenidos</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="feature-card card h-100 border-0 rounded-4 p-4">
+                  <div
+                    class="bg-premium-orange shadow-orange mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+                    style="width: 70px; height: 70px; transition: transform 0.4s ease;">
+                    <i class="bi bi-egg-fried fs-2 text-white"></i>
+                  </div>
+                  <h5 class="fw-bold text-dark">Cocina Equipada</h5>
+                  <p class="text-muted small mb-0">Implementos completos</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="feature-card card h-100 border-0 rounded-4 p-4">
+                  <div
+                    class="bg-premium-yellow shadow-yellow mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+                    style="width: 70px; height: 70px; transition: transform 0.4s ease;">
+                    <i class="bi bi-car-front-fill fs-2 text-dark"></i>
+                  </div>
+                  <h5 class="fw-bold text-dark">Cochera x2</h5>
+                  <p class="text-muted small mb-0">Para 2 vehículos</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="row g-4 justify-content-center text-center">
+
+              <div class="col-md-6 col-lg-3">
+                <div class="feature-card card h-100 border-0 rounded-4 p-4">
+                  <div
+                    class="icon-box-premium mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-water fs-2 text-white"></i>
+                  </div>
+                  <h5 class="fw-bold text-dark">Piscina Privada</h5>
+                  <p class="text-muted small mb-0">Zona exclusiva</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="feature-card card h-100 border-0 rounded-4 p-4">
+                  <div
+                    class="bg-premium-coral shadow-coral mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+                    style="width: 70px; height: 70px; transition: transform 0.4s ease;">
+                    <i class="bi bi-music-note-beamed fs-2 text-white"></i>
+                  </div>
+                  <h5 class="fw-bold text-dark">Sonido & Luces</h5>
+                  <p class="text-muted small mb-0">Equipo profesional</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="feature-card card h-100 border-0 rounded-4 p-4">
+                  <div
+                    class="bg-premium-yellow shadow-yellow mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+                    style="width: 70px; height: 70px; transition: transform 0.4s ease;">
+                    <i class="bi bi-binoculars-fill fs-2 text-dark"></i>
+                  </div>
+                  <h5 class="fw-bold text-dark">Azotea Vista Mar</h5>
+                  <p class="text-muted small mb-0">Panorámica al océano</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="feature-card card h-100 border-0 rounded-4 p-4">
+                  <div
+                    class="icon-box-premium mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people-fill fs-2 text-white"></i>
+                  </div>
+                  <h5 class="fw-bold text-dark">Hasta 20 Pax</h5>
+                  <p class="text-muted small mb-0">Ideal para grupos</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <button class="carousel-control-prev w-auto" style="left: -30px;" type="button"
+          data-bs-target="#carruselCasaDesktop" data-bs-slide="prev">
+          <span class="nav-arrow shadow rounded-circle d-flex"><i class="bi bi-chevron-left text-theme fs-5"></i></span>
+        </button>
+        <button class="carousel-control-next w-auto" style="right: -30px;" type="button"
+          data-bs-target="#carruselCasaDesktop" data-bs-slide="next">
+          <span class="nav-arrow shadow rounded-circle d-flex"><i
+              class="bi bi-chevron-right text-theme fs-5"></i></span>
+        </button>
+      </div>
+
+      <div id="carruselCasaMovil" class="carousel slide d-md-none pb-4" data-bs-ride="carousel">
+        <div class="carousel-inner px-4 text-center">
+
+          <div class="carousel-item active">
+            <div class="feature-card card border-0 rounded-4 p-4 mx-auto" style="max-width: 280px;">
+              <div
+                class="icon-box-premium mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-house-heart-fill fs-2 text-white"></i>
+              </div>
+              <h5 class="fw-bold text-dark">4 Habitaciones</h5>
+              <p class="text-muted small mb-0">Cómodas y equipadas</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="feature-card card border-0 rounded-4 p-4 mx-auto" style="max-width: 280px;">
+              <div
+                class="icon-box-premium mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-droplet-fill fs-2 text-white"></i>
+              </div>
+              <h5 class="fw-bold text-dark">2 Baños</h5>
+              <p class="text-muted small mb-0">Bien mantenidos</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="feature-card card border-0 rounded-4 p-4 mx-auto" style="max-width: 280px;">
+              <div
+                class="bg-premium-orange shadow-orange mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 70px; height: 70px; transition: transform 0.4s ease;">
+                <i class="bi bi-egg-fried fs-2 text-white"></i>
+              </div>
+              <h5 class="fw-bold text-dark">Cocina Equipada</h5>
+              <p class="text-muted small mb-0">Implementos completos</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="feature-card card border-0 rounded-4 p-4 mx-auto" style="max-width: 280px;">
+              <div
+                class="bg-premium-yellow shadow-yellow mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 70px; height: 70px; transition: transform 0.4s ease;">
+                <i class="bi bi-car-front-fill fs-2 text-dark"></i>
+              </div>
+              <h5 class="fw-bold text-dark">Cochera x2</h5>
+              <p class="text-muted small mb-0">Para 2 vehículos</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="feature-card card border-0 rounded-4 p-4 mx-auto" style="max-width: 280px;">
+              <div
+                class="icon-box-premium mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-water fs-2 text-white"></i>
+              </div>
+              <h5 class="fw-bold text-dark">Piscina Privada</h5>
+              <p class="text-muted small mb-0">Zona exclusiva</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="feature-card card border-0 rounded-4 p-4 mx-auto" style="max-width: 280px;">
+              <div
+                class="bg-premium-coral shadow-coral mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 70px; height: 70px; transition: transform 0.4s ease;">
+                <i class="bi bi-music-note-beamed fs-2 text-white"></i>
+              </div>
+              <h5 class="fw-bold text-dark">Sonido & Luces</h5>
+              <p class="text-muted small mb-0">Equipo profesional</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="feature-card card border-0 rounded-4 p-4 mx-auto" style="max-width: 280px;">
+              <div
+                class="bg-premium-yellow shadow-yellow mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 70px; height: 70px; transition: transform 0.4s ease;">
+                <i class="bi bi-binoculars-fill fs-2 text-dark"></i>
+              </div>
+              <h5 class="fw-bold text-dark">Azotea Vista Mar</h5>
+              <p class="text-muted small mb-0">Panorámica al océano</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="feature-card card border-0 rounded-4 p-4 mx-auto" style="max-width: 280px;">
+              <div
+                class="icon-box-premium mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-people-fill fs-2 text-white"></i>
+              </div>
+              <h5 class="fw-bold text-dark">Hasta 20 Pax</h5>
+              <p class="text-muted small mb-0">Ideal para grupos</p>
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-control-prev w-auto" style="left: -10px;" type="button"
+          data-bs-target="#carruselCasaMovil" data-bs-slide="prev">
+          <span class="nav-arrow shadow rounded-circle d-flex"><i class="bi bi-chevron-left text-theme fs-5"></i></span>
+        </button>
+        <button class="carousel-control-next w-auto" style="right: -10px;" type="button"
+          data-bs-target="#carruselCasaMovil" data-bs-slide="next">
+          <span class="nav-arrow shadow rounded-circle d-flex"><i
+              class="bi bi-chevron-right text-theme fs-5"></i></span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GALERIA - GRID LAYOUT -->
+
+  <section id="galeria" class="py-5 bg-soft">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <span class="badge badge-premium rounded-pill px-4 py-2 mb-3">📸 Galería</span>
+        <h2 class="section-title">Nuestros <span class="text-theme font-pacifico fw-normal">espacios</span></h2>
+        <p class="section-subtitle">Cada rincón pensado para que lo disfrutes al máximo</p>
+        <div class="title-underline"></div>
+      </div>
+
+      <div class="gallery-grid">
+
+        <div class="gal-piscina gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/psina parrilla.webp" alt="Piscina y Parrilla"
+            class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🖼️ Piscina & Parrilla</span>
+          </div>
+        </div>
+
+        <div class="gal-azotea gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/azotea.webp" alt="Azotea con Vista" class="position-absolute top-0 start-0 w-100 h-100"
+            style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🖼️ Azotea con Vista</span>
+          </div>
+        </div>
+
+        <div class="gal-eventos gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/evento.webp" alt="Zona de Eventos" class="position-absolute top-0 start-0 w-100 h-100"
+            style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🎉 Eventos</span>
+          </div>
+        </div>
+
+        <div class="gal-lounge gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/sala louge.webp" alt="Sala Lounge" class="position-absolute top-0 start-0 w-100 h-100"
+            style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🎋 Sala Lounge</span>
+          </div>
+        </div>
+
+        <div class="gal-social gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/area social.webp" alt="Área Social" class="position-absolute top-0 start-0 w-100 h-100"
+            style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🌿 Área Social</span>
+          </div>
+        </div>
+
+        <div class="gal-doble gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/hab doble.webp" alt="Habitación Doble"
+            class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🛏️ Hab. Doble</span>
+          </div>
+        </div>
+
+        <div class="gal-simple gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/hab simple.webp" alt="Habitación Simple"
+            class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🛌 Hab. Simple</span>
+          </div>
+        </div>
+
+        <div class="gal-literas gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/hab litera.webp" alt="Habitación con Literas"
+            class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🛏️ Literas</span>
+          </div>
+        </div>
+
+        <div class="gal-cocina gallery-item rounded-4 position-relative overflow-hidden shadow-sm">
+          <img src="public/img/cocina.webp" alt="Cocina" class="position-absolute top-0 start-0 w-100 h-100"
+            style="object-fit: cover; z-index: 1;">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white text-center"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 2;">
+            <span class="fw-bold">🍳 Cocina</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!--PAQUETES-->
+
+  <section id="paquetes" class="py-5 bg-navy text-white">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <span class="badge badge-premium bg-premium-yellow rounded-pill px-4 py-2 mb-3">📦 Paquetes</span>
+      <h2 class="section-title text-white">Elige tu <span class="text-gold font-pacifico fw-normal">aventura</span></h2>
+      <p class="section-subtitle text-white-50">Todos incluyen piscina · parrilla · sonido · luces · azotea · hasta 20 personas</p>
+      <div class="title-underline underline-gold"></div>
+    </div>
+
+    <div class="row g-4 justify-content-center align-items-stretch d-none d-lg-flex">
+
+      <div class="col-lg-4">
+        <div class="pricing-card card h-100 bg-white text-dark border-0 rounded-4 p-4">
+          <div class="text-center mb-4">
+            <span class="fs-1">🌙</span>
+            <h4 class="fw-bold mt-2">Paquete 1</h4>
+            <p class="text-muted small">24 Horas · Hasta 20 personas</p>
+          </div>
+          <div class="pricing-box rounded-3 p-3 mb-4 text-center">
+            <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+              <span class="text-muted">Vier – Dom</span> <strong class="text-theme fs-5">S/ 680</strong>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">Lun – Jue</span> <strong class="text-theme fs-5">S/ 580</strong>
+            </div>
+          </div>
+          <ul class="pricing-features mb-4">
+            <li><i class="bi bi-check-circle-fill text-theme"></i> Ingreso 11:00 am</li>
+            <li><i class="bi bi-check-circle-fill text-theme"></i> Salida 11:00 am (día sig.)</li>
+            <li><i class="bi bi-check-circle-fill text-theme"></i> Piscina + Parrilla</li>
+          </ul>
+          <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(1)">Reservar Este Plan</button>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="pricing-card pricing-card-popular card h-100 bg-white text-dark rounded-4 p-4 position-relative">
+          <span class="popular-tag badge rounded-pill bg-premium-yellow shadow-yellow text-dark px-3 py-2">⭐ Más Popular</span>
+          <div class="text-center mb-4 mt-2">
+            <span class="fs-1">🌊</span>
+            <h4 class="fw-bold mt-2">Paquete 2</h4>
+            <p class="text-muted small">2 Días, 1 Noche · Hasta 20 personas</p>
+          </div>
+          <div class="pricing-box-popular rounded-3 p-3 mb-4 text-center">
+            <div class="d-flex justify-content-between border-bottom border-warning border-opacity-25 pb-2 mb-2">
+              <span class="text-dark">Vier – Dom</span> <strong class="text-theme fs-4">S/ 970</strong>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-dark">Lun – Jue</span> <strong class="text-theme fs-4">S/ 800</strong>
+            </div>
+          </div>
+          <ul class="pricing-features mb-4">
+            <li><i class="bi bi-check-circle-fill text-gold"></i> Ingreso 11:00 am (Día 1)</li>
+            <li><i class="bi bi-check-circle-fill text-gold"></i> Salida 8:00 pm (Día 2)</li>
+            <li><i class="bi bi-check-circle-fill text-gold"></i> 1 Noche Completa</li>
+          </ul>
+          <button class="btn btn-orange-glow w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(2)">Reservar Este Plan</button>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="pricing-card card h-100 bg-white text-dark border-0 rounded-4 p-4">
+          <div class="text-center mb-4">
+            <span class="fs-1">🏖️</span>
+            <h4 class="fw-bold mt-2">Paquete 3</h4>
+            <p class="text-muted small">3 Días, 2 Noches · Hasta 20 personas</p>
+          </div>
+          <div class="pricing-box rounded-3 p-3 mb-4 text-center">
+            <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+              <span class="text-muted">Vier – Dom</span> <strong class="text-theme fs-5">S/ 1,200</strong>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">Lun – Jue</span> <strong class="text-theme fs-5">S/ 950</strong>
+            </div>
+          </div>
+          <ul class="pricing-features mb-4">
+            <li><i class="bi bi-check-circle-fill text-theme"></i> Ingreso 11:00 am (Día 1)</li>
+            <li><i class="bi bi-check-circle-fill text-theme"></i> Salida a coordinar (Día 3)</li>
+            <li><i class="bi bi-check-circle-fill text-theme"></i> 2 Noches Completas</li>
+          </ul>
+          <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(3)">Reservar Este Plan</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="carruselPaquetes" class="carousel slide d-lg-none py-4" data-bs-ride="carousel">
+      <div class="carousel-inner px-4 text-center">
+
+        <div class="carousel-item active">
+          <div class="pricing-card card bg-white text-dark border-0 rounded-4 p-4 mx-auto text-start" style="max-width: 400px;">
+            <div class="text-center mb-4">
+              <span class="fs-1">🌙</span>
+              <h4 class="fw-bold mt-2">Paquete 1</h4>
+              <p class="text-muted small">24 Horas · Hasta 20 personas</p>
+            </div>
+            <div class="pricing-box rounded-3 p-3 mb-4 text-center">
+              <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                <span class="text-muted">Vier – Dom</span> <strong class="text-theme fs-5">S/ 680</strong>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-muted">Lun – Jue</span> <strong class="text-theme fs-5">S/ 580</strong>
+              </div>
+            </div>
+            <ul class="pricing-features mb-4">
+              <li><i class="bi bi-check-circle-fill text-theme"></i> Ingreso 11:00 am</li>
+              <li><i class="bi bi-check-circle-fill text-theme"></i> Salida 11:00 am (día sig.)</li>
+              <li><i class="bi bi-check-circle-fill text-theme"></i> Piscina + Parrilla</li>
+            </ul>
+            <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(1)">Reservar Este Plan</button>
+          </div>
+        </div>
+
+        <div class="carousel-item pt-3">
+          <div class="pricing-card card bg-white text-dark rounded-4 p-4 mx-auto position-relative text-start" style="max-width: 400px; border: 2px solid var(--gold) !important; transform: scale(1) !important;">
+            <span class="popular-tag badge rounded-pill bg-premium-yellow shadow-yellow text-dark px-3 py-2 position-absolute start-50 translate-middle-x" style="top: -15px !important;">⭐ Más Popular</span>
+            <div class="text-center mb-4 mt-2">
+              <span class="fs-1">🌊</span>
+              <h4 class="fw-bold mt-2">Paquete 2</h4>
+              <p class="text-muted small">2 Días, 1 Noche · Hasta 20 pax</p>
+            </div>
+            <div class="pricing-box-popular rounded-3 p-3 mb-4 text-center">
+              <div class="d-flex justify-content-between border-bottom border-warning border-opacity-25 pb-2 mb-2">
+                <span class="text-dark">Vier – Dom</span> <strong class="text-theme fs-4">S/ 970</strong>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-dark">Lun – Jue</span> <strong class="text-theme fs-4">S/ 800</strong>
+              </div>
+            </div>
+            <ul class="pricing-features mb-4">
+              <li><i class="bi bi-check-circle-fill text-gold"></i> Ingreso 11:00 am (Día 1)</li>
+              <li><i class="bi bi-check-circle-fill text-gold"></i> Salida 8:00 pm (Día 2)</li>
+              <li><i class="bi bi-check-circle-fill text-gold"></i> 1 Noche Completa</li>
+            </ul>
+            <button class="btn btn-orange-glow w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(2)">Reservar Este Plan</button>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="pricing-card card bg-white text-dark border-0 rounded-4 p-4 mx-auto text-start" style="max-width: 400px;">
+            <div class="text-center mb-4">
+              <span class="fs-1">🏖️</span>
+              <h4 class="fw-bold mt-2">Paquete 3</h4>
+              <p class="text-muted small">3 Días, 2 Noches · Hasta 20 pax</p>
+            </div>
+            <div class="pricing-box rounded-3 p-3 mb-4 text-center">
+              <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                <span class="text-muted">Vier – Dom</span> <strong class="text-theme fs-5">S/ 1,200</strong>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-muted">Lun – Jue</span> <strong class="text-theme fs-5">S/ 950</strong>
+              </div>
+            </div>
+            <ul class="pricing-features mb-4">
+              <li><i class="bi bi-check-circle-fill text-theme"></i> Ingreso 11:00 am (Día 1)</li>
+              <li><i class="bi bi-check-circle-fill text-theme"></i> Salida a coordinar (Día 3)</li>
+              <li><i class="bi bi-check-circle-fill text-theme"></i> 2 Noches Completas</li>
+            </ul>
+            <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(3)">Reservar Este Plan</button>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="carousel-control-prev w-auto" style="left: -10px;" type="button" data-bs-target="#carruselPaquetes" data-bs-slide="prev">
+        <span class="nav-arrow shadow rounded-circle d-flex"><i class="bi bi-chevron-left text-theme fs-5"></i></span>
+      </button>
+      <button class="carousel-control-next w-auto" style="right: -10px;" type="button" data-bs-target="#carruselPaquetes" data-bs-slide="next">
+        <span class="nav-arrow shadow rounded-circle d-flex"><i class="bi bi-chevron-right text-theme fs-5"></i></span>
+      </button>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="text-center p-4 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.05); border: 2px dashed rgba(255, 255, 255, 0.2) !important; backdrop-filter: blur(10px); width: 100%; max-width: 900px; margin: 0 auto;">
+          <p class="mb-2 fw-bold text-uppercase text-white-50" style="font-size: 0.8rem; letter-spacing: 2px;">
+            <i class="bi bi-shield-lock-fill text-gold me-2"></i> Información de Seguridad
+          </p>
+          <div class="h2 fw-900 text-white mb-2" style="letter-spacing: -1px;">
+            Garantía Reembolsable: <span class="text-gold">S/ 350</span>
+          </div>
+          <p class="mb-0 text-white-50 fw-light" style="font-size: 0.95rem;">
+            Este monto es un depósito preventivo. Se devuelve **íntegramente** al finalizar tu estadía tras verificar que las instalaciones están conformes.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- TEMATICA -->
+
+  <section id="tematicas" class="py-5 bg-white">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <span class="badge badge-premium rounded-pill px-4 py-2 mb-3">🎊 Temáticas</span>
+        <h2 class="section-title">Elige tu <span class="text-theme font-pacifico fw-normal">ocasión</span></h2>
+        <p class="section-subtitle">Diseñamos el ambiente perfecto para ti</p>
+        <div class="title-underline"></div>
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-center gap-3 mb-5 text-center">
+        <div class="theme-selector-card card border-0 rounded-4 p-3 active" data-tema="playa">
+          <span class="fs-2 mb-2 d-block">🌊</span>
+          <h6 class="fw-bold mb-1">Playa</h6>
+        </div>
+        <div class="theme-selector-card card border-0 rounded-4 p-3" data-tema="cumple">
+          <span class="fs-2 mb-2 d-block">🎂</span>
+          <h6 class="fw-bold mb-1">Cumple</h6>
+        </div>
+        <div class="theme-selector-card card border-0 rounded-4 p-3" data-tema="aniversario">
+          <span class="fs-2 mb-2 d-block">💑</span>
+          <h6 class="fw-bold mb-1">Parejas</h6>
+        </div>
+        <div class="theme-selector-card card border-0 rounded-4 p-3" data-tema="amigos">
+          <span class="fs-2 mb-2 d-block">🤙</span>
+          <h6 class="fw-bold mb-1">Amigos</h6>
+        </div>
+        <div class="theme-selector-card card border-0 rounded-4 p-3" data-tema="familia">
+          <span class="fs-2 mb-2 d-block">👨‍👩‍👧‍👦</span>
+          <h6 class="fw-bold mb-1">Familia</h6>
+        </div>
+      </div>
+
+      <div class="row align-items-center g-5 mt-4">
+        <div class="col-md-6">
+          <div class="hero-image-box rounded-4 position-relative overflow-hidden shadow-lg border-0">
+            <img src="public/img/party.webp" alt="Decoración de Eventos"
+              class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 1;">
+
+          </div>
+        </div>
+        <div class="col-md-6 text-center text-md-start">
+          <h3 class="font-pacifico fs-1 text-dark mb-3">¿Tienes una ocasión especial?</h3>
+          <p class="text-muted mb-3 fs-5">Contamos con equipo de sonido y luces, piscina privada, parrilla y una azotea
+            con vista inigualable al mar de Santa Rosa.</p>
+          <p class="text-muted mb-4">Puedes traer tu decoración o coordinar servicios adicionales con nosotros 🎈</p>
+          <button class="btn btn-orange-glow btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm">Consultar
+            Disponibilidad</button>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- HORARIOS -->
+
+  <section id="horarios" class="py-5 bg-soft">
+    <div class="container py-5">
+
+      <div class="text-center mb-5">
+        <span class="badge badge-premium rounded-pill px-4 py-2 mb-3">⏰ Horarios</span>
+        <h2 class="section-title">Check-in & <span class="text-theme font-pacifico fw-normal">Check-out</span></h2>
+        <p class="section-subtitle">Horarios establecidos para cada tipo de paquete</p>
+        <div class="title-underline"></div>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="schedule-card card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
+            <div class="schedule-header p-4 text-center">
+              <i class="bi bi-moon-stars-fill fs-2 d-block mb-2 text-gold"></i>
+              <h5 class="fw-bold mb-0">Paquete 1 — 24h</h5>
+            </div>
+            <div class="card-body p-4">
+              <ul class="schedule-list">
+                <li><span class="label"><i class="bi bi-box-arrow-in-right"></i> Ingreso</span><strong
+                    class="value">11:00 am</strong></li>
+                <li><span class="label"><i class="bi bi-box-arrow-right text-danger"></i> Salida</span><span
+                    class="value text-end"><strong>11:00 am</strong><br><small>(día sig.)</small></span></li>
+                <li><span class="label"><i class="bi bi-people-fill text-theme"></i> Máximo</span><strong
+                    class="value">20 personas</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="schedule-card card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
+            <div class="schedule-header p-4 text-center">
+              <i class="bi bi-sun-fill fs-2 d-block mb-2 text-gold"></i>
+              <h5 class="fw-bold mb-0">Paquete 2 — 2D/1N</h5>
+            </div>
+            <div class="card-body p-4">
+              <ul class="schedule-list">
+                <li><span class="label"><i class="bi bi-box-arrow-in-right"></i> Ingreso</span><span
+                    class="value text-end"><strong>11:00 am</strong><br><small>(Día 1)</small></span></li>
+                <li><span class="label"><i class="bi bi-box-arrow-right text-danger"></i> Salida</span><span
+                    class="value text-end"><strong>8:00 pm</strong><br><small>(Día 2)</small></span></li>
+                <li><span class="label"><i class="bi bi-people-fill text-theme"></i> Máximo</span><strong
+                    class="value">20 personas</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="schedule-card card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
+            <div class="schedule-header p-4 text-center">
+              <i class="bi bi-stars fs-2 d-block mb-2 text-gold"></i>
+              <h5 class="fw-bold mb-0">Paquete 3 — 3D/2N</h5>
+            </div>
+            <div class="card-body p-4">
+              <ul class="schedule-list">
+                <li><span class="label"><i class="bi bi-box-arrow-in-right"></i> Ingreso</span><span
+                    class="value text-end"><strong>11:00 am</strong><br><small>(Día 1)</small></span></li>
+                <li><span class="label"><i class="bi bi-box-arrow-right text-danger"></i> Salida</span><span
+                    class="value text-end"><strong>A coordinar</strong><br><small>(Día 3)</small></span></li>
+                <li><span class="label"><i class="bi bi-people-fill text-theme"></i> Máximo</span><strong
+                    class="value">20 personas</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+
+  <section id="contacto" class="cta-gradient py-5 text-white text-center">
+    <div class="container py-5">
+      <h2 class="font-pacifico mb-3 display-4 text-white" style="text-shadow: 0 4px 15px rgba(0,0,0,0.2);">¿Listo para
+        vivir la experiencia? 🏄</h2>
+      <p class="lead mb-5 fw-light" style="font-size: 1.2rem;">Escríbenos y te confirmamos disponibilidad en minutos</p>
+      <a href="#" class="btn btn-light btn-lg rounded-pill text-white fw-bold px-5 py-3 shadow-lg btn-whatsapp-cta">
+        <i class="bi bi-whatsapp text-success text-white fs-4 align-middle me-2"></i> Reservar por WhatsApp
+      </a>
+      <p style="color:rgba(255,255,255,.65);font-size:.85rem;margin-top:1.5rem;">
+        O usa el botón "Reservar" para elegir fechas y paquete directamente 👆
+      </p>
+    </div>
+  </section>
+
+  <br>
+
+
+  <!-- wsp btn -->
+  <a href="https://wa.me/51XXXXXXXXX" class="wa-fab shadow-lg">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+
+  <!-- FOOTER -->
+  <div id="footer-container"></div>
+
+  <!-- MODAL - LOGIN -->
+
+  <div id="modal-login-container"></div>
+
+  <!--MODAL - RESERVA-->
+
+  <div id="modal-reserva-container"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="public/js/theme.js"></script>
+  <script src="public/js/main.js"></script>
+
+</body>
+
+</html>

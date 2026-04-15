@@ -1,0 +1,128 @@
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+
+        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+            <div class="modal-top-accent"></div>
+
+            <div class="modal-header border-0 pb-0 position-relative pt-4">
+                <div class="w-100 text-center">
+                    <h4 class="font-pacifico text-dark mb-1">Beach House 🏖️</h4>
+                    <p class="text-muted small mb-0">Ingresa para gestionar tus reservas</p>
+                </div>
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body p-4">
+
+                <div class="bg-soft p-1 rounded-pill d-flex mb-4 position-relative">
+                    <button class="btn flex-fill rounded-pill auth-tab-btn active fw-bold small"
+                        onclick="switchAuthTab('login')">Iniciar Sesión</button>
+                    <button class="btn flex-fill rounded-pill auth-tab-btn text-muted small"
+                        onclick="switchAuthTab('register')">Registrarse</button>
+                </div>
+
+                <div id="loginForm" class="auth-form-panel">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control bg-light border-0" id="loginUser"
+                            placeholder="Tu usuario o email">
+                        <label for="loginUser" class="text-muted"><i class="bi bi-person me-1"></i> Usuario o
+                            Email</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input type="password" class="form-control bg-light border-0" id="loginPass"
+                            placeholder="Contraseña">
+                        <label for="loginPass" class="text-muted"><i class="bi bi-lock me-1"></i> Contraseña</label>
+                    </div>
+
+                    <button class="btn btn-dynamic-glow w-100 rounded-pill py-3 fw-bold mb-3" onclick="doLogin()">
+                        Ingresar <i class="bi bi-arrow-right ms-1"></i>
+                    </button>
+
+                    <div class="text-center bg-soft rounded-3 p-2">
+                        <p style="font-size: 0.75rem; margin:0;" class="text-muted">
+                            Admin: user=<strong>admin</strong> · pass=<strong>beachhouse</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <div id="registerForm" class="auth-form-panel d-none">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control bg-light border-0" id="regNombre"
+                            placeholder="Tu nombre">
+                        <label for="regNombre" class="text-muted"><i class="bi bi-person-badge me-1"></i> Nombre
+                            completo</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control bg-light border-0" id="regEmail"
+                            placeholder="tu@email.com">
+                        <label for="regEmail" class="text-muted"><i class="bi bi-envelope me-1"></i> Correo
+                            electrónico</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input type="password" class="form-control bg-light border-0" id="regPass"
+                            placeholder="Mínimo 6 caracteres">
+                        <label for="regPass" class="text-muted"><i class="bi bi-shield-lock me-1"></i> Crea una
+                            Contraseña</label>
+                    </div>
+
+                    <button class="btn btn-outline-theme w-100 rounded-pill py-3 fw-bold" onclick="doRegister()">
+                        Crear Cuenta
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ── ESTILOS DEL MODAL DE AUTENTICACIÓN ── */
+
+    /* La línea de color en la parte superior del modal que lee tu tema dinámico */
+    .modal-top-accent {
+        height: 6px;
+        background: linear-gradient(90deg, var(--theme-from), var(--theme-to));
+        width: 100%;
+    }
+
+    /* Estilo para las pestañas (Píldoras) */
+    .auth-tab-btn {
+        transition: all 0.3s ease;
+        border: none;
+        font-size: 0.9rem;
+    }
+
+    .auth-tab-btn.active {
+        background-color: #fff;
+        color: var(--theme-text) !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .auth-tab-btn:hover:not(.active) {
+        color: var(--theme-text) !important;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Optimización de los inputs flotantes */
+    .auth-form-panel .form-control {
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+    }
+
+    .auth-form-panel .form-control:focus {
+        background-color: #fff !important;
+        box-shadow: 0 0 0 4px rgba(0, 151, 230, 0.1);
+        border: 1px solid var(--theme-from) !important;
+    }
+
+    /* Ajuste del tamaño de letra en los labels flotantes */
+    .form-floating>label {
+        font-size: 0.9rem;
+    }
+</style>

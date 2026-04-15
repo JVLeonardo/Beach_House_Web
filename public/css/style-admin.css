@@ -1,0 +1,1323 @@
+:root {
+    --navy: #0A2948;
+    --navy-light: #0e3460;
+    --navy-mid: #112b50;
+    --gold: #fbc531;
+    --gold-dark: #e0a800;
+    --teal: #00cec9;
+    --teal2: #0097e6;
+    --success: #00b894;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --sidebar-w: 260px;
+    --topbar-h: 62px;
+    --text-soft: rgba(255, 255, 255, .55);
+    --text-mid: rgba(255, 255, 255, .8);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #0d1b2e;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+/* ── FIX DEL GRÁFICO (DASHBOARD) ── */
+.chart-container-donut {
+    height: 250px; 
+    width: 100%; /* IMPORTANTE: Forzar el ancho */
+    position: relative;
+    /* ELIMINAMOS el display: flex y align-items para que Chart.js pueda medir el ancho real */
+}
+/* ── SUAVIZAR TARJETAS EN MODO CLARO ───────────────── */
+[data-theme="light"] .stat-card.blue {
+    background: #e3f2fd;
+    /* Azul muy claro */
+    border: 1px solid #bbdefb;
+}
+
+[data-theme="light"] .stat-card.yellow {
+    background: #fff9e6;
+    /* Dorado/Amarillo muy claro */
+    border: 1px solid #ffeeb3;
+}
+
+[data-theme="light"] .stat-card.green {
+    background: #e8f5e9;
+    /* Verde muy claro */
+    border: 1px solid #c8e6c9;
+}
+
+[data-theme="light"] .stat-card.red {
+    background: #ffebee;
+    /* Rojo muy claro */
+    border: 1px solid #ffcdd2;
+}
+
+/* Ajustar el color de los números y etiquetas para que resalten sobre el pastel */
+[data-theme="light"] .stat-card .stat-value {
+    color: #2c3e50 !important;
+}
+
+[data-theme="light"] .stat-card .stat-label {
+    color: #5a6c7d !important;
+}
+
+/* Mantener el icono con el color vibrante original para que destaque */
+[data-theme="light"] .stat-card.blue .stat-icon i {
+    color: #007bff;
+}
+
+[data-theme="light"] .stat-card.yellow .stat-icon i {
+    color: #fbc531;
+}
+
+[data-theme="light"] .stat-card.green .stat-icon i {
+    color: #28a745;
+}
+
+[data-theme="light"] .stat-card.red .stat-icon i {
+    color: #dc3545;
+}
+
+/* ── MODO CLARO (Corregido: Sin alterar estética original) ───────────────── */
+[data-theme="light"] {
+    background: #f4f6f9;
+    color: #112b50;
+    /* Magia aquí: Oscurecemos tus variables originales automáticamente */
+    --text-soft: rgba(0, 0, 0, 0.55);
+    --text-mid: rgba(0, 0, 0, 0.85);
+}
+
+[data-theme="light"] .sidebar {
+    background: #ffffff;
+    border-right-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .sidebar-brand {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .nav-item-custom:hover,
+[data-theme="light"] .nav-item-custom.active {
+    background: rgba(0, 0, 0, 0.05);
+    color: #112b50;
+}
+
+[data-theme="light"] .nav-item-custom.active .nav-icon {
+    color: #ffffff;
+}
+
+[data-theme="light"] .topbar {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .topbar-title {
+    color: #112b50;
+}
+
+[data-theme="light"] .topbar-date {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .hamburger {
+    color: #112b50;
+}
+
+[data-theme="light"] .page-title {
+    color: #112b50;
+}
+
+[data-theme="light"] .panel,
+[data-theme="light"] .mini-kpi {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .panel-header {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .panel-header h6 {
+    color: #112b50;
+}
+
+[data-theme="light"] .admin-table thead tr th {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .admin-table tbody tr {
+    border-bottom-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .admin-table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .admin-table tbody tr td {
+    color: #212529;
+}
+
+[data-theme="light"] .action-btn {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #495057;
+}
+
+[data-theme="light"] .action-btn:hover {
+    background: #f8f9fa;
+    color: #112b50;
+}
+
+/* Correcciones del Calendario */
+[data-theme="light"] .cal-nav h5,
+[data-theme="light"] .event-item .event-name,
+[data-theme="light"] .mini-kpi-val {
+    color: #112b50;
+}
+
+[data-theme="light"] .cal-nav-btn {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #112b50;
+}
+
+[data-theme="light"] .cal-day-cell {
+    background: transparent;
+    /* No le pone bordes ni fondos feos */
+    color: #112b50;
+}
+
+[data-theme="light"] .cal-day-cell:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .cal-day-cell.today {
+    background: linear-gradient(135deg, var(--teal2), var(--teal));
+    color: #fff;
+}
+
+[data-theme="light"] .admin-toast {
+    background: #ffffff;
+    color: #112b50;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ── SIDEBAR ─────────────────────────────── */
+.sidebar {
+    width: var(--sidebar-w);
+    background: var(--navy);
+    border-right: 1px solid rgba(255, 255, 255, .06);
+    z-index: 1045; /* Por encima de la topbar */
+}
+/* Forzar que el offcanvas no aplique su background default que rompe tu diseño */
+.offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl {
+    --bs-offcanvas-bg: var(--navy);
+}
+
+.sidebar-brand {
+    padding: 22px 20px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-brand .brand-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, #0097e6, #00cec9);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0, 151, 230, .4);
+}
+
+.sidebar-brand .brand-text h5 {
+    font-family: 'Pacifico', cursive;
+    color: var(--gold);
+    font-size: 1.15rem;
+    line-height: 1;
+    margin: 0;
+}
+
+.sidebar-brand .brand-text span {
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-soft);
+}
+
+.sidebar-section-label {
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-soft);
+    padding: 18px 20px 8px;
+}
+
+.sidebar nav {
+    flex: 1;
+    padding: 8px 12px;
+    overflow-y: auto;
+}
+
+.sidebar nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .1);
+    border-radius: 2px;
+}
+
+.nav-item-custom {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border-radius: 12px;
+    color: var(--text-mid);
+    text-decoration: none;
+    font-size: .87rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .25s ease;
+    margin-bottom: 3px;
+    position: relative;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.nav-item-custom .nav-icon {
+    width: 34px;
+    height: 34px;
+    background: rgba(255, 255, 255, .05);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .9rem;
+    transition: all .25s ease;
+    flex-shrink: 0;
+}
+
+.nav-item-custom:hover,
+.nav-item-custom.active {
+    background: rgba(255, 255, 255, .07);
+    color: #fff;
+}
+
+.nav-item-custom.active .nav-icon {
+    background: linear-gradient(135deg, var(--teal2), var(--teal));
+    box-shadow: 0 4px 12px rgba(0, 151, 230, .35);
+    color: #fff;
+}
+
+.nav-item-custom.active {
+    color: #fff;
+}
+
+.nav-badge {
+    margin-left: auto;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: .65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.sidebar-footer {
+    padding: 16px 12px;
+    border-top: 1px solid rgba(255, 255, 255, .07);
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: rgba(231, 76, 60, .12);
+    border: 1px solid rgba(231, 76, 60, .25);
+    color: #e74c3c;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.btn-logout:hover {
+    background: rgba(231, 76, 60, .25);
+}
+
+/* ── TOPBAR ─────────────────────────────── */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: var(--sidebar-w);
+    right: 0;
+    height: var(--topbar-h);
+    background: rgba(10, 41, 72, .85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    z-index: 999;
+    gap: 16px;
+}
+
+.topbar-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    flex: 1;
+    letter-spacing: .5px;
+}
+
+.topbar-title span {
+    color: var(--gold);
+}
+
+.topbar-date {
+    font-size: .78rem;
+    color: var(--text-soft);
+    background: rgba(255, 255, 255, .05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.topbar-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--teal2), var(--teal));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    padding-top: var(--topbar-h);
+    min-height: 100vh;
+}
+@media (min-width: 992px) {
+    .main-content {
+        margin-left: var(--sidebar-w);
+    }
+}
+
+.page-section {
+    padding: 32px 28px;
+    display: none;
+}
+
+.page-section.active {
+    display: block;
+}
+
+/* ── STAT CARDS ─────────────────────────── */
+.stat-card {
+    border-radius: 18px;
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .08);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    opacity: .12;
+}
+
+.stat-card.blue {
+    background: linear-gradient(135deg, #0d3b6e, #0a2948);
+    box-shadow: 0 8px 25px rgba(0, 97, 186, .2);
+}
+
+.stat-card.blue::before {
+    background: #0097e6;
+}
+
+.stat-card.yellow {
+    background: linear-gradient(135deg, #3d2c00, #2a1f00);
+    box-shadow: 0 8px 25px rgba(251, 197, 49, .15);
+}
+
+.stat-card.yellow::before {
+    background: var(--gold);
+}
+
+.stat-card.green {
+    background: linear-gradient(135deg, #003d2e, #002a20);
+    box-shadow: 0 8px 25px rgba(0, 184, 148, .15);
+}
+
+.stat-card.green::before {
+    background: var(--success);
+}
+
+.stat-card.red {
+    background: linear-gradient(135deg, #3d0e0e, #2a0a0a);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, .15);
+}
+
+.stat-card.red::before {
+    background: var(--danger);
+}
+
+.stat-card .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+}
+
+.stat-card.blue .stat-icon {
+    background: rgba(0, 151, 230, .2);
+    color: #0097e6;
+}
+
+.stat-card.yellow .stat-icon {
+    background: rgba(251, 197, 49, .2);
+    color: var(--gold);
+}
+
+.stat-card.green .stat-icon {
+    background: rgba(0, 184, 148, .2);
+    color: var(--success);
+}
+
+.stat-card.red .stat-icon {
+    background: rgba(231, 76, 60, .2);
+    color: var(--danger);
+}
+
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-card .stat-label {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-soft);
+    margin-bottom: 12px;
+}
+
+.stat-card .stat-trend {
+    font-size: .75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-card.blue .stat-value {
+    color: #48b2ff;
+}
+
+.stat-card.yellow .stat-value {
+    color: var(--gold);
+}
+
+.stat-card.green .stat-value {
+    color: #55efc4;
+}
+
+.stat-card.red .stat-value {
+    color: #ff7675;
+}
+
+/* ── PANEL / GLASS CARDS ───────────────── */
+.panel {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.panel-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.panel-header h6 {
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-soft);
+    margin: 0;
+}
+
+.panel-body {
+    padding: 22px;
+}
+
+/* ── TABLE ──────────────────────────────── */
+.admin-table {
+    width: 100%;
+}
+
+.admin-table thead tr th {
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-soft);
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.admin-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, .04);
+    transition: background .2s ease;
+}
+
+.admin-table tbody tr:hover {
+    background: rgba(255, 255, 255, .04);
+}
+
+.admin-table tbody tr td {
+    padding: 14px 16px;
+    font-size: .83rem;
+    vertical-align: middle;
+    color: var(--text-mid);
+}
+
+.guest-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--teal2), var(--teal));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    font-weight: 700;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.badge-estado {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.badge-confirmado {
+    background: rgba(0, 184, 148, .15);
+    color: #55efc4;
+    border: 1px solid rgba(0, 184, 148, .3);
+}
+
+.badge-pendiente {
+    background: rgba(251, 197, 49, .15);
+    color: var(--gold);
+    border: 1px solid rgba(251, 197, 49, .3);
+}
+
+.badge-cancelado {
+    background: rgba(231, 76, 60, .15);
+    color: #ff7675;
+    border: 1px solid rgba(231, 76, 60, .3);
+}
+
+.action-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    background: rgba(255, 255, 255, .05);
+    color: var(--text-mid);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .78rem;
+    cursor: pointer;
+    transition: all .2s ease;
+    margin: 0 2px;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    border-color: rgba(255, 255, 255, .2);
+}
+
+.action-btn.confirm:hover {
+    background: rgba(0, 184, 148, .2);
+    color: #55efc4;
+    border-color: rgba(0, 184, 148, .3);
+}
+
+.action-btn.delete:hover {
+    background: rgba(231, 76, 60, .2);
+    color: #ff7675;
+    border-color: rgba(231, 76, 60, .3);
+}
+
+/* ── CALENDAR ───────────────────────────── */
+.cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.cal-nav h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.cal-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .1);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s ease;
+}
+
+.cal-nav-btn:hover {
+    background: rgba(255, 255, 255, .12);
+}
+
+.cal-grid-header {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.cal-day-name {
+    text-align: center;
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-soft);
+    padding: 6px 0;
+}
+
+.cal-grid-days {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 6px;
+}
+
+.cal-day-cell {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+    position: relative;
+    color: var(--text-mid);
+}
+
+.cal-day-cell:hover {
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+}
+
+.cal-day-cell.today {
+    background: linear-gradient(135deg, var(--teal2), var(--teal));
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 151, 230, .3);
+}
+
+.cal-day-cell.has-event::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+}
+
+.cal-day-cell.has-event.reservado::after {
+    background: #55efc4;
+}
+
+.cal-day-cell.empty {
+    cursor: default;
+}
+
+.cal-day-cell.other-month {
+    opacity: .3;
+}
+
+.calendar-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .75rem;
+    color: var(--text-soft);
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.event-list {
+    margin-top: 0;
+}
+
+.event-item {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.event-item:last-child {
+    border-bottom: none;
+}
+
+.event-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.event-item .event-name {
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.event-item .event-meta {
+    font-size: .75rem;
+    color: var(--text-soft);
+}
+
+/* ── CHART SECTION ──────────────────────── */
+.chart-wrapper {
+    position: relative;
+    height: 260px;
+}
+
+/* ── SECTION TITLE ──────────────────────── */
+.page-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+.page-title span {
+    color: var(--gold);
+}
+
+.page-subtitle {
+    font-size: .8rem;
+    color: var(--text-soft);
+    margin-bottom: 28px;
+}
+
+/* ── MINI KPI ROW ───────────────────────── */
+.mini-kpi {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.mini-kpi-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.mini-kpi-val {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.mini-kpi-lbl {
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-soft);
+    margin-top: 3px;
+}
+
+/* ── PROGRESS BARS ──────────────────────── */
+.stat-progress-wrap {
+    margin-top: 8px;
+}
+
+.stat-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: .78rem;
+    margin-bottom: 6px;
+    color: var(--text-mid);
+}
+
+.stat-progress-bar {
+    height: 6px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .08);
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.stat-progress-fill {
+    height: 100%;
+    border-radius: 20px;
+    transition: width 1s ease;
+}
+
+/* ── TOAST ──────────────────────────────── */
+.admin-toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: #0e3460;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 14px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+    z-index: 9999;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all .35s ease;
+    min-width: 260px;
+}
+
+.admin-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.admin-toast-icon {
+    font-size: 1.2rem;
+}
+
+.admin-toast-msg {
+    font-size: .85rem;
+    font-weight: 500;
+}
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media (max-width: 991px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .topbar {
+        left: 0;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp .4s ease forwards;
+}
+
+.fade-in-1 {
+    animation-delay: .1s;
+    opacity: 0;
+    animation: fadeInUp .4s .1s ease forwards;
+}
+
+.fade-in-2 {
+    animation-delay: .2s;
+    opacity: 0;
+    animation: fadeInUp .4s .2s ease forwards;
+}
+
+.fade-in-3 {
+    animation-delay: .3s;
+    opacity: 0;
+    animation: fadeInUp .4s .3s ease forwards;
+}
+
+.fade-in-4 {
+    animation-delay: .4s;
+    opacity: 0;
+    animation: fadeInUp .4s .4s ease forwards;
+}
+
+/* Scrollbar global */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .1);
+    border-radius: 3px;
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+@media (max-width: 991px) {
+    .hamburger {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 999;
+}
+
+.overlay.show {
+    display: block;
+}
+
+/* ── ESTILOS DEL MODAL NUEVA RESERVA (REVISADO) ───────────────────────── */
+
+.custom-reserva-modal {
+    width: 95%;
+    max-width: 480px;
+    /* Un poco más ancho para que respire */
+    border-radius: 28px;
+    background-color: #0d1b2e;
+    /* Mismo fondo base que tu app */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.modal-title-custom {
+    color: #ffffff;
+    font-size: 2.2rem;
+}
+
+/* Envoltura del Input Group (Fondo y Borde) */
+.custom-input-group {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 6px 8px;
+    /* Aire interno (padding) */
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.custom-input-group:focus-within {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: #0097e6;
+    /* Borde cyan sutil al enfocar */
+    box-shadow: 0 0 0 4px rgba(0, 151, 230, 0.15);
+}
+
+/* Ajustes específicos de los elementos internos */
+.custom-input-group .form-control,
+.custom-input-group .form-select,
+.custom-input-group .input-group-text {
+    color: #ffffff !important;
+}
+
+.custom-input-group .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Quitar el outline nativo al enfocar */
+.custom-input-group .form-control:focus,
+.custom-input-group .form-select:focus {
+    box-shadow: none;
+}
+
+/* Para que el select y los datepicker funcionen bien en oscuro */
+.custom-input-group select option {
+    background-color: #0d1b2e;
+    color: #fff;
+}
+
+.custom-input-group input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+/* Botón principal */
+.btn-teal-custom {
+    background-color: #0097e6;
+    color: white;
+    border-radius: 50rem;
+    border: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.btn-teal-custom:hover {
+    background-color: #00cec9;
+    /* Cambia a cyan más brillante */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 151, 230, 0.4);
+    color: white;
+}
+
+/* Botón cerrar X */
+.btn-close-custom {
+    filter: invert(1) grayscale(100%) brightness(200%);
+    opacity: 0.5;
+}
+
+.btn-close-custom:hover {
+    opacity: 1;
+}
+
+/* ── ADAPTACIÓN AL MODO CLARO ───────────────── */
+[data-theme="light"] .custom-reserva-modal {
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .modal-title-custom {
+    color: #112b50;
+}
+
+[data-theme="light"] .custom-input-group {
+    background-color: #f4f6f9;
+    /* Gris muy claro */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .custom-input-group:focus-within {
+    background-color: #ffffff;
+}
+
+[data-theme="light"] .custom-input-group .form-control,
+[data-theme="light"] .custom-input-group .form-select,
+[data-theme="light"] .custom-input-group .input-group-text,
+[data-theme="light"] .custom-input-group .input-group-text i {
+    color: #495057 !important;
+    /* Texto oscuro grisáceo */
+}
+
+[data-theme="light"] .custom-input-group .form-control::placeholder {
+    color: #adb5bd !important;
+}
+
+[data-theme="light"] .custom-input-group select option {
+    background-color: #ffffff;
+    color: #212529;
+}
+
+[data-theme="light"] .custom-input-group input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: none;
+    /* Icono del calendario en color original */
+    opacity: 0.5;
+}
+
+[data-theme="light"] .btn-close-custom {
+    filter: none;
+}
+/* 1. Aseguramos que el contenido principal baje debajo del Topbar */
+.main-content {
+    padding-top: var(--topbar-h);
+    min-height: 100vh;
+}
+
+/* 2. Forzamos el color de fondo oscuro en el menú móvil de Bootstrap */
+.offcanvas, .offcanvas-lg {
+    --bs-offcanvas-bg: var(--navy);
+}
+
+/* 3. En escritorio (PCs y Laptops), anclamos el Sidebar a la izquierda */
+@media (min-width: 992px) {
+    .sidebar.offcanvas-lg {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        height: 100vh !important;
+        width: var(--sidebar-w) !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+    
+    /* Y empujamos el contenido principal hacia la derecha */
+    .main-content {
+        margin-left: var(--sidebar-w);
+    }
+}
+/* ── FIX: TEXTO INVISIBLE EN EVENTOS DEL MES (MODO OSCURO) ── */
+.card.panel {
+    color: #ffffff; /* Evita que Bootstrap ponga texto oscuro por defecto */
+}
+
+.event-item .event-name {
+    color: #ffffff; /* Fuerza el título del evento a ser blanco */
+}
+
+/* Y aseguramos que siga viéndose bien cuando pases al modo claro */
+[data-theme="light"] .card.panel,
+[data-theme="light"] .event-item .event-name {
+    color: #112b50; 
+}
+
+/* ── FULLCALENDAR ADAPTACIÓN A BEACH HOUSE ── */
+.fc-theme-standard td, .fc-theme-standard th {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.fc-col-header-cell-cushion, .fc-daygrid-day-number {
+    color: var(--text-mid) !important;
+    text-decoration: none;
+}
+[data-theme="light"] .fc-theme-standard td, 
+[data-theme="light"] .fc-theme-standard th {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+[data-theme="light"] .fc-col-header-cell-cushion, 
+[data-theme="light"] .fc-daygrid-day-number {
+    color: #112b50 !important;
+}
+.fc .fc-button-primary {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: transparent !important;
+    color: var(--text-mid) !important;
+}
+.fc .fc-button-primary:hover, .fc .fc-button-primary:not(:disabled).fc-button-active {
+    background-color: var(--teal2) !important;
+    color: #fff !important;
+}
+
+/* ── FIX: EVITAR DESCUADRE DE FULLCALENDAR ── */
+.fc {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Forzar que las tablas internas no se desborden */
+.fc .fc-scrollgrid, 
+.fc .fc-scrollgrid table {
+    width: 100% !important;
+    table-layout: fixed !important; 
+}
+
+/* Permitir que el texto de los eventos baje de línea en lugar de estirar la celda */
+.fc-event-main {
+    white-space: normal !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 2px 4px !important;
+    font-size: 0.8rem;
+}
+
+/* Ajuste de altura para que no se vea tan estirado verticalmente */
+.fc .fc-view-harness {
+    min-height: 500px !important;
+}
