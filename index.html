@@ -25,55 +25,106 @@
     style="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:9998;display:flex;flex-direction:column;align-items:center;pointer-events:none;">
   </div>
 
-  <div id="navbar-container"></div>
+  <nav class="navbar navbar-expand-lg fixed-top navbar-glass py-3">
+    <div class="container">
 
-  <section id="hero" class="hero-wrapper d-flex align-items-center">
-    <div class="container text-center text-white position-relative z-1 py-5 mt-4">
+      <!-- LOGO -->
+      <a class="navbar-brand d-flex flex-column" href="#">
+        <span class="font-pacifico text-white fs-2 mb-0">
+          Beach <span class="text-gold">House</span>
+        </span>
+        <span class="brand-subtext">BALNEARIO SANTA ROSA</span>
+      </a>
 
-      <div class="badge bg-premium-orange shadow-orange rounded-pill px-4 py-2 mb-4 text-uppercase fw-bold"
-        style="letter-spacing: 1px; font-size: 0.75rem;">
-        <i class="bi bi-geo-alt-fill text-white fs-6 align-middle me-1"></i> Balneario Santa Rosa · Ancón, Lima
-      </div>
+      <!-- TOGGLER -->
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon-custom"></span>
+      </button>
 
-      <h1 class="hero-title font-pacifico mb-3">
-        Beach <span class="font-pacifico text-gold fw-normal">House</span>
-      </h1>
-      <p class="hero-subtitle mb-5 fw-light">Tu escape soñado junto al mar 🌊 &nbsp;·&nbsp; Piscina · Parrilla · Azotea
-        · Eventos</p>
+      <!-- MENU -->
+      <div class="collapse navbar-collapse" id="navMenu">
 
-      <div class="d-flex gap-3 justify-content-center flex-wrap mb-5">
-        <a href="#paquetes" class="btn btn-orange-glow btn-lg rounded-pill fw-bold px-5 py-3">🏖️ Ver Paquetes</a>
-        <button class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold backdrop-blur"
-          onclick="openBookingPanel()">📅 Reservar Ahora</button>
-      </div>
+        <ul class="navbar-nav mx-auto nav-glass-box align-items-center">
+          <li class="nav-item"><a class="nav-link-premium" href="#la-casa">La Casa</a></li>
+          <li class="nav-item"><a class="nav-link-premium" href="#galeria">Galería</a></li>
+          <li class="nav-item"><a class="nav-link-premium" href="#paquetes">Paquetes</a></li>
+          <li class="nav-item"><a class="nav-link-premium" href="#tematicas">Temáticas</a></li>
+          <li class="nav-item"><a class="nav-link-premium" href="#contacto">Contacto</a></li>
+        </ul>
 
-      <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
-        <div
-          class="hero-stat-box rounded-4 p-3 text-center d-flex flex-column justify-content-center align-items-center">
-          <strong>4</strong>
-          <small>Habitaciones</small>
+        <div class="d-flex align-items-center gap-3 mt-4 mt-lg-0">
+          <a href="#" class="btn-auth" onclick="openAuthModal()"><i class="bi bi-person"></i> Ingresar</a>
+
+          <button class="btn btn-premium-gold rounded-pill px-4 py-2" onclick="openBookingPanel(1)">
+            <i class="bi bi-calendar-check me-1"></i>Reservar
+          </button>
         </div>
 
-        <div
-          class="hero-stat-box rounded-4 p-3 text-center d-flex flex-column justify-content-center align-items-center">
-          <strong>20</strong>
-          <small>Pax máx.</small>
-        </div>
-
-        <div
-          class="hero-stat-box rounded-4 p-3 text-center d-flex flex-column justify-content-center align-items-center">
-          <span class="fs-4">🏊</span>
-          <small>Piscina Privada</small>
-        </div>
-
-        <div
-          class="hero-stat-box rounded-4 p-3 text-center d-flex flex-column justify-content-center align-items-center">
-          <span class="fs-4">🌅</span>
-          <small>Vista al Mar</small>
-        </div>
       </div>
     </div>
-  </section>
+  </nav>
+
+  <section id="hero" class="hero-wrapper">
+
+  <div class="hero-overlay"></div>
+
+  <div class="container text-center text-white hero-content">
+
+    <!-- UBICACIÓN -->
+    <div class="hero-badge mb-4">
+      <i class="bi bi-geo-alt-fill"></i>
+      BALNEARIO SANTA ROSA · ANCÓN, LIMA
+    </div>
+
+    <!-- TITULO -->
+    <h1 class="hero-title">
+      Beach <span class="gold">House</span>
+    </h1>
+
+    <!-- SUB -->
+    <p class="hero-subtitle">
+      Tu escape soñado junto al mar 🌊 · Piscina · Parrilla · Azotea · Eventos
+    </p>
+
+    <!-- BOTONES -->
+    <div class="hero-buttons mt-4">
+      <a href="#" class="btn-hero-primary">
+        <i class="bi bi-box-seam me-2"></i>Ver Paquetes
+      </a>
+
+      <a href="#" class="btn-hero-secondary">
+        <i class="bi bi-calendar-check me-2"></i>Reservar Ahora
+      </a>
+    </div>
+
+    <!-- CARDS -->
+    <div class="hero-stats mt-5">
+
+      <div class="stat-card">
+        <i class="bi bi-tree"></i>
+        <span>HABITACIONES</span>
+      </div>
+
+      <div class="stat-card">
+        <i class="bi bi-people"></i>
+        <span>PAX MÁX.</span>
+      </div>
+
+      <div class="stat-card">
+        <i class="bi bi-water"></i>
+        <span>PISCINA PRIVADA</span>
+      </div>
+
+      <div class="stat-card">
+        <i class="bi bi-sun"></i>
+        <span>VISTA AL MAR</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
   <!-- LA CASA - CARRUSEL -->
 
@@ -420,96 +471,19 @@
 
   <!--PAQUETES-->
 
-  <section id="paquetes" class="py-5 bg-navy text-white">
-  <div class="container py-5">
-    <div class="text-center mb-5">
-      <span class="badge badge-premium bg-premium-yellow rounded-pill px-4 py-2 mb-3">📦 Paquetes</span>
-      <h2 class="section-title text-white">Elige tu <span class="text-gold font-pacifico fw-normal">aventura</span></h2>
-      <p class="section-subtitle text-white-50">Todos incluyen piscina · parrilla · sonido · luces · azotea · hasta 20 personas</p>
-      <div class="title-underline underline-gold"></div>
-    </div>
-
-    <div class="row g-4 justify-content-center align-items-stretch d-none d-lg-flex">
-
-      <div class="col-lg-4">
-        <div class="pricing-card card h-100 bg-white text-dark border-0 rounded-4 p-4">
-          <div class="text-center mb-4">
-            <span class="fs-1">🌙</span>
-            <h4 class="fw-bold mt-2">Paquete 1</h4>
-            <p class="text-muted small">24 Horas · Hasta 20 personas</p>
-          </div>
-          <div class="pricing-box rounded-3 p-3 mb-4 text-center">
-            <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
-              <span class="text-muted">Vier – Dom</span> <strong class="text-theme fs-5">S/ 680</strong>
-            </div>
-            <div class="d-flex justify-content-between">
-              <span class="text-muted">Lun – Jue</span> <strong class="text-theme fs-5">S/ 580</strong>
-            </div>
-          </div>
-          <ul class="pricing-features mb-4">
-            <li><i class="bi bi-check-circle-fill text-theme"></i> Ingreso 11:00 am</li>
-            <li><i class="bi bi-check-circle-fill text-theme"></i> Salida 11:00 am (día sig.)</li>
-            <li><i class="bi bi-check-circle-fill text-theme"></i> Piscina + Parrilla</li>
-          </ul>
-          <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(1)">Reservar Este Plan</button>
-        </div>
+  <section id="paquetes" class="py-5 section-dark">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <span class="badge badge-premium bg-premium-yellow rounded-pill px-4 py-2 mb-3">📦 Paquetes</span>
+        <h2 class="section-title gold-title">Elige tu <span class="text-gold font-pacifico fw-normal">aventura</span></h2>
+        <p class="section-subtitle subtitle-light">Todos incluyen piscina · parrilla · sonido · luces · azotea · hasta 20 personas</p>
+        <div class="title-underline underline-gold"></div>
       </div>
 
-      <div class="col-lg-4">
-        <div class="pricing-card pricing-card-popular card h-100 bg-white text-dark rounded-4 p-4 position-relative">
-          <span class="popular-tag badge rounded-pill bg-premium-yellow shadow-yellow text-dark px-3 py-2">⭐ Más Popular</span>
-          <div class="text-center mb-4 mt-2">
-            <span class="fs-1">🌊</span>
-            <h4 class="fw-bold mt-2">Paquete 2</h4>
-            <p class="text-muted small">2 Días, 1 Noche · Hasta 20 personas</p>
-          </div>
-          <div class="pricing-box-popular rounded-3 p-3 mb-4 text-center">
-            <div class="d-flex justify-content-between border-bottom border-warning border-opacity-25 pb-2 mb-2">
-              <span class="text-dark">Vier – Dom</span> <strong class="text-theme fs-4">S/ 970</strong>
-            </div>
-            <div class="d-flex justify-content-between">
-              <span class="text-dark">Lun – Jue</span> <strong class="text-theme fs-4">S/ 800</strong>
-            </div>
-          </div>
-          <ul class="pricing-features mb-4">
-            <li><i class="bi bi-check-circle-fill text-gold"></i> Ingreso 11:00 am (Día 1)</li>
-            <li><i class="bi bi-check-circle-fill text-gold"></i> Salida 8:00 pm (Día 2)</li>
-            <li><i class="bi bi-check-circle-fill text-gold"></i> 1 Noche Completa</li>
-          </ul>
-          <button class="btn btn-orange-glow w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(2)">Reservar Este Plan</button>
-        </div>
-      </div>
+      <div class="row g-4 justify-content-center align-items-stretch d-none d-lg-flex">
 
-      <div class="col-lg-4">
-        <div class="pricing-card card h-100 bg-white text-dark border-0 rounded-4 p-4">
-          <div class="text-center mb-4">
-            <span class="fs-1">🏖️</span>
-            <h4 class="fw-bold mt-2">Paquete 3</h4>
-            <p class="text-muted small">3 Días, 2 Noches · Hasta 20 personas</p>
-          </div>
-          <div class="pricing-box rounded-3 p-3 mb-4 text-center">
-            <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
-              <span class="text-muted">Vier – Dom</span> <strong class="text-theme fs-5">S/ 1,200</strong>
-            </div>
-            <div class="d-flex justify-content-between">
-              <span class="text-muted">Lun – Jue</span> <strong class="text-theme fs-5">S/ 950</strong>
-            </div>
-          </div>
-          <ul class="pricing-features mb-4">
-            <li><i class="bi bi-check-circle-fill text-theme"></i> Ingreso 11:00 am (Día 1)</li>
-            <li><i class="bi bi-check-circle-fill text-theme"></i> Salida a coordinar (Día 3)</li>
-            <li><i class="bi bi-check-circle-fill text-theme"></i> 2 Noches Completas</li>
-          </ul>
-          <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(3)">Reservar Este Plan</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="carruselPaquetes" class="carousel slide d-lg-none py-4" data-bs-ride="carousel">
-      <div class="carousel-inner px-4 text-center">
-
-        <div class="carousel-item active">
-          <div class="pricing-card card bg-white text-dark border-0 rounded-4 p-4 mx-auto text-start" style="max-width: 400px;">
+        <div class="col-lg-4">
+          <div class="pricing-card card h-100 bg-white text-dark border-0 rounded-4 p-4">
             <div class="text-center mb-4">
               <span class="fs-1">🌙</span>
               <h4 class="fw-bold mt-2">Paquete 1</h4>
@@ -528,17 +502,19 @@
               <li><i class="bi bi-check-circle-fill text-theme"></i> Salida 11:00 am (día sig.)</li>
               <li><i class="bi bi-check-circle-fill text-theme"></i> Piscina + Parrilla</li>
             </ul>
-            <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(1)">Reservar Este Plan</button>
+            <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold"
+              onclick="openBookingPanel(1)">Reservar Este Plan</button>
           </div>
         </div>
 
-        <div class="carousel-item pt-3">
-          <div class="pricing-card card bg-white text-dark rounded-4 p-4 mx-auto position-relative text-start" style="max-width: 400px; border: 2px solid var(--gold) !important; transform: scale(1) !important;">
-            <span class="popular-tag badge rounded-pill bg-premium-yellow shadow-yellow text-dark px-3 py-2 position-absolute start-50 translate-middle-x" style="top: -15px !important;">⭐ Más Popular</span>
+        <div class="col-lg-4">
+          <div class="pricing-card pricing-card-popular card h-100 bg-white text-dark rounded-4 p-4 position-relative">
+            <span class="popular-tag badge rounded-pill bg-premium-yellow shadow-yellow text-dark px-3 py-2">⭐ Más
+              Popular</span>
             <div class="text-center mb-4 mt-2">
               <span class="fs-1">🌊</span>
               <h4 class="fw-bold mt-2">Paquete 2</h4>
-              <p class="text-muted small">2 Días, 1 Noche · Hasta 20 pax</p>
+              <p class="text-muted small">2 Días, 1 Noche · Hasta 20 personas</p>
             </div>
             <div class="pricing-box-popular rounded-3 p-3 mb-4 text-center">
               <div class="d-flex justify-content-between border-bottom border-warning border-opacity-25 pb-2 mb-2">
@@ -553,16 +529,17 @@
               <li><i class="bi bi-check-circle-fill text-gold"></i> Salida 8:00 pm (Día 2)</li>
               <li><i class="bi bi-check-circle-fill text-gold"></i> 1 Noche Completa</li>
             </ul>
-            <button class="btn btn-orange-glow w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(2)">Reservar Este Plan</button>
+            <button class="btn btn-orange-glow w-100 rounded-pill mt-auto fw-bold"
+              onclick="openBookingPanel(2)">Reservar Este Plan</button>
           </div>
         </div>
 
-        <div class="carousel-item">
-          <div class="pricing-card card bg-white text-dark border-0 rounded-4 p-4 mx-auto text-start" style="max-width: 400px;">
+        <div class="col-lg-4">
+          <div class="pricing-card card h-100 bg-white text-dark border-0 rounded-4 p-4">
             <div class="text-center mb-4">
               <span class="fs-1">🏖️</span>
               <h4 class="fw-bold mt-2">Paquete 3</h4>
-              <p class="text-muted small">3 Días, 2 Noches · Hasta 20 pax</p>
+              <p class="text-muted small">3 Días, 2 Noches · Hasta 20 personas</p>
             </div>
             <div class="pricing-box rounded-3 p-3 mb-4 text-center">
               <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
@@ -577,38 +554,129 @@
               <li><i class="bi bi-check-circle-fill text-theme"></i> Salida a coordinar (Día 3)</li>
               <li><i class="bi bi-check-circle-fill text-theme"></i> 2 Noches Completas</li>
             </ul>
-            <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold" onclick="openBookingPanel(3)">Reservar Este Plan</button>
+            <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold"
+              onclick="openBookingPanel(3)">Reservar Este Plan</button>
           </div>
         </div>
-
       </div>
 
-      <button class="carousel-control-prev w-auto" style="left: -10px;" type="button" data-bs-target="#carruselPaquetes" data-bs-slide="prev">
-        <span class="nav-arrow shadow rounded-circle d-flex"><i class="bi bi-chevron-left text-theme fs-5"></i></span>
-      </button>
-      <button class="carousel-control-next w-auto" style="right: -10px;" type="button" data-bs-target="#carruselPaquetes" data-bs-slide="next">
-        <span class="nav-arrow shadow rounded-circle d-flex"><i class="bi bi-chevron-right text-theme fs-5"></i></span>
-      </button>
-    </div>
+      <div id="carruselPaquetes" class="carousel slide d-lg-none py-4" data-bs-ride="carousel">
+        <div class="carousel-inner px-4 text-center">
 
-    <div class="row mt-5">
-      <div class="col-12">
-        <div class="text-center p-4 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.05); border: 2px dashed rgba(255, 255, 255, 0.2) !important; backdrop-filter: blur(10px); width: 100%; max-width: 900px; margin: 0 auto;">
-          <p class="mb-2 fw-bold text-uppercase text-white-50" style="font-size: 0.8rem; letter-spacing: 2px;">
-            <i class="bi bi-shield-lock-fill text-gold me-2"></i> Información de Seguridad
-          </p>
-          <div class="h2 fw-900 text-white mb-2" style="letter-spacing: -1px;">
-            Garantía Reembolsable: <span class="text-gold">S/ 350</span>
+          <div class="carousel-item active">
+            <div class="pricing-card card bg-white text-dark border-0 rounded-4 p-4 mx-auto text-start"
+              style="max-width: 400px;">
+              <div class="text-center mb-4">
+                <span class="fs-1">🌙</span>
+                <h4 class="fw-bold mt-2">Paquete 1</h4>
+                <p class="text-muted small">24 Horas · Hasta 20 personas</p>
+              </div>
+              <div class="pricing-box rounded-3 p-3 mb-4 text-center">
+                <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                  <span class="text-muted">Vier – Dom</span> <strong class="text-theme fs-5">S/ 680</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span class="text-muted">Lun – Jue</span> <strong class="text-theme fs-5">S/ 580</strong>
+                </div>
+              </div>
+              <ul class="pricing-features mb-4">
+                <li><i class="bi bi-check-circle-fill text-theme"></i> Ingreso 11:00 am</li>
+                <li><i class="bi bi-check-circle-fill text-theme"></i> Salida 11:00 am (día sig.)</li>
+                <li><i class="bi bi-check-circle-fill text-theme"></i> Piscina + Parrilla</li>
+              </ul>
+              <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold"
+                onclick="openBookingPanel(1)">Reservar Este Plan</button>
+            </div>
           </div>
-          <p class="mb-0 text-white-50 fw-light" style="font-size: 0.95rem;">
-            Este monto es un depósito preventivo. Se devuelve **íntegramente** al finalizar tu estadía tras verificar que las instalaciones están conformes.
-          </p>
+
+          <div class="carousel-item pt-3">
+            <div class="pricing-card card bg-white text-dark rounded-4 p-4 mx-auto position-relative text-start"
+              style="max-width: 400px; border: 2px solid var(--gold) !important; transform: scale(1) !important;">
+              <span
+                class="popular-tag badge rounded-pill bg-premium-yellow shadow-yellow text-dark px-3 py-2 position-absolute start-50 translate-middle-x"
+                style="top: -15px !important;">⭐ Más Popular</span>
+              <div class="text-center mb-4 mt-2">
+                <span class="fs-1">🌊</span>
+                <h4 class="fw-bold mt-2">Paquete 2</h4>
+                <p class="text-muted small">2 Días, 1 Noche · Hasta 20 pax</p>
+              </div>
+              <div class="pricing-box-popular rounded-3 p-3 mb-4 text-center">
+                <div class="d-flex justify-content-between border-bottom border-warning border-opacity-25 pb-2 mb-2">
+                  <span class="text-dark">Vier – Dom</span> <strong class="text-theme fs-4">S/ 970</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span class="text-dark">Lun – Jue</span> <strong class="text-theme fs-4">S/ 800</strong>
+                </div>
+              </div>
+              <ul class="pricing-features mb-4">
+                <li><i class="bi bi-check-circle-fill text-gold"></i> Ingreso 11:00 am (Día 1)</li>
+                <li><i class="bi bi-check-circle-fill text-gold"></i> Salida 8:00 pm (Día 2)</li>
+                <li><i class="bi bi-check-circle-fill text-gold"></i> 1 Noche Completa</li>
+              </ul>
+              <button class="btn btn-orange-glow w-100 rounded-pill mt-auto fw-bold"
+                onclick="openBookingPanel(2)">Reservar Este Plan</button>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="pricing-card card bg-white text-dark border-0 rounded-4 p-4 mx-auto text-start"
+              style="max-width: 400px;">
+              <div class="text-center mb-4">
+                <span class="fs-1">🏖️</span>
+                <h4 class="fw-bold mt-2">Paquete 3</h4>
+                <p class="text-muted small">3 Días, 2 Noches · Hasta 20 pax</p>
+              </div>
+              <div class="pricing-box rounded-3 p-3 mb-4 text-center">
+                <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                  <span class="text-muted">Vier – Dom</span> <strong class="text-theme fs-5">S/ 1,200</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span class="text-muted">Lun – Jue</span> <strong class="text-theme fs-5">S/ 950</strong>
+                </div>
+              </div>
+              <ul class="pricing-features mb-4">
+                <li><i class="bi bi-check-circle-fill text-theme"></i> Ingreso 11:00 am (Día 1)</li>
+                <li><i class="bi bi-check-circle-fill text-theme"></i> Salida a coordinar (Día 3)</li>
+                <li><i class="bi bi-check-circle-fill text-theme"></i> 2 Noches Completas</li>
+              </ul>
+              <button class="btn btn-outline-theme w-100 rounded-pill mt-auto fw-bold"
+                onclick="openBookingPanel(3)">Reservar Este Plan</button>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="carousel-control-prev w-auto" style="left: -10px;" type="button"
+          data-bs-target="#carruselPaquetes" data-bs-slide="prev">
+          <span class="nav-arrow shadow rounded-circle d-flex"><i class="bi bi-chevron-left text-theme fs-5"></i></span>
+        </button>
+        <button class="carousel-control-next w-auto" style="right: -10px;" type="button"
+          data-bs-target="#carruselPaquetes" data-bs-slide="next">
+          <span class="nav-arrow shadow rounded-circle d-flex"><i
+              class="bi bi-chevron-right text-theme fs-5"></i></span>
+        </button>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="text-center p-4 rounded-4 shadow-sm"
+            style="background: rgba(255, 255, 255, 0.05); border: 2px dashed rgba(255, 255, 255, 0.2) !important; backdrop-filter: blur(10px); width: 100%; max-width: 900px; margin: 0 auto;">
+            <p class="mb-2 fw-bold text-uppercase text-white-50" style="font-size: 0.8rem; letter-spacing: 2px;">
+              <i class="bi bi-shield-lock-fill text-gold me-2"></i> Información de Seguridad
+            </p>
+            <div class="h2 fw-900 text-white mb-2" style="letter-spacing: -1px;">
+              Garantía Reembolsable: <span class="text-gold">S/ 350</span>
+            </div>
+            <p class="mb-0 text-white-50 fw-light" style="font-size: 0.95rem;">
+              Este monto es un depósito preventivo. Se devuelve **íntegramente** al finalizar tu estadía tras verificar
+              que las instalaciones están conformes.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-  </div>
-</section>
+    </div>
+  </section>
 
   <!-- TEMATICA -->
 
@@ -684,7 +752,7 @@
           <div class="schedule-card card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
             <div class="schedule-header p-4 text-center">
               <i class="bi bi-moon-stars-fill fs-2 d-block mb-2 text-gold"></i>
-              <h5 class="fw-bold mb-0">Paquete 1 — 24h</h5>
+              <h5 class="fw-bold mb-0 text-gold">Paquete 1 — 24h</h5>
             </div>
             <div class="card-body p-4">
               <ul class="schedule-list">
@@ -703,7 +771,7 @@
           <div class="schedule-card card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
             <div class="schedule-header p-4 text-center">
               <i class="bi bi-sun-fill fs-2 d-block mb-2 text-gold"></i>
-              <h5 class="fw-bold mb-0">Paquete 2 — 2D/1N</h5>
+              <h5 class="fw-bold mb-0 text-gold">Paquete 2 — 2D/1N</h5>
             </div>
             <div class="card-body p-4">
               <ul class="schedule-list">
@@ -722,7 +790,7 @@
           <div class="schedule-card card h-100 border-0 rounded-4 overflow-hidden shadow-sm">
             <div class="schedule-header p-4 text-center">
               <i class="bi bi-stars fs-2 d-block mb-2 text-gold"></i>
-              <h5 class="fw-bold mb-0">Paquete 3 — 3D/2N</h5>
+              <h5 class="fw-bold mb-0 text-gold">Paquete 3 — 3D/2N</h5>
             </div>
             <div class="card-body p-4">
               <ul class="schedule-list">
@@ -781,7 +849,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="public/js/theme.js"></script>
   <script src="public/js/main.js"></script>
-
 </body>
 
 </html>

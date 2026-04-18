@@ -1,29 +1,36 @@
+/* BOTÓN DORADO ESPECIAL PARA SECCIÓN TEMÁTICAS */
+.btn-gold-theme {
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  color: #2d2300 !important;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(212,175,55,0.18);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.btn-gold-theme:hover, .btn-gold-theme:focus {
+  background: linear-gradient(135deg, var(--gold), var(--gold-strong));
+  color: #fff !important;
+  box-shadow: 0 12px 32px rgba(212,175,55,0.28);
+}
 /* ═══════════════════════════════════════════════════════════
-   BEACH HOUSE — CSS PREMIUM RESORT
+   BEACH HOUSE — CSS PREMIUM RESORT (UPDATED)
    ═══════════════════════════════════════════════════════════ */
-
+body {
+  font-family: "Poppins", sans-serif;
+}
 /* ── 1. VARIABLES GLOBALES & TEMAS DINÁMICOS ────── */
 :root {
-    --gold: #fbc531;
-    --dark-navy: #0A2948;
-    --dark-text: #1e293b;
-    --soft-bg: #f8fafc;
+  --gold: #d4af37;
+  --gold-soft: #f6d365;
+  --gold-strong: #b8962e;
 
-    /* Tema Playa (Azul/Celeste) - Por defecto */
-    --theme-from: #0097e6;
-    --theme-to: #00cec9;
-    --theme-text: #0097e6;
-    --theme-bg: #f0fbff;
+  /* ESTE ES EL SECRETO */
+  --theme-from: #f6d365;
+  --theme-to: #d4a74f;
 
-    /* Variables de colores cálidos fijos (Para dar variedad) */
-    --grad-orange-1: #ce4f1d;
-    --grad-orange-2: #f9994f;
-    --grad-yellow-1: #f6ab65;
-    --grad-yellow-2: #fd8b85;
-    --grad-coral-1: #FF416C;
-    --grad-coral-2: #FF4B2B;
+  /* FONDO GENERAL MÁS CÁLIDO */
+  --theme-bg: #fdfaf4;
 }
-
 /* Tema Cumple (Rojo Fuerte) */
 body.theme-cumple {
     --theme-from: #ff4757;
@@ -260,143 +267,401 @@ body {
     background: linear-gradient(135deg, var(--theme-from), var(--theme-to));
 }
 
-/* ── 6. NAVBAR ────── */
-.navbar-custom {
-    background: var(--dark-navy);
-    backdrop-filter: blur(20px);
-    border-bottom: 3px solid transparent;
-    border-image: linear-gradient(90deg, var(--theme-from), var(--theme-to), var(--gold)) 1;
+/* NAVBAR GLASS */
+/* RESET LINKS NAV */
+.navbar a {
+  text-decoration: none !important;
 }
 
-.nav-link-custom {
-    position: relative;
-    transition: color 0.2s;
+.nav-link-premium {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.85) !important;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 10px 18px !important;
+  position: relative;
 }
 
-.nav-link-custom:hover {
-    color: var(--gold) !important;
+/* HOVER DORADO */
+.nav-link-premium:hover {
+  color: #f6d365 !important;
 }
 
-.nav-link-custom::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transition: transform 0.25s;
+/* EFECTO SUBRAYADO PREMIUM (NO DEFAULT) */
+.nav-link-premium::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg,#f6d365,#d4a74f);
+  transition: 0.3s;
+  transform: translateX(-50%);
 }
 
-.nav-link-custom:hover::after {
-    transform: scaleX(1);
+.nav-link-premium:hover::after {
+  width: 60%;
 }
 
-/* ── 7. HERO ────── */
+.navbar-glass {
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  padding-top: 20px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.4),
+    rgba(0,0,0,0.15)
+  );
+
+  backdrop-filter: blur(14px);
+}
+
+/* CAJA CENTRAL */
+.nav-glass-box {
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(20px);
+
+  border-radius: 60px;
+  padding: 10px 35px;
+
+  border: 1px solid rgba(255,255,255,0.25);
+
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.3),
+    inset 0 1px 1px rgba(255,255,255,0.2),
+    0 0 25px rgba(212,175,55,0.15); /* glow dorado */
+}
+
+.btn-premium-gold {
+  background: linear-gradient(135deg, #f6d365, #d4a74f, #b8962e);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 50px;
+  padding: 10px 22px;
+  border: none;
+
+  box-shadow: 
+    0 8px 20px rgba(212,175,55,0.5),
+    inset 0 1px 1px rgba(255,255,255,0.3);
+
+  transition: 0.3s;
+}
+
+.btn-premium-gold:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(212,175,55,0.6);
+}
+
+.navbar a,
+.navbar a:focus,
+.navbar a:active {
+  text-decoration: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.nav-link-premium {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.85) !important;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 10px 20px !important;
+  position: relative;
+}
+
+/* HOVER DORADO SUAVE */
+.nav-link-premium:hover {
+  color: #f6d365 !important;
+}
+
+/* SUBRAYADO PREMIUM (ANIMADO) */
+.nav-link-premium::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg,#f6d365,#d4a74f);
+  transition: 0.3s;
+  transform: translateX(-50%);
+}
+
+.nav-link-premium:hover::after {
+  width: 50%;
+}
+
+.navbar-brand .font-pacifico {
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 1px;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+/* HOUSE DORADO PREMIUM */
+.navbar-brand .text-gold {
+  background: linear-gradient(135deg, #f6d365, #d4a74f, #b8962e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+/* SUBTEXTO */
+.brand-subtext {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 2px;
+}
+/* ── 7. HERO PREMIUM ────── */
+.hero-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at center,
+    transparent 40%,
+    rgba(0,0,0,0.4)
+  );
+
+  pointer-events: none;
+}           
 .hero-wrapper {
-    min-height: 90vh;
-    background-image: url('../img/hero01.webp');
-    background-size: cover;
-    background-position: center;
-    position: relative;
+  height: 100vh;
+  background-image: url("../img/hero01.webp"); /* verifica ruta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    /* OSCURECIDO BASE */
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.25),
+      rgba(0,0,0,0.65)
+    ),
+
+    /* LUZ CÁLIDA (ATARDECER) */
+    linear-gradient(
+      120deg,
+      rgba(255, 180, 90, 0.35),
+      rgba(255, 210, 140, 0.20),
+      rgba(255, 230, 180, 0.08),
+      transparent
+    ),
+
+    /* GLOW SOL */
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(255, 200, 120, 0.35),
+      rgba(255, 170, 80, 0.15),
+      transparent 60%
+    );
 }
 
 .hero-wrapper::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(11, 25, 44, 0.75);
-    z-index: 0;
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at 60% 40%,
+    rgba(255, 200, 120, 0.15),
+    transparent 50%
+  );
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #caa96b, #a8783c);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
 .hero-title {
-    font-size: clamp(3.5rem, 8vw, 6.5rem);
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    line-height: 1.1;
-    letter-spacing: -2px;
+  font-family: "Pacifico", cursive;
+  font-size: 90px;
+  line-height: 1.1;
+
+  text-shadow: 
+    0 8px 30px rgba(0,0,0,0.6),
+    0 0 25px rgba(212,175,55,0.3); /* glow dorado */
+}
+
+/* BEACH (blanco elegante) */
+.hero-title {
+  color: #fff;
+}
+
+/* HOUSE (oro intenso) */
+.hero-title .gold {
+  background: linear-gradient(135deg, #f6d365, #d4a74f, #b8962e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 0 15px rgba(212,175,55,0.6);
 }
 
 .hero-subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    letter-spacing: 0.5px;
+  font-size: 20px;
+  opacity: 0.9;
+  margin-top: 10px;
 }
 
-.badge-glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.text-gold {
-    color: var(--gold) !important;
-    text-shadow: 0 4px 15px rgba(251, 197, 49, 0.3);
+.btn-auth {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 50px;
+
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+
+  transition: 0.3s;
 }
 
-.hero-stat-box {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    transition: all 0.4s ease;
-    width: 135px;
-    color: white;
+.btn-auth:hover {
+  background: rgba(255,255,255,0.25);
 }
 
-.hero-stat-box:hover {
-    transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.4);
+/* BOTON DORADO */
+.btn-hero-primary {
+  background: linear-gradient(135deg, #caa96b, #a8783c);
+  padding: 14px 30px;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  transition: 0.3s;
 }
 
-.hero-stat-box strong {
-    font-size: 1.8rem;
-    color: var(--gold);
-    line-height: 1.1;
+.btn-hero-primary:hover {
+  transform: translateY(-3px);
 }
 
-.hero-stat-box small {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.7;
+/* BOTON GLASS */
+.btn-hero-secondary {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 14px 30px;
+  border-radius: 50px;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-hero-secondary:hover {
+  background: rgba(255,255,255,0.25);
+}   
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  width: 150px;
+  height: 120px;
+  border-radius: 20px;
+
+  backdrop-filter: blur(14px);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transition: 0.3s;
+}
+
+.stat-card i {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.stat-card span {
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px) scale(1.03);
+}
+
+.navbar-glass {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.nav-glass-box {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.15);
+  padding: 10px 25px;
+  border-radius: 50px;
 }
 
 /* ── 8. LA CASA (Magia y Cristal) ────── */
 .bg-magico {
-    position: relative;
-    background-color: var(--soft-bg);
-    overflow: hidden;
-    z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    #f8f6f2,
+    #ffffff
+  );
+  position: relative;
+  overflow: hidden;
 }
 
-.bg-magico::before,
-.bg-magico::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: -1;
-    animation: flotarMagico 12s infinite alternate ease-in-out;
-    opacity: 0.6;
-}
-
-.bg-magico::before {
-    width: 400px;
-    height: 400px;
-    background: var(--theme-from);
-    top: -100px;
-    left: -100px;
-}
-
-.bg-magico::after {
-    width: 500px;
-    height: 500px;
-    background: var(--theme-to);
-    bottom: -150px;
-    right: -100px;
-    animation-delay: -5s;
-}
 
 @keyframes flotarMagico {
     0% {
@@ -409,22 +674,63 @@ body {
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.8) !important;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.05);
+
+  padding: 30px;
+  text-align: center;
+
+  transition: 0.4s;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
+/* HOVER PREMIUM */
 .feature-card:hover {
-    transform: translateY(-15px);
-    background: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-10px);
+
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.08),
+    0 0 25px rgba(212,175,55,0.15);
+}
+
+.icon-box-premium {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 15px;
+
+  background: linear-gradient(135deg, #f6d365, #d4a74f);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 22px;
+
+  margin: 0 auto 15px;
+
+  box-shadow: 0 8px 20px rgba(212,175,55,0.3);
+
+  transition: 0.3s;
 }
 
 .feature-card:hover .icon-box-premium {
-    transform: scale(1.15) rotate(10deg);
+  transform: scale(1.1);
+}
+
+.feature-card h5 {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: #64748b;
 }
 
 .nav-arrow {
@@ -438,6 +744,21 @@ body {
     transform: scale(1.1);
 }
 
+.section-title {
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+
+  margin: 10px auto 0;
+
+  background: linear-gradient(90deg, #f6d365, #d4a74f);
+  border-radius: 50px;
+}
 /* ── 9. GALERÍA GRID ────── */
 .gallery-grid {
     display: grid;
@@ -510,61 +831,96 @@ body {
     }
 }
 
-/* ── 10. PAQUETES (Pricing Cards) ────── */
+/* ═════════════════════════════
+   PAQUETES (REMAKE PRO)
+   ═════════════════════════════ */
+
 .pricing-card {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(15px);
+
+  border-radius: 20px;
+  padding: 30px;
+
+  border: 1px solid rgba(212,175,55,0.2);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: 0.4s;
 }
 
 .pricing-card:hover {
-    transform: translateY(-10px);
+  transform: translateY(-10px);
+  box-shadow: 
+    0 25px 50px rgba(0,0,0,0.15),
+    0 0 25px rgba(212,175,55,0.2);
 }
 
+/* CARD DESTACADA */
 .pricing-card-popular {
-    border: 2px solid var(--gold) !important;
-    box-shadow: 0 15px 40px rgba(251, 197, 49, 0.15) !important;
-    transform: scale(1.05);
-    z-index: 2;
+  border: 2px solid var(--gold);
+  transform: scale(1.05);
+  background: linear-gradient(
+    135deg,
+    rgba(246,211,101,0.15),
+    rgba(212,167,79,0.1)
+  );
 }
 
-.pricing-card-popular:hover {
-    transform: scale(1.05) translateY(-10px);
-}
-
+/* TAG */
 .popular-tag {
-    background: var(--gold);
-    font-weight: 800;
-    letter-spacing: 1px;
-    font-size: 0.75rem;
-    top: -12px !important;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  color: white;
+  font-weight: 700;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 12px;
 }
 
-.pricing-box {
-    background-color: var(--soft-bg);
+/* PRECIO */
+.pricing-price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--gold-strong);
 }
 
-.pricing-box-popular {
-    background-color: rgba(251, 197, 49, 0.1);
-}
-
+/* LISTA */
 .pricing-features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
 }
 
 .pricing-features li {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    font-size: 0.9rem;
-    color: #64748b;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 0.95rem;
 }
 
 .pricing-features li i {
-    color: var(--theme-text);
-    margin-right: 10px;
-    font-size: 1.1rem;
+  color: var(--gold);
+  margin-right: 8px;
+}
+
+/* BOTON */
+.btn-gold {
+  display: inline-block;
+  margin-top: 20px;
+
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+  transition: 0.3s;
+}
+
+.btn-gold:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(212,175,55,0.5);
 }
 
 /* ── 11. TEMÁTICAS ────── */
@@ -679,7 +1035,35 @@ body {
 
 /* ── 14. FOOTER ────── */
 footer {
-    background: var(--dark-navy);
+  background: linear-gradient(
+    180deg,
+    #0b192c 0%,
+    #0f243f 100%
+  ) !important;
+
+  color: rgba(255,255,255,0.85);
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 200, 120, 0.15),
+      transparent 60%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(212,175,55,0.12),
+      transparent
+    );
+
+  pointer-events: none;
 }
 
 .foot-brand {
@@ -783,4 +1167,14 @@ footer h6 {
         margin-left: var(--sidebar-w);
         padding-top: var(--topbar-h);
     }
+}
+
+/* SECCIONES OSCURAS PREMIUM */
+.section-dark {
+  background: linear-gradient(
+    180deg,
+    #0b192c 0%,
+    #0f243f 100%
+  );
+  color: white;
 }

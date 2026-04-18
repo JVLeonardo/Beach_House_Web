@@ -2,6 +2,16 @@
 
 // public/js/main.js
 
+window.addEventListener("scroll", () => {
+  const nav = document.querySelector(".navbar-glass");
+  if (window.scrollY > 50) {
+    nav.style.background = "rgba(0,0,0,0.6)";
+    nav.style.backdropFilter = "blur(10px)";
+  } else {
+    nav.style.background = "transparent";
+  }
+});
+
 // 1. FUNCION APARA CARGAR LOS COMPONENETES PARA INYECTAR
 async function cargarComponente(idContenedor, rutaArchivo) {
     try {
