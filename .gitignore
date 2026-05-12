@@ -1,0 +1,8 @@
+.env
+.idea/
+target/
+*.log
+
+beachhouse-api-backend/target/
+beachhouse-api-backend/.mvn/wrapper/maven-wrapper.jar
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Beach House</title>
+  <meta name="description" content="Panel administrativo para control de fechas y promociones de Beach House.">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body class="admin-body">
+  <nav class="navbar navbar-expand-lg navbar-dark admin-navbar py-3">
+    <div class="container-fluid px-4 px-lg-5">
+      <a class="navbar-brand d-flex flex-column" href="index.html">
+        <span class="font-pacifico fs-2 mb-0">Beach <span class="text-gold">House</span></span>
+        <span class="brand-subtext text-uppercase">Panel administrativo</span>
+      </a>
+      <div class="d-flex align-items-center gap-3">
+        <span class="admin-user d-none d-md-inline" id="adminUser">Admin</span>
+        <a class="btn btn-outline-light rounded-0" href="index.html">
+          <i class="bi bi-house-door me-2"></i>Web
+        </a>
+        <button class="btn btn-gold rounded-0 fw-bold" id="logoutButton" type="button">
+          <i class="bi bi-box-arrow-right me-2"></i>Salir
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="admin-shell">
+    <section class="admin-hero">
+      <div>
+        <p class="text-gold text-uppercase fw-bold small mb-2 letter-spacing-2">Control operativo</p>
+        <h1>Dashboard de reservas y promociones</h1>
+        <p>Administra fechas bloqueadas y ofertas temporales para mantener la web alineada con la disponibilidad real.</p>
+      </div>
+      <div class="admin-hero-card">
+        <span>Estado</span>
+        <strong id="apiStatus">Conectando API...</strong>
+      </div>
+    </section>
+
+    <section class="admin-kpis">
+      <article>
+        <span>Promociones activas</span>
+        <strong id="activePromotionsCount">0</strong>
+      </article>
+      <article>
+        <span>Fechas bloqueadas</span>
+        <strong id="activeBlockedDatesCount">0</strong>
+      </article>
+      <article>
+        <span>Regla fija</span>
+        <strong>Lunes cerrado</strong>
+      </article>
+    </section>
+
+    <div class="admin-alert d-none" id="adminAlert"></div>
+
+    <section class="row g-4">
+      <div class="col-xl-5">
+        <div class="admin-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="text-gold text-uppercase fw-bold small mb-1">Disponibilidad</p>
+              <h2>Bloquear fecha</h2>
+            </div>
+            <i class="bi bi-calendar-x"></i>
+          </div>
+
+          <form id="blockedDateForm" class="admin-form">
+            <label for="blockedDate">Fecha</label>
+            <input class="form-control rounded-0" id="blockedDate" name="date" type="date" required>
+
+            <label for="blockedReason">Motivo visible</label>
+            <input class="form-control rounded-0" id="blockedReason" name="reason" maxlength="180"
+              placeholder="Ej. Fecha reservada" required>
+
+            <button class="btn btn-gold rounded-0 fw-bold w-100" type="submit">
+              <i class="bi bi-lock me-2"></i>Bloquear fecha
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-xl-7">
+        <div class="admin-panel h-100">
+          <div class="panel-heading">
+            <div>
+              <p class="text-gold text-uppercase fw-bold small mb-1">Calendario</p>
+              <h2>Fechas bloqueadas</h2>
+            </div>
+            <i class="bi bi-list-check"></i>
+          </div>
+          <div class="admin-list" id="blockedDatesList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="row g-4 mt-1">
+      <div class="col-xl-5">
+        <div class="admin-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="text-gold text-uppercase fw-bold small mb-1">Promociones</p>
+              <h2>Nueva oferta</h2>
+            </div>
+            <i class="bi bi-stars"></i>
+          </div>
+
+          <form id="promotionForm" class="admin-form">
+            <label for="promotionTitle">Titulo</label>
+            <input class="form-control rounded-0" id="promotionTitle" name="title" maxlength="120"
+              placeholder="Full Day Martes" required>
+
+            <label for="packageType">Paquete</label>
+            <select class="form-select rounded-0" id="packageType" name="packageType" required>
+              <option value="Full Day">Full Day</option>
+              <option value="2D / 1N">2D / 1N</option>
+              <option value="3D / 2N">3D / 2N</option>
+              <option value="Tematica">Tematica</option>
+            </select>
+
+            <label for="promotionalPrice">Precio promocional</label>
+            <input class="form-control rounded-0" id="promotionalPrice" name="promotionalPrice" type="number"
+              min="1" step="0.01" placeholder="850" required>
+
+            <label for="targetDate">Fecha objetivo</label>
+            <input class="form-control rounded-0" id="targetDate" name="targetDate" type="date" required>
+
+            <label for="visualTheme">Tema visual</label>
+            <input class="form-control rounded-0" id="visualTheme" name="visualTheme" maxlength="80"
+              placeholder="Dorado verano" required>
+
+            <div class="form-check form-switch my-2">
+              <input class="form-check-input" id="promotionActive" name="active" type="checkbox">
+              <label class="form-check-label" for="promotionActive">Activar al crear</label>
+            </div>
+
+            <button class="btn btn-gold rounded-0 fw-bold w-100" type="submit">
+              <i class="bi bi-megaphone me-2"></i>Crear promocion
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-xl-7">
+        <div class="admin-panel h-100">
+          <div class="panel-heading">
+            <div>
+              <p class="text-gold text-uppercase fw-bold small mb-1">Web comercial</p>
+              <h2>Promociones</h2>
+            </div>
+            <i class="bi bi-tags"></i>
+          </div>
+          <div class="admin-list" id="promotionsList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="assets/js/admin-dashboard.js"></script>
+</body>
+
+</html>
