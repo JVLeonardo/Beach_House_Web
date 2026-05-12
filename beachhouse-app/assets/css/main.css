@@ -127,6 +127,84 @@ body {
   color: var(--gold);
 }
 
+.promo-spot {
+  max-width: 520px;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid var(--gold);
+  background: rgba(255, 248, 232, 0.92);
+  color: #2f281d;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+.flyer-promo {
+  position: relative;
+  overflow: hidden;
+  max-width: 560px;
+  padding: 1.2rem 1.3rem 1.25rem;
+  border-left: none;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+}
+
+.flyer-promo::before {
+  position: absolute;
+  top: 0;
+  right: -44px;
+  width: 160px;
+  height: 48px;
+  content: "";
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(28deg);
+}
+
+.promo-spot-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #8b6a2d;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.promo-spot-copy strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+}
+
+.flyer-kicker,
+.flyer-date,
+.flyer-line {
+  display: block;
+}
+
+.flyer-kicker {
+  margin-bottom: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.flyer-line {
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.flyer-price {
+  margin: 0.45rem 0 0.2rem;
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  font-weight: 800;
+  line-height: 0.9;
+}
+
+.flyer-date {
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
 .shuffle-container {
   position: relative;
   display: flex;
@@ -274,6 +352,81 @@ body {
   color: var(--gold);
 }
 
+.package-promo {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.9rem 1rem;
+  border-left: 4px solid var(--gold);
+  background: #fff8e9;
+  color: #4f4228;
+}
+
+.package-promo strong {
+  font-size: 1rem;
+}
+
+.package-promo span {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.package-promo-tag {
+  color: #8b6a2d;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.theme-sand-gold {
+  border-color: #c5a059;
+  background: linear-gradient(135deg, rgba(255, 245, 219, 0.96) 0%, rgba(234, 204, 138, 0.92) 100%);
+  color: #3e2d12;
+}
+
+.theme-sand-gold .flyer-kicker,
+.theme-sand-gold .package-promo-tag {
+  color: #8b6a2d;
+}
+
+.theme-coral-celebration {
+  border-color: #d96b5f;
+  background: linear-gradient(135deg, rgba(255, 238, 233, 0.96) 0%, rgba(230, 129, 114, 0.92) 100%);
+  color: #55231f;
+}
+
+.theme-coral-celebration .flyer-kicker,
+.theme-coral-celebration .package-promo-tag {
+  color: #a3453c;
+}
+
+.theme-ocean-breeze {
+  border-color: #4f8ea7;
+  background: linear-gradient(135deg, rgba(232, 246, 252, 0.96) 0%, rgba(119, 181, 210, 0.9) 100%);
+  color: #163745;
+}
+
+.theme-ocean-breeze .flyer-kicker,
+.theme-ocean-breeze .package-promo-tag {
+  color: #316880;
+}
+
+.theme-night-luxe {
+  border-color: #d6bb74;
+  background: linear-gradient(135deg, rgba(29, 29, 31, 0.98) 0%, rgba(66, 57, 41, 0.96) 100%);
+  color: #f7eed6;
+}
+
+.theme-night-luxe .flyer-kicker,
+.theme-night-luxe .package-promo-tag {
+  color: #e1c779;
+}
+
+.theme-night-luxe strong,
+.theme-night-luxe .flyer-price {
+  color: #fff7df;
+}
+
 .site-footer {
   padding: 3rem 0 1.4rem;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
@@ -373,6 +526,31 @@ body {
   background: #fff8e8;
   color: #4f4228;
   font-weight: 600;
+}
+
+.availability-card {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  background: #f7f5f0;
+  color: #4f4f4f;
+}
+
+.availability-card strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.96rem;
+}
+
+.availability-card.available {
+  border-color: rgba(20, 122, 63, 0.26);
+  background: #edf9f1;
+  color: #145334;
+}
+
+.availability-card.blocked {
+  border-color: rgba(167, 44, 44, 0.18);
+  background: #fff3f3;
+  color: #7b3030;
 }
 
 .admin-body {

@@ -42,10 +42,10 @@
           <button class="btn btn-outline-dark px-4 text-uppercase fw-bold rounded-0" id="loginButton" type="button">
             <i class="bi bi-person me-2"></i>Login
           </button>
-          <a class="btn btn-gold px-4 text-uppercase fw-bold rounded-0" id="topBookingCta" target="_blank"
-            rel="noreferrer">
+          <button class="btn btn-gold px-4 text-uppercase fw-bold rounded-0 reserve-trigger" id="topBookingCta"
+            type="button" data-package="Consulta general">
             <i class="bi bi-calendar-check me-2"></i>Reservar
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -75,14 +75,19 @@
             al mar.
           </p>
 
+          <div class="promo-spot d-none mb-4" id="heroPromotionSpot">
+            <span class="promo-spot-label">Promocion activa</span>
+            <div class="promo-spot-copy" id="heroPromotionCopy"></div>
+          </div>
+
           <div class="d-flex flex-wrap gap-3">
             <a href="#precios" class="btn btn-gold btn-lg rounded-0 fw-bold">
               <i class="bi bi-box-seam me-2"></i>Ver Paquetes
             </a>
-            <a id="heroBookingCta" target="_blank" rel="noreferrer"
-              class="btn btn-outline-light btn-lg border-2 rounded-0 fw-bold px-4">
+            <button id="heroBookingCta" type="button" data-package="Consulta general"
+              class="btn btn-outline-light btn-lg border-2 rounded-0 fw-bold px-4 reserve-trigger">
               <i class="bi bi-calendar-check me-2"></i>Reservar Ahora
-            </a>
+            </button>
           </div>
 
           <div class="hero-trust d-flex flex-wrap gap-3 mt-4">
@@ -176,10 +181,10 @@
                     <span class="fs-5 text-dark">Hasta 20 personas</span>
                   </li>
                 </ul>
+                <div class="package-promo d-none mb-4" data-package-promo="Full Day"></div>
                 <p class="guarantee-note mb-4"><i class="bi bi-shield-check me-2"></i>Garantia reembolsable: S/ 350</p>
-                <a class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta"
-                  data-package="Full Day" target="_blank"
-                  rel="noreferrer">Elegir Paquete</a>
+                <button class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta reserve-trigger"
+                  data-package="Full Day" type="button">Elegir Paquete</button>
               </div>
             </div>
           </div>
@@ -209,10 +214,10 @@
                     <span class="fs-5 text-dark">Hasta 20 personas</span>
                   </li>
                 </ul>
+                <div class="package-promo d-none mb-4" data-package-promo="2D / 1N"></div>
                 <p class="guarantee-note mb-4"><i class="bi bi-shield-check me-2"></i>Garantia reembolsable: S/ 350</p>
-                <a class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta"
-                  data-package="2D / 1N" target="_blank"
-                  rel="noreferrer">Elegir Paquete</a>
+                <button class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta reserve-trigger"
+                  data-package="2D / 1N" type="button">Elegir Paquete</button>
               </div>
             </div>
           </div>
@@ -241,10 +246,10 @@
                     <span class="fs-5 text-dark">Hasta 20 personas</span>
                   </li>
                 </ul>
+                <div class="package-promo d-none mb-4" data-package-promo="3D / 2N"></div>
                 <p class="guarantee-note mb-4"><i class="bi bi-shield-check me-2"></i>Garantia reembolsable: S/ 350</p>
-                <a class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta"
-                  data-package="3D / 2N" target="_blank"
-                  rel="noreferrer">Elegir Paquete</a>
+                <button class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta reserve-trigger"
+                  data-package="3D / 2N" type="button">Elegir Paquete</button>
               </div>
             </div>
           </div>
@@ -269,9 +274,10 @@
           class="font-pacifico text-gold fw-normal">hoy</span></h2>
       <p class="fs-5 text-secondary mb-5 mx-auto" style="max-width: 700px;">Nuestro equipo esta listo para confirmar tu
         reserva en el Balneario Santa Rosa por WhatsApp.</p>
-      <a id="contactBookingCta" target="_blank" rel="noreferrer" class="btn btn-gold btn-lg px-5 py-3 fs-5 rounded-0">
+      <button id="contactBookingCta" type="button"
+        class="btn btn-gold btn-lg px-5 py-3 fs-5 rounded-0 reserve-trigger" data-package="Consulta general">
         <i class="bi bi-whatsapp me-2"></i>Reservar por WhatsApp
-      </a>
+      </button>
       <p class="mt-4 text-muted small fw-bold">Garantia reembolsable requerida: S/ 350</p>
     </div>
   </section>
@@ -353,8 +359,51 @@
     </div>
   </div>
 
+  <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-0 border-0 login-modal">
+        <div class="modal-header border-0 pb-0">
+          <div>
+            <p class="text-gold text-uppercase fw-bold small mb-1 letter-spacing-2">Reserva guiada</p>
+            <h2 class="modal-title h4 fw-bold" id="reservationModalTitle">Elige fecha y paquete</h2>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <form id="reservationForm">
+          <div class="modal-body pt-4">
+            <div class="login-alert d-none" id="reservationAlert"></div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="reservationPackage">Paquete</label>
+              <select class="form-select rounded-0 py-3" id="reservationPackage" name="packageType" required>
+                <option value="Consulta general">Consulta general</option>
+                <option value="Full Day">Full Day</option>
+                <option value="2D / 1N">2D / 1N</option>
+                <option value="3D / 2N">3D / 2N</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="reservationDate">Fecha deseada</label>
+              <input class="form-control rounded-0 py-3" id="reservationDate" name="date" type="date" required>
+            </div>
+            <div class="availability-card" id="availabilityCard">
+              <strong id="availabilityTitle">Selecciona una fecha</strong>
+              <p class="mb-0" id="availabilityMessage">Te diremos al instante si esta disponible o bloqueada.</p>
+            </div>
+          </div>
+          <div class="modal-footer border-0 pt-0">
+            <button class="btn btn-outline-dark rounded-0 px-4" type="button" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-gold rounded-0 px-4 fw-bold" id="reservationSubmit" type="submit" disabled>
+              <i class="bi bi-whatsapp me-2"></i>Continuar a WhatsApp
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/auth.js"></script>
 </body>
 

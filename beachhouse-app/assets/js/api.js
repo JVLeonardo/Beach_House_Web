@@ -15,14 +15,16 @@ function authHeaders() {
 }
 
 async function request(path, options = {}) {
+  const { skipAuth = false, ...fetchOptions } = options;
+
   const response = await fetch(`${API_BASE_URL}${path}`, {
     credentials: "include",
     headers: {
-      ...authHeaders(),
+      ...(skipAuth ? {} : authHeaders()),
       "Content-Type": "application/json",
-      ...(options.headers || {})
+      ...(fetchOptions.headers || {})
     },
-    ...options
+    ...fetchOptions
   });
 
   if (response.status === 204) {
@@ -46,8 +48,9 @@ export const api = {
   get(path) {
     return request(path);
   },
-  post(path, body) {
+  post(path, body, options = {}) {
     return request(path, {
+      ...options,
       method: "POST",
       body: JSON.stringify(body)
     });

@@ -15,18 +15,69 @@ function byId(id) {
   return document.getElementById(id);
 }
 
-function showAdminAlert(message, type = "success") {
-  const alert = byId("adminAlert");
-  alert.className = `admin-alert mb-4 ${type === "danger" ? "border-danger" : ""}`;
-  alert.textContent = message;
-  window.setTimeout(() => {
-    alert.className = "admin-alert d-none";
-    alert.textContent = "";
-  }, 4200);
+function swal() {
+  return window.Swal;
 }
 
 function dateLabel(value) {
   return formatDate.format(new Date(`${value}T00:00:00`));
+}
+
+function errorMessage(error, fallback = "No se pudo completar la operacion.") {
+  if (error?.details?.errors) {
+    const details = Object.values(error.details.errors).filter(Boolean);
+    if (details.length) {
+      return details.join("\n");
+    }
+  }
+  return error?.message || fallback;
+}
+
+async function showSuccess(message) {
+  if (!swal()) return;
+  await swal().fire({
+    icon: "success",
+    title: "Listo",
+    text: message,
+    timer: 1700,
+    showConfirmButton: false
+  });
+}
+
+async function showError(message) {
+  if (!swal()) return;
+  await swal().fire({
+    icon: "error",
+    title: "Revisa esto",
+    text: message,
+    confirmButtonColor: "#c5a059"
+  });
+}
+
+async function confirmAction(title, text, confirmText) {
+  if (!swal()) return true;
+  const result = await swal().fire({
+    icon: "question",
+    title,
+    text,
+    showCancelButton: true,
+    confirmButtonText: confirmText,
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#c5a059",
+    cancelButtonColor: "#111111"
+  });
+  return result.isConfirmed;
+}
+
+function setButtonLoading(button, loadingText) {
+  if (!button) return () => {};
+  const originalHtml = button.innerHTML;
+  button.disabled = true;
+  button.innerHTML = loadingText;
+  return () => {
+    button.disabled = false;
+    button.innerHTML = originalHtml;
+  };
 }
 
 async function requireAdminSession() {
@@ -54,6 +105,14 @@ async function loadDashboard() {
   renderCounters();
 }
 
+async function refreshDashboardData() {
+  try {
+    await loadDashboard();
+  } catch {
+    byId("apiStatus").textContent = "Sincronizacion pendiente";
+  }
+}
+
 function renderCounters() {
   byId("activeBlockedDatesCount").textContent = state.blockedDates.filter((item) => item.active).length;
   byId("activePromotionsCount").textContent = state.promotions.filter((item) => item.active).length;
@@ -66,7 +125,7 @@ function renderBlockedDates() {
     return;
   }
 
-  container.innerHTML = state.blockedDates
+  container.innerHTML = [...state.blockedDates]
     .sort((a, b) => a.date.localeCompare(b.date))
     .map((item) => `
       <article class="admin-list-item">
@@ -95,7 +154,7 @@ function renderPromotions() {
     return;
   }
 
-  container.innerHTML = state.promotions
+  container.innerHTML = [...state.promotions]
     .sort((a, b) => a.targetDate.localeCompare(b.targetDate))
     .map((item) => `
       <article class="admin-list-item">
@@ -118,30 +177,79 @@ function renderPromotions() {
     .join("");
 }
 
+function syncBlockedDate(response) {
+  const index = state.blockedDates.findIndex((item) => item.id === response.id);
+  if (index >= 0) {
+    state.blockedDates[index] = response;
+  } else {
+    state.blockedDates.push(response);
+  }
+  renderBlockedDates();
+  renderCounters();
+}
+
+function syncPromotion(response) {
+  const index = state.promotions.findIndex((item) => item.id === response.id);
+  if (index >= 0) {
+    state.promotions[index] = response;
+  } else {
+    state.promotions.push(response);
+  }
+  renderPromotions();
+  renderCounters();
+}
+
+function removeBlockedDate(id) {
+  state.blockedDates = state.blockedDates.filter((item) => item.id !== Number(id));
+  renderBlockedDates();
+  renderCounters();
+}
+
+function removePromotion(id) {
+  state.promotions = state.promotions.filter((item) => item.id !== Number(id));
+  renderPromotions();
+  renderCounters();
+}
+
 function setupForms() {
   byId("blockedDateForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const restoreButton = setButtonLoading(
+      submitButton,
+      '<span class="spinner-border spinner-border-sm me-2"></span>Guardando'
+    );
 
     try {
-      await api.post("/api/admin/blocked-dates", {
+      const response = await api.post("/api/admin/blocked-dates", {
         date: formData.get("date"),
         reason: formData.get("reason")
       });
-      event.currentTarget.reset();
-      await loadDashboard();
-      showAdminAlert("Fecha bloqueada correctamente.");
+      syncBlockedDate(response);
+      form.reset();
+      await refreshDashboardData();
+      await showSuccess("La fecha se guardo y ya aparece en el panel.");
     } catch (error) {
-      showAdminAlert(error.message, "danger");
+      await showError(errorMessage(error, "No se pudo guardar la fecha bloqueada."));
+    } finally {
+      restoreButton();
     }
   });
 
   byId("promotionForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const restoreButton = setButtonLoading(
+      submitButton,
+      '<span class="spinner-border spinner-border-sm me-2"></span>Guardando'
+    );
 
     try {
-      await api.post("/api/admin/promotions", {
+      const response = await api.post("/api/admin/promotions", {
         title: formData.get("title"),
         packageType: formData.get("packageType"),
         promotionalPrice: formData.get("promotionalPrice"),
@@ -149,11 +257,14 @@ function setupForms() {
         visualTheme: formData.get("visualTheme"),
         active: formData.get("active") === "on"
       });
-      event.currentTarget.reset();
-      await loadDashboard();
-      showAdminAlert("Promocion creada correctamente.");
+      syncPromotion(response);
+      form.reset();
+      await refreshDashboardData();
+      await showSuccess("La promocion se guardo y ya aparece en el panel.");
     } catch (error) {
-      showAdminAlert(error.message, "danger");
+      await showError(errorMessage(error, "No se pudo crear la promocion."));
+    } finally {
+      restoreButton();
     }
   });
 }
@@ -165,24 +276,60 @@ function setupListActions() {
 
     const { action, id } = button.dataset;
 
+    if (action === "toggle-blocked") {
+      const confirmed = await confirmAction("Cambiar estado", "Actualizaremos esta fecha bloqueada.", "Continuar");
+      if (!confirmed) return;
+    }
+
+    if (action === "delete-blocked") {
+      const confirmed = await confirmAction(
+        "Eliminar fecha",
+        "La fecha saldra del panel y volvera a depender solo de las reglas generales.",
+        "Eliminar"
+      );
+      if (!confirmed) return;
+    }
+
+    if (action === "toggle-promotion") {
+      const confirmed = await confirmAction("Cambiar promocion", "Actualizaremos su estado en la web publica.", "Continuar");
+      if (!confirmed) return;
+    }
+
+    if (action === "delete-promotion") {
+      const confirmed = await confirmAction(
+        "Eliminar promocion",
+        "Quitaremos esta promocion del panel y de la web publica.",
+        "Eliminar"
+      );
+      if (!confirmed) return;
+    }
+
+    const restoreButton = setButtonLoading(button, '<span class="spinner-border spinner-border-sm"></span>');
+
     try {
       if (action === "toggle-blocked") {
-        await api.patch(`/api/admin/blocked-dates/${id}/toggle`);
+        const response = await api.patch(`/api/admin/blocked-dates/${id}/toggle`);
+        syncBlockedDate(response);
       }
       if (action === "delete-blocked") {
         await api.delete(`/api/admin/blocked-dates/${id}`);
+        removeBlockedDate(id);
       }
       if (action === "toggle-promotion") {
-        await api.patch(`/api/admin/promotions/${id}/toggle`);
+        const response = await api.patch(`/api/admin/promotions/${id}/toggle`);
+        syncPromotion(response);
       }
       if (action === "delete-promotion") {
         await api.delete(`/api/admin/promotions/${id}`);
+        removePromotion(id);
       }
 
-      await loadDashboard();
-      showAdminAlert("Cambios guardados.");
+      await refreshDashboardData();
+      await showSuccess("Cambios guardados.");
     } catch (error) {
-      showAdminAlert(error.message, "danger");
+      await showError(errorMessage(error));
+    } finally {
+      restoreButton();
     }
   });
 }

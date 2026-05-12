@@ -32,7 +32,8 @@ function setupLoginForm() {
     };
 
     try {
-      await api.post("/api/auth/login", payload);
+      clearAdminAuth();
+      await api.post("/api/auth/login", payload, { skipAuth: true });
       saveAdminAuth(payload.username, payload.password);
       hideBootstrapModal("loginModal");
       window.location.href = "admin.html";

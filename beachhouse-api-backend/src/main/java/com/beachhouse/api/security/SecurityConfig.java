@@ -10,11 +10,8 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -24,20 +21,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        return new InMemoryUserDetailsManager(
-                User.withUsername("admin")
-                        .password(passwordEncoder.encode("cd@beachhouse"))
-                        .roles("ADMIN")
-                        .build());
-    }
-
+    // Encoder principal para passwords
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Este manager es el que usa el login para pedirle a Spring que autentique
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
@@ -48,21 +38,31 @@ public class SecurityConfig {
         http
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
+                // Crea sesion solo cuando haga falta, por ejemplo despues del login correcto
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/actuator/health", "/api/public/**", "/api/auth/login").permitAll()
+
                         .requestMatchers("/api/auth/logout", "/api/auth/me", "/api/admin/**").hasRole("ADMIN")
+                        // Cualquier ruta no declarada se bloquea por seguridad.
                         .anyRequest().denyAll())
+                // No usamos el formulario default de Spring, porque el login lo maneja nuestro front.
                 .formLogin(form -> form.disable())
+
+                // Se deja Basic para peticiones admin/fetch cuando no alcanza con la cookie de sesion.
                 .httpBasic(Customizer.withDefaults())
+                // Logout custom desde el controller, no el endpoint automatico de Spring.
                 .logout(logout -> logout.disable())
                 .exceptionHandling(exception -> exception
+                        // 401: no inicio sesion o mando credenciales mal.
                         .authenticationEntryPoint((request, response, authException) -> response.sendError(401))
+                        // 403: si esta autenticado pero no tiene el rol necesario.
                         .accessDeniedHandler((request, response, accessDeniedException) -> response.sendError(403)));
 
         return http.build();
     }
 
+    // Config para que el front local pueda hablar con el backend
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
