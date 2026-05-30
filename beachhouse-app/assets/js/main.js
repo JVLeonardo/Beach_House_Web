@@ -1,20 +1,7 @@
-import { api } from "./api.js";
 import { hideInlineAlert, showBootstrapModal, showInlineAlert } from "./modal-manager.js";
 
-const whatsappPhone = "51999999999";
+const whatsappPhone = "51943157950";
 const defaultMessage = "Hola Beach House, vi la web y deseo consultar disponibilidad para una reserva.";
-
-const state = {
-  selectedAvailability: null,
-  activePromotions: []
-};
-
-const PROMOTION_THEMES = {
-  "sand-gold": "Dorado arena",
-  "coral-celebration": "Coral celebracion",
-  "ocean-breeze": "Azul oceano",
-  "night-luxe": "Negro luxe"
-};
 
 function whatsAppUrl(message = defaultMessage) {
   return `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
@@ -24,15 +11,34 @@ function byId(id) {
   return document.getElementById(id);
 }
 
-function themeClass(theme) {
-  return `theme-${theme || "sand-gold"}`;
-}
+function enableTouchSwipe(element, onSwipeLeft, onSwipeRight) {
+  let startX = 0;
+  let startY = 0;
+  let isTracking = false;
 
-function formatPromoDate(value) {
-  return new Intl.DateTimeFormat("es-PE", {
-    day: "2-digit",
-    month: "short"
-  }).format(new Date(`${value}T00:00:00`));
+  element.addEventListener("touchstart", (event) => {
+    const touch = event.changedTouches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    isTracking = true;
+  }, { passive: true });
+
+  element.addEventListener("touchend", (event) => {
+    if (!isTracking) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+    isTracking = false;
+
+    if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.25) return;
+
+    if (deltaX < 0) {
+      onSwipeLeft();
+    } else {
+      onSwipeRight();
+    }
+  }, { passive: true });
 }
 
 function setStaticWhatsAppLinks() {
@@ -48,15 +54,25 @@ function initShuffleGallery() {
   const btnNext = byId("btnNext");
   const btnPrev = byId("btnPrev");
   const carouselContainer = byId("shuffleCarousel");
+  const galleryNavButtons = Array.from(document.querySelectorAll("[data-gallery-index]"));
+  const expandButton = byId("galleryExpand");
+  const lightboxElement = byId("galleryLightbox");
+  const lightboxPrev = byId("galleryLightboxPrev");
+  const lightboxNext = byId("galleryLightboxNext");
+  const lightboxImage = byId("galleryLightboxImage");
 
-  if (!slides.length || !btnNext || !btnPrev || !carouselContainer) return;
+  if (!slides.length || !btnNext || !btnPrev || !carouselContainer || !galleryNavButtons.length || !expandButton || !lightboxElement || !lightboxPrev || !lightboxNext || !lightboxImage) return;
 
   let currentIndex = 0;
+  let lightboxIndex = 0;
   let autoPlayInterval;
+  let descriptionTimeout;
 
   function updateSlides() {
+    window.clearTimeout(descriptionTimeout);
+
     slides.forEach((slide, index) => {
-      slide.classList.remove("active", "prev", "next", "hidden");
+      slide.classList.remove("active", "prev", "next", "hidden", "show-info");
 
       if (index === currentIndex) {
         slide.classList.add("active");
@@ -68,6 +84,16 @@ function initShuffleGallery() {
         slide.classList.add("hidden");
       }
     });
+
+    galleryNavButtons.forEach((button, index) => {
+      const isActive = index === currentIndex;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    descriptionTimeout = window.setTimeout(() => {
+      slides[currentIndex].classList.add("show-info");
+    }, 1000);
   }
 
   function nextSlide() {
@@ -81,6 +107,7 @@ function initShuffleGallery() {
   }
 
   function startAutoPlay() {
+    stopAutoPlay();
     autoPlayInterval = window.setInterval(nextSlide, 4000);
   }
 
@@ -88,154 +115,118 @@ function initShuffleGallery() {
     window.clearInterval(autoPlayInterval);
   }
 
+  function updateLightbox() {
+    const slide = slides[lightboxIndex];
+    const image = slide.querySelector("img");
+
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt;
+    byId("galleryLightboxTitle").textContent = slide.querySelector("h3").textContent;
+    byId("galleryLightboxDescription").textContent = slide.querySelector("p").textContent;
+  }
+
+  function nextLightboxSlide() {
+    lightboxIndex = (lightboxIndex + 1) % slides.length;
+    updateLightbox();
+  }
+
+  function prevLightboxSlide() {
+    lightboxIndex = (lightboxIndex - 1 + slides.length) % slides.length;
+    updateLightbox();
+  }
+
   btnNext.addEventListener("click", nextSlide);
   btnPrev.addEventListener("click", prevSlide);
   carouselContainer.addEventListener("mouseenter", stopAutoPlay);
   carouselContainer.addEventListener("mouseleave", startAutoPlay);
+  enableTouchSwipe(carouselContainer, nextSlide, prevSlide);
+  galleryNavButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      currentIndex = Number(button.dataset.galleryIndex);
+      updateSlides();
+      startAutoPlay();
+    });
+  });
+  expandButton.addEventListener("click", () => {
+    lightboxIndex = currentIndex;
+    updateLightbox();
+    bootstrap.Modal.getOrCreateInstance(lightboxElement).show();
+  });
+  lightboxPrev.addEventListener("click", prevLightboxSlide);
+  lightboxNext.addEventListener("click", nextLightboxSlide);
+  enableTouchSwipe(lightboxElement, nextLightboxSlide, prevLightboxSlide);
+  lightboxElement.addEventListener("show.bs.modal", () => {
+    stopAutoPlay();
+    document.body.classList.add("gallery-lightbox-open");
+  });
+  lightboxElement.addEventListener("hidden.bs.modal", () => {
+    document.body.classList.remove("gallery-lightbox-open");
+    startAutoPlay();
+  });
 
   updateSlides();
   startAutoPlay();
 }
 
-function openReservationModal(packageName = "Consulta general") {
+function formatReservationDate(value) {
+  return new Intl.DateTimeFormat("es-PE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(new Date(`${value}T00:00:00`));
+}
+
+function todayLocalIso() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function validateReservationForm() {
+  byId("reservationSubmit").disabled = !byId("reservationForm").checkValidity();
+}
+
+function openReservationModal(packageName = "") {
   byId("reservationPackage").value = packageName;
   byId("reservationDate").value = "";
   byId("reservationSubmit").disabled = true;
-  state.selectedAvailability = null;
-  updateAvailabilityCard("Selecciona una fecha", "Te diremos al instante si esta disponible o bloqueada.", "");
   hideInlineAlert("reservationAlert");
   showBootstrapModal("reservationModal");
 }
 
-function updateAvailabilityCard(title, message, stateName) {
-  const card = byId("availabilityCard");
-  card.classList.remove("available", "blocked");
-  if (stateName) {
-    card.classList.add(stateName);
-  }
-  byId("availabilityTitle").textContent = title;
-  byId("availabilityMessage").textContent = message;
-}
-
-async function checkAvailability(date) {
-  if (!date) {
-    state.selectedAvailability = null;
-    byId("reservationSubmit").disabled = true;
-    updateAvailabilityCard("Selecciona una fecha", "Te diremos al instante si esta disponible o bloqueada.", "");
-    return;
-  }
-
-  try {
-    const result = await api.get(`/api/public/availability?from=${date}&to=${date}`);
-    const availability = result[0];
-    state.selectedAvailability = availability;
-
-    if (availability.available) {
-      updateAvailabilityCard("Fecha disponible", "La fecha esta habilitada. Puedes continuar a WhatsApp para separar.", "available");
-      byId("reservationSubmit").disabled = false;
-    } else {
-      updateAvailabilityCard("Fecha no disponible", availability.reason, "blocked");
-      byId("reservationSubmit").disabled = true;
-    }
-  } catch {
-    state.selectedAvailability = null;
-    byId("reservationSubmit").disabled = true;
-    updateAvailabilityCard("No se pudo validar", "Enciende la API para consultar disponibilidad real.", "blocked");
-  }
-}
-
 function setupReservationFlow() {
+  const reservationDate = byId("reservationDate");
+  reservationDate.min = todayLocalIso();
+
   document.querySelectorAll(".reserve-trigger").forEach((button) => {
     button.addEventListener("click", () => {
-      openReservationModal(button.dataset.package || "Consulta general");
+      openReservationModal(button.dataset.package || "");
     });
   });
 
-  byId("reservationDate").addEventListener("change", (event) => {
-    checkAvailability(event.target.value);
-  });
+  byId("reservationPackage").addEventListener("change", validateReservationForm);
+  reservationDate.addEventListener("change", validateReservationForm);
 
   byId("reservationForm").addEventListener("submit", (event) => {
     event.preventDefault();
     hideInlineAlert("reservationAlert");
 
-    const packageType = byId("reservationPackage").value;
-    const date = byId("reservationDate").value;
-
-    if (!state.selectedAvailability?.available) {
-      showInlineAlert("reservationAlert", "Selecciona una fecha disponible antes de continuar.");
+    if (!event.currentTarget.checkValidity()) {
+      showInlineAlert("reservationAlert", "Selecciona un paquete y una fecha valida antes de continuar.");
       return;
     }
 
-    const promotion = state.activePromotions.find((item) => item.packageType === packageType);
-    const promoLine = promotion
-      ? ` Tambien vi la promocion "${promotion.title}" por S/ ${Number(promotion.promotionalPrice).toFixed(2)}.`
-      : "";
-    const message = `Hola Beach House, deseo reservar el paquete ${packageType} para la fecha ${date}.${promoLine}`;
+    const packageType = byId("reservationPackage").value;
+    const formattedDate = formatReservationDate(reservationDate.value);
+    const message = `Hola Beach House, vi su pagina web y deseo consultar la disponibilidad del paquete "${packageType}" para el ${formattedDate}. Podrian ayudarme a confirmar la reserva?`;
     window.open(whatsAppUrl(message), "_blank", "noopener,noreferrer");
   });
-}
-
-function renderPromotionSpot(promotions) {
-  const spot = byId("heroPromotionSpot");
-  const copy = byId("heroPromotionCopy");
-  if (!spot || !copy) return;
-
-  if (!promotions.length) {
-    spot.className = "promo-spot d-none mb-4";
-    copy.innerHTML = "";
-    return;
-  }
-
-  const promotion = promotions[0];
-  const themeLabel = PROMOTION_THEMES[promotion.visualTheme] || PROMOTION_THEMES["sand-gold"];
-  spot.className = `promo-spot flyer-promo mb-4 ${themeClass(promotion.visualTheme)}`;
-  copy.innerHTML = `
-    <div class="flyer-kicker">Oferta destacada</div>
-    <strong>${promotion.title}</strong>
-    <span class="flyer-line">${promotion.packageType} · ${themeLabel}</span>
-    <div class="flyer-price">S/ ${Number(promotion.promotionalPrice).toFixed(2)}</div>
-    <span class="flyer-date">Disponible para ${formatPromoDate(promotion.targetDate)}</span>
-  `;
-}
-
-function renderPackagePromotions(promotions) {
-  document.querySelectorAll("[data-package-promo]").forEach((element) => {
-    const packageType = element.dataset.packagePromo;
-    const promotion = promotions.find((item) => item.packageType === packageType);
-
-    if (!promotion) {
-      element.className = "package-promo d-none mb-4";
-      element.innerHTML = "";
-      return;
-    }
-
-    const themeLabel = PROMOTION_THEMES[promotion.visualTheme] || PROMOTION_THEMES["sand-gold"];
-    element.className = `package-promo mb-4 ${themeClass(promotion.visualTheme)}`;
-    element.innerHTML = `
-      <span class="package-promo-tag">Promo activa</span>
-      <strong>${promotion.title}</strong>
-      <span>${themeLabel} · S/ ${Number(promotion.promotionalPrice).toFixed(2)} · ${formatPromoDate(promotion.targetDate)}</span>
-    `;
-  });
-}
-
-async function loadActivePromotions() {
-  try {
-    const promotions = await api.get("/api/public/promotions/active");
-    state.activePromotions = promotions;
-    renderPromotionSpot(promotions);
-    renderPackagePromotions(promotions);
-  } catch {
-    state.activePromotions = [];
-    renderPromotionSpot([]);
-    renderPackagePromotions([]);
-  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   setStaticWhatsAppLinks();
   initShuffleGallery();
   setupReservationFlow();
-  loadActivePromotions();
 });

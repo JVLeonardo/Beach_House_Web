@@ -66,11 +66,27 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:5500",
-                "http://127.0.0.1:5500",
-                "http://localhost:5173",
-                "http://localhost:3000",
+        configuration.setAllowedOriginPatterns(List.of(
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "http://192.168.*.*:*",
+                "http://10.*.*.*:*",
+                "http://172.16.*.*:*",
+                "http://172.17.*.*:*",
+                "http://172.18.*.*:*",
+                "http://172.19.*.*:*",
+                "http://172.20.*.*:*",
+                "http://172.21.*.*:*",
+                "http://172.22.*.*:*",
+                "http://172.23.*.*:*",
+                "http://172.24.*.*:*",
+                "http://172.25.*.*:*",
+                "http://172.26.*.*:*",
+                "http://172.27.*.*:*",
+                "http://172.28.*.*:*",
+                "http://172.29.*.*:*",
+                "http://172.30.*.*:*",
+                "http://172.31.*.*:*",
                 "null"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));

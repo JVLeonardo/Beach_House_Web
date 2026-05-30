@@ -1,0 +1,3 @@
+[build]
+  command = "npm run build --prefix beachhouse-app"
+  publish = "beachhouse-app/dist"

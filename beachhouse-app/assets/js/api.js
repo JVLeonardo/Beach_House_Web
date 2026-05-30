@@ -1,4 +1,6 @@
-const API_BASE_URL = window.BEACHHOUSE_API_URL || "http://localhost:8080";
+const API_BASE_URL =
+  window.BEACHHOUSE_API_URL ||
+  `${window.location.protocol}//${window.location.hostname}:8080`;
 const AUTH_STORAGE_KEY = "beachhouseAdminAuth";
 
 export function saveAdminAuth(username, password) {
