@@ -2,6 +2,97 @@ import { hideInlineAlert, showBootstrapModal, showInlineAlert } from "./modal-ma
 
 const whatsappPhone = "51943157950";
 const defaultMessage = "Hola Beach House, vi la web y deseo consultar disponibilidad para una reserva.";
+const galleryCatalog = [
+  {
+    id: "piscina",
+    label: "Piscina",
+    icon: "bi-water",
+    images: [
+      {
+        src: "psina parrilla.webp",
+        mobileSrc: "psina parrilla-mobile.webp",
+        alt: "Piscina privada con parrilla de Beach House",
+        title: "Piscina privada con parrilla",
+        description: "Un espacio refrescante para compartir, cocinar al aire libre y disfrutar el día con calma."
+      }
+    ]
+  },
+  {
+    id: "terraza",
+    label: "Terraza",
+    icon: "bi-sun",
+    images: [
+      {
+        src: "azotea.webp",
+        mobileSrc: "azotea-mobile.webp",
+        alt: "Terraza elevada de Beach House",
+        title: "Vista al atardecer",
+        description: "Una terraza elevada para disfrutar la brisa marina y cerrar el día con una vista abierta."
+      },
+      {
+        src: "area social.webp",
+        mobileSrc: "area social-mobile.webp",
+        alt: "Área social de Beach House",
+        title: "Área social para compartir",
+        description: "Un ambiente amplio para conversar, celebrar y disfrutar buenos momentos en grupo."
+      },
+      {
+        src: "sala louge.webp",
+        mobileSrc: "sala louge-mobile.webp",
+        alt: "Sala lounge de Beach House",
+        title: "Sala lounge",
+        description: "Un rincón cómodo para relajarse y extender la reunión con calma."
+      }
+    ]
+  },
+  {
+    id: "habitaciones",
+    label: "Habitaciones",
+    icon: "bi-moon-stars",
+    images: [
+      {
+        src: "hab xd.webp",
+        mobileSrc: "hab xd-mobile.webp",
+        alt: "Habitación individual con sala privada de Beach House",
+        title: "Habitación individual con sala privada",
+        description: "Un espacio tranquilo con cama individual y una pequeña sala para descansar con mayor comodidad."
+      },
+      {
+        src: "hab doble.webp",
+        mobileSrc: "hab doble-mobile.webp",
+        alt: "Habitación doble con televisión de Beach House",
+        title: "Habitación doble con TV",
+        description: "Un dormitorio amplio y luminoso para descansar después de un día cerca al mar."
+      },
+      {
+        src: "hab simple.webp",
+        mobileSrc: "hab simple-mobile.webp",
+        alt: "Habitación con clóset de Beach House",
+        title: "Habitación con clóset",
+        description: "Un ambiente acogedor con cama doble y espacio de guardado para una estadía cómoda."
+      },
+      {
+        src: "hab litera.webp",
+        alt: "Habitación con litera de Beach House",
+        title: "Habitación con litera",
+        description: "Una alternativa práctica para compartir la estadía y aprovechar mejor el espacio."
+      }
+    ]
+  },
+  {
+    id: "cocina",
+    label: "Cocina",
+    icon: "bi-cup-hot",
+    images: [
+      {
+        src: "cocina.webp",
+        alt: "Cocina equipada de Beach House",
+        title: "Cocina equipada",
+        description: "Un espacio funcional con cocina, microondas y pequeños electrodomésticos para preparar lo necesario durante la estadía."
+      }
+    ]
+  }
+];
 
 function whatsAppUrl(message = defaultMessage) {
   return `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
@@ -9,6 +100,10 @@ function whatsAppUrl(message = defaultMessage) {
 
 function byId(id) {
   return document.getElementById(id);
+}
+
+function imageUrl(filename) {
+  return `assets/img/${encodeURIComponent(filename)}`;
 }
 
 function enableTouchSwipe(element, onSwipeLeft, onSwipeRight) {
@@ -49,24 +144,90 @@ function setStaticWhatsAppLinks() {
   });
 }
 
+function initHeroLightbox() {
+  const expandButton = byId("heroExpand");
+  const lightboxElement = byId("heroLightbox");
+
+  if (!expandButton || !lightboxElement) return;
+
+  expandButton.addEventListener("click", () => {
+    bootstrap.Modal.getOrCreateInstance(lightboxElement).show();
+  });
+  lightboxElement.addEventListener("show.bs.modal", () => {
+    document.body.classList.add("hero-lightbox-open");
+  });
+  lightboxElement.addEventListener("hidden.bs.modal", () => {
+    document.body.classList.remove("hero-lightbox-open");
+  });
+}
+
 function initShuffleGallery() {
-  const slides = Array.from(document.querySelectorAll(".shuffle-slide"));
   const btnNext = byId("btnNext");
   const btnPrev = byId("btnPrev");
   const carouselContainer = byId("shuffleCarousel");
-  const galleryNavButtons = Array.from(document.querySelectorAll("[data-gallery-index]"));
+  const galleryNav = byId("galleryNav");
+  const slidesContainer = byId("gallerySlides");
+  const shuffleControls = carouselContainer?.querySelector(".shuffle-controls");
   const expandButton = byId("galleryExpand");
   const lightboxElement = byId("galleryLightbox");
+  const lightboxControls = lightboxElement?.querySelector(".gallery-lightbox-controls");
   const lightboxPrev = byId("galleryLightboxPrev");
   const lightboxNext = byId("galleryLightboxNext");
   const lightboxImage = byId("galleryLightboxImage");
 
-  if (!slides.length || !btnNext || !btnPrev || !carouselContainer || !galleryNavButtons.length || !expandButton || !lightboxElement || !lightboxPrev || !lightboxNext || !lightboxImage) return;
+  if (!btnNext || !btnPrev || !carouselContainer || !galleryNav || !slidesContainer || !shuffleControls || !expandButton || !lightboxElement || !lightboxControls || !lightboxPrev || !lightboxNext || !lightboxImage) return;
 
+  let activeCategory = galleryCatalog[0];
+  let activeImages = activeCategory.images;
+  let slides = [];
   let currentIndex = 0;
   let lightboxIndex = 0;
   let autoPlayInterval;
   let descriptionTimeout;
+
+  function renderCategoryNav() {
+    galleryNav.innerHTML = galleryCatalog.map((category) => `
+      <button class="gallery-nav-btn" type="button" data-gallery-category="${category.id}" aria-pressed="false">
+        <i class="bi ${category.icon}"></i><span>${category.label}</span>
+      </button>
+    `).join("");
+
+    galleryNav.querySelectorAll("[data-gallery-category]").forEach((button) => {
+      button.addEventListener("click", () => {
+        selectCategory(button.dataset.galleryCategory);
+      });
+    });
+  }
+
+  function renderSlides() {
+    slidesContainer.innerHTML = activeImages.map((image) => `
+      <div class="shuffle-slide">
+        <picture>
+          ${image.mobileSrc ? `<source media="(max-width: 768px)" srcset="${imageUrl(image.mobileSrc)}">` : ""}
+          <img src="${imageUrl(image.src)}" alt="${image.alt}">
+        </picture>
+        <div class="slide-info">
+          <h3 class="font-pacifico text-gold">${image.title}</h3>
+          <p>${image.description}</p>
+        </div>
+      </div>
+    `).join("");
+    slides = Array.from(slidesContainer.querySelectorAll(".shuffle-slide"));
+  }
+
+  function updateCategoryNav() {
+    galleryNav.querySelectorAll("[data-gallery-category]").forEach((button) => {
+      const isActive = button.dataset.galleryCategory === activeCategory.id;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+  }
+
+  function updateControlVisibility() {
+    const hasMultipleImages = activeImages.length > 1;
+    shuffleControls.classList.toggle("d-none", !hasMultipleImages);
+    lightboxControls.classList.toggle("d-none", !hasMultipleImages);
+  }
 
   function updateSlides() {
     window.clearTimeout(descriptionTimeout);
@@ -83,12 +244,6 @@ function initShuffleGallery() {
       } else {
         slide.classList.add("hidden");
       }
-    });
-
-    galleryNavButtons.forEach((button, index) => {
-      const isActive = index === currentIndex;
-      button.classList.toggle("active", isActive);
-      button.setAttribute("aria-pressed", String(isActive));
     });
 
     descriptionTimeout = window.setTimeout(() => {
@@ -108,6 +263,7 @@ function initShuffleGallery() {
 
   function startAutoPlay() {
     stopAutoPlay();
+    if (activeImages.length < 2) return;
     autoPlayInterval = window.setInterval(nextSlide, 4000);
   }
 
@@ -116,13 +272,12 @@ function initShuffleGallery() {
   }
 
   function updateLightbox() {
-    const slide = slides[lightboxIndex];
-    const image = slide.querySelector("img");
+    const image = activeImages[lightboxIndex];
 
-    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.src = imageUrl(image.mobileSrc && window.matchMedia("(max-width: 768px)").matches ? image.mobileSrc : image.src);
     lightboxImage.alt = image.alt;
-    byId("galleryLightboxTitle").textContent = slide.querySelector("h3").textContent;
-    byId("galleryLightboxDescription").textContent = slide.querySelector("p").textContent;
+    byId("galleryLightboxTitle").textContent = image.title;
+    byId("galleryLightboxDescription").textContent = image.description;
   }
 
   function nextLightboxSlide() {
@@ -135,18 +290,26 @@ function initShuffleGallery() {
     updateLightbox();
   }
 
+  function selectCategory(categoryId) {
+    const category = galleryCatalog.find((item) => item.id === categoryId);
+    if (!category) return;
+
+    activeCategory = category;
+    activeImages = category.images;
+    currentIndex = 0;
+    lightboxIndex = 0;
+    renderSlides();
+    updateCategoryNav();
+    updateControlVisibility();
+    updateSlides();
+    startAutoPlay();
+  }
+
   btnNext.addEventListener("click", nextSlide);
   btnPrev.addEventListener("click", prevSlide);
   carouselContainer.addEventListener("mouseenter", stopAutoPlay);
   carouselContainer.addEventListener("mouseleave", startAutoPlay);
   enableTouchSwipe(carouselContainer, nextSlide, prevSlide);
-  galleryNavButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      currentIndex = Number(button.dataset.galleryIndex);
-      updateSlides();
-      startAutoPlay();
-    });
-  });
   expandButton.addEventListener("click", () => {
     lightboxIndex = currentIndex;
     updateLightbox();
@@ -164,8 +327,8 @@ function initShuffleGallery() {
     startAutoPlay();
   });
 
-  updateSlides();
-  startAutoPlay();
+  renderCategoryNav();
+  selectCategory(activeCategory.id);
 }
 
 function formatReservationDate(value) {
@@ -227,6 +390,7 @@ function setupReservationFlow() {
 
 document.addEventListener("DOMContentLoaded", () => {
   setStaticWhatsAppLinks();
+  initHeroLightbox();
   initShuffleGallery();
   setupReservationFlow();
 });

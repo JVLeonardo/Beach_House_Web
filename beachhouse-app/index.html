@@ -60,7 +60,10 @@
 
   <section id="hero" class="hero-modern position-relative overflow-hidden bg-dark d-flex align-items-center">
     <div class="hero-bg position-absolute top-0 start-0 w-100 h-100 z-1">
-      <img src="assets/img/hero01.webp" alt="Vista principal de Beach House" class="w-100 h-100 object-fit-cover">
+      <picture>
+        <source media="(max-width: 768px)" srcset="assets/img/hero01-mobile.webp">
+        <img src="assets/img/hero01.webp" alt="Vista principal de Beach House" class="w-100 h-100 object-fit-cover">
+      </picture>
       <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
     </div>
 
@@ -79,23 +82,26 @@
             Beach <span class="text-gold">House</span>
           </h1>
 
-          <p class="fs-4 mb-5 hero-subcopy">
-            Alquiler privado para full day, cumpleaños, aniversarios y escapadas con piscina, parrilla y azotea cerca
-            al mar.
+          <p class="hero-subcopy">
+            Alquiler privado para full day, cumplea&ntilde;os, aniversarios y m&aacute;s celebraciones.
           </p>
 
-          <div class="d-flex flex-wrap gap-3">
-            <a href="#precios" class="btn btn-gold btn-lg rounded-0 fw-bold">
+          <div class="hero-actions">
+            <a href="#precios" class="btn btn-gold btn-lg rounded-0 fw-bold hero-action">
               <i class="bi bi-box-seam me-2"></i>Ver Paquetes
             </a>
             <button id="heroBookingCta" type="button"
-              class="btn btn-outline-light btn-lg border-2 rounded-0 fw-bold px-4 reserve-trigger">
+              class="btn btn-outline-light btn-lg border-2 rounded-0 fw-bold hero-action reserve-trigger">
               <i class="bi bi-calendar-check me-2"></i>Reservar Ahora
             </button>
           </div>
         </div>
       </div>
     </div>
+    <button class="hero-expand-btn" id="heroExpand" type="button" aria-label="Ver fachada ampliada">
+      <i class="bi bi-arrows-fullscreen"></i>
+      <span>Ver fachada</span>
+    </button>
   </section>
 
   <section id="la-casa" class="py-5 bg-light">
@@ -105,78 +111,13 @@
     </div>
 
     <div class="container">
-      <div class="gallery-nav" aria-label="Espacios de Beach House">
-        <button class="gallery-nav-btn active" type="button" data-gallery-index="0">
-          <i class="bi bi-water"></i><span>Piscina</span>
-        </button>
-        <button class="gallery-nav-btn" type="button" data-gallery-index="1">
-          <i class="bi bi-people"></i><span>Area social</span>
-        </button>
-        <button class="gallery-nav-btn" type="button" data-gallery-index="2">
-          <i class="bi bi-sun"></i><span>Terraza</span>
-        </button>
-        <button class="gallery-nav-btn" type="button" data-gallery-index="3">
-          <i class="bi bi-moon-stars"></i><span>Habitaciones</span>
-        </button>
-        <button class="gallery-nav-btn" type="button" data-gallery-index="4">
-          <i class="bi bi-cup-hot"></i><span>Sala lounge</span>
-        </button>
-      </div>
+      <div class="gallery-nav" id="galleryNav" aria-label="Espacios de Beach House"></div>
     </div>
 
     <div class="shuffle-frame">
       <div class="gallery-frame-shell">
         <div class="gallery-photo-viewport" id="shuffleCarousel">
-          <div class="shuffle-slide">
-            <picture>
-              <source media="(max-width: 768px)" srcset="assets/img/psina%20parrilla-mobile.webp">
-              <img src="assets/img/psina parrilla.webp" alt="Piscina privada de Beach House">
-            </picture>
-            <div class="slide-info">
-              <h3 class="font-pacifico text-gold">Piscina Privada</h3>
-              <p>Un rincon refrescante para disfrutar sin prisas.</p>
-            </div>
-          </div>
-          <div class="shuffle-slide">
-            <picture>
-              <source media="(max-width: 768px)" srcset="assets/img/area%20social-mobile.webp">
-              <img src="assets/img/area social.webp" alt="Area social de Beach House">
-            </picture>
-            <div class="slide-info">
-              <h3 class="font-pacifico text-gold">Area Social</h3>
-              <p>Un espacio abierto para compartir y celebrar.</p>
-            </div>
-          </div>
-          <div class="shuffle-slide">
-            <picture>
-              <source media="(max-width: 768px)" srcset="assets/img/azotea-mobile.webp">
-              <img src="assets/img/azotea.webp" alt="Terraza panoramica de Beach House">
-            </picture>
-            <div class="slide-info">
-              <h3 class="font-pacifico text-gold">Terraza</h3>
-              <p>Atardeceres y conversaciones con aire de mar.</p>
-            </div>
-          </div>
-          <div class="shuffle-slide">
-            <picture>
-              <source media="(max-width: 768px)" srcset="assets/img/hab%20doble-mobile.webp">
-              <img src="assets/img/hab doble.webp" alt="Habitaciones de Beach House">
-            </picture>
-            <div class="slide-info">
-              <h3 class="font-pacifico text-gold">Habitaciones</h3>
-              <p>Descanso comodo para cerrar el dia con calma.</p>
-            </div>
-          </div>
-          <div class="shuffle-slide">
-            <picture>
-              <source media="(max-width: 768px)" srcset="assets/img/sala%20louge-mobile.webp">
-              <img src="assets/img/sala louge.webp" alt="Sala lounge de Beach House">
-            </picture>
-            <div class="slide-info">
-              <h3 class="font-pacifico text-gold">Sala Lounge</h3>
-              <p>Un ambiente sereno para reunirse y conversar.</p>
-            </div>
-          </div>
+          <div id="gallerySlides"></div>
 
           <div class="shuffle-controls">
             <button class="shuffle-btn btn btn-light rounded-0 border" id="btnPrev" type="button"
@@ -522,6 +463,21 @@
             <img src="assets/img/marco_dorado_transparente.webp" alt="">
           </picture>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade hero-lightbox" id="heroLightbox" tabindex="-1" aria-label="Fachada ampliada de Beach House"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0">
+        <button class="hero-lightbox-close" type="button" data-bs-dismiss="modal" aria-label="Cerrar vista ampliada">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <picture>
+          <source media="(max-width: 768px)" srcset="assets/img/hero01-mobile.webp">
+          <img src="assets/img/hero01.webp" alt="Fachada de Beach House cerca al mar">
+        </picture>
       </div>
     </div>
   </div>
