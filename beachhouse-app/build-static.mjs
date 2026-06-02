@@ -6,6 +6,8 @@ const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, "dist");
 const publicEntries = [
   "index.html",
+  "404.html",
+  "_redirects",
   "assets/css/main.css",
   "assets/js/main.js",
   "assets/js/modal-manager.js",

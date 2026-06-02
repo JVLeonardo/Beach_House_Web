@@ -15,6 +15,10 @@ La carpeta que se publica es `beachhouse-app/dist`. Solo contiene la landing inf
 3. Verificar que el comando sea `npm run build --prefix beachhouse-app`.
 4. Verificar que la carpeta publicada sea `beachhouse-app/dist`.
 
+Si el despliegue se hace manualmente con arrastrar y soltar, subir exclusivamente la carpeta `beachhouse-app/dist`. No subir `beachhouse-app`, porque esa carpeta tambien conserva el panel administrativo para una etapa futura.
+
+El artefacto incluye reglas `_redirects` defensivas para devolver `404` en las rutas del panel y sus scripts aunque se intente acceder directamente.
+
 ## Cloudflare Pages
 
 1. Conectar el repositorio desde Cloudflare Pages.
