@@ -12,8 +12,9 @@ La carpeta que se publica es `beachhouse-app/dist`. Solo contiene la landing inf
 
 1. Conectar el repositorio desde Netlify.
 2. Netlify tomara la configuracion de `netlify.toml`.
-3. Verificar que el comando sea `npm run build --prefix beachhouse-app`.
-4. Verificar que la carpeta publicada sea `beachhouse-app/dist`.
+3. Verificar que la carpeta base sea `beachhouse-app`.
+4. Verificar que el comando sea `npm run build`.
+5. Verificar que la carpeta publicada sea `dist`.
 
 Si el despliegue se hace manualmente con arrastrar y soltar, subir exclusivamente la carpeta `beachhouse-app/dist`. No subir `beachhouse-app`, porque esa carpeta tambien conserva el panel administrativo para una etapa futura.
 
