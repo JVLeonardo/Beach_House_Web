@@ -11,7 +11,8 @@ const publicEntries = [
   "assets/css/main.css",
   "assets/js/main.js",
   "assets/js/modal-manager.js",
-  "assets/img"
+  "assets/img",
+  "assets/video"
 ];
 
 await rm(dist, { recursive: true, force: true });
