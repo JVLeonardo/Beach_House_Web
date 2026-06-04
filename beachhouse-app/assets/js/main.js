@@ -93,6 +93,13 @@ const galleryCatalog = [
     ]
   }
 ];
+const experienceVideos = [
+  { src: "experiencia-01.mp4", poster: "experiencia-01-poster.webp", alt: "Decoracion de cumpleanos en Beach House" },
+  { src: "experiencia-02.mp4", poster: "experiencia-02-poster.webp", alt: "Bar preparado para una celebracion en Beach House" },
+  { src: "experiencia-03.mp4", poster: "experiencia-03-poster.webp", alt: "Invitados celebrando en Beach House" },
+  { src: "experiencia-04.mp4", poster: "experiencia-04-poster.webp", alt: "Fiesta decorada en la terraza de Beach House" },
+  { src: "experiencia-05.mp4", poster: "experiencia-05-poster.webp", alt: "Amigos disfrutando una celebracion en Beach House" }
+];
 
 function whatsAppUrl(message = defaultMessage) {
   return `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
@@ -104,6 +111,10 @@ function byId(id) {
 
 function imageUrl(filename) {
   return `assets/img/${encodeURIComponent(filename)}`;
+}
+
+function videoUrl(filename) {
+  return `assets/video/${encodeURIComponent(filename)}`;
 }
 
 function enableTouchSwipe(element, onSwipeLeft, onSwipeRight) {
@@ -331,6 +342,154 @@ function initShuffleGallery() {
   selectCategory(activeCategory.id);
 }
 
+function initExperiencesCarousel() {
+  const carousel = byId("experiencesCarousel");
+  const slidesContainer = byId("experiencesSlides");
+  const prevButton = byId("experiencesPrev");
+  const nextButton = byId("experiencesNext");
+  const expandButton = byId("experiencesExpand");
+  const lightboxElement = byId("experiencesLightbox");
+  const lightboxVideo = byId("experiencesLightboxVideo");
+  const lightboxPrev = byId("experiencesLightboxPrev");
+  const lightboxNext = byId("experiencesLightboxNext");
+
+  if (!carousel || !slidesContainer || !prevButton || !nextButton || !expandButton || !lightboxElement || !lightboxVideo || !lightboxPrev || !lightboxNext) return;
+
+  slidesContainer.innerHTML = experienceVideos.map((video) => `
+    <div class="experiences-slide">
+      <video src="${videoUrl(video.src)}" poster="${videoUrl(video.poster)}" aria-label="${video.alt}"
+        preload="metadata" playsinline muted controls></video>
+    </div>
+  `).join("");
+
+  const slides = Array.from(slidesContainer.querySelectorAll(".experiences-slide"));
+  const videos = slides.map((slide) => slide.querySelector("video"));
+  let currentIndex = 0;
+  let lightboxIndex = 0;
+  let isLightboxOpen = false;
+  let isSyncingAudio = false;
+  let sharedMuted = true;
+  let sharedVolume = 1;
+  let isCarouselVisible = true;
+
+  function resetVideo(video) {
+    video.pause();
+    try {
+      video.currentTime = 0;
+    } catch {
+      // Metadata can still be loading on the first render.
+    }
+  }
+
+  function playVideo(video) {
+    video.muted = isCarouselVisible ? sharedMuted : true;
+    video.volume = sharedVolume;
+    const playAttempt = video.play();
+    if (playAttempt) playAttempt.catch(() => {});
+  }
+
+  function applyAudioState() {
+    isSyncingAudio = true;
+    [...videos, lightboxVideo].forEach((video) => {
+      video.muted = isCarouselVisible ? sharedMuted : true;
+      video.volume = sharedVolume;
+    });
+    isSyncingAudio = false;
+  }
+
+  function syncAudioState(sourceVideo) {
+    if (isSyncingAudio) return;
+
+    sharedMuted = sourceVideo.muted;
+    sharedVolume = sourceVideo.volume;
+    isSyncingAudio = true;
+    [...videos, lightboxVideo].forEach((video) => {
+      if (video === sourceVideo) return;
+      video.muted = sharedMuted;
+      video.volume = sharedVolume;
+    });
+    isSyncingAudio = false;
+  }
+
+  function updateSlides() {
+    slides.forEach((slide, index) => {
+      const isActive = index === currentIndex;
+      slide.classList.toggle("active", isActive);
+      if (!isActive) resetVideo(videos[index]);
+    });
+
+    if (!isLightboxOpen) playVideo(videos[currentIndex]);
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    updateSlides();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    updateSlides();
+  }
+
+  function updateLightbox() {
+    const item = experienceVideos[lightboxIndex];
+    resetVideo(lightboxVideo);
+    lightboxVideo.src = videoUrl(item.src);
+    lightboxVideo.poster = videoUrl(item.poster);
+    lightboxVideo.setAttribute("aria-label", item.alt);
+    lightboxVideo.load();
+    playVideo(lightboxVideo);
+  }
+
+  function nextLightboxSlide() {
+    lightboxIndex = (lightboxIndex + 1) % experienceVideos.length;
+    updateLightbox();
+  }
+
+  function prevLightboxSlide() {
+    lightboxIndex = (lightboxIndex - 1 + experienceVideos.length) % experienceVideos.length;
+    updateLightbox();
+  }
+
+  videos.forEach((video) => {
+    video.addEventListener("ended", nextSlide);
+    video.addEventListener("volumechange", () => syncAudioState(video));
+  });
+  prevButton.addEventListener("click", prevSlide);
+  nextButton.addEventListener("click", nextSlide);
+  enableTouchSwipe(carousel, nextSlide, prevSlide);
+  expandButton.addEventListener("click", () => {
+    lightboxIndex = currentIndex;
+    bootstrap.Modal.getOrCreateInstance(lightboxElement).show();
+  });
+  lightboxPrev.addEventListener("click", prevLightboxSlide);
+  lightboxNext.addEventListener("click", nextLightboxSlide);
+  lightboxVideo.addEventListener("ended", nextLightboxSlide);
+  lightboxVideo.addEventListener("volumechange", () => syncAudioState(lightboxVideo));
+  enableTouchSwipe(lightboxElement, nextLightboxSlide, prevLightboxSlide);
+  lightboxElement.addEventListener("show.bs.modal", () => {
+    isLightboxOpen = true;
+    videos.forEach(resetVideo);
+    document.body.classList.add("experiences-lightbox-open");
+    updateLightbox();
+  });
+  lightboxElement.addEventListener("hidden.bs.modal", () => {
+    isLightboxOpen = false;
+    resetVideo(lightboxVideo);
+    lightboxVideo.removeAttribute("src");
+    lightboxVideo.load();
+    document.body.classList.remove("experiences-lightbox-open");
+    updateSlides();
+  });
+  const visibilityObserver = new IntersectionObserver(([entry]) => {
+    isCarouselVisible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+    applyAudioState();
+  }, { threshold: [0, 0.35] });
+  visibilityObserver.observe(carousel);
+
+  updateSlides();
+}
+
 function formatReservationDate(value) {
   return new Intl.DateTimeFormat("es-PE", {
     day: "numeric",
@@ -392,5 +551,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setStaticWhatsAppLinks();
   initHeroLightbox();
   initShuffleGallery();
+  initExperiencesCarousel();
   setupReservationFlow();
 });

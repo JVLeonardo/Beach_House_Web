@@ -137,6 +137,32 @@
     </div>
   </section>
 
+  <section id="experiencias" class="experiences-section py-5">
+    <div class="container mb-4 text-center">
+      <h2 class="display-5 fw-bold mb-2 text-dark">Celebra en <span
+          class="font-pacifico text-gold fw-normal">Beach House</span></h2>
+      <p class="experiences-intro mb-0 mx-auto">Momentos especiales, reuniones y celebraciones que se disfrutan mejor
+        cerca al mar.</p>
+    </div>
+
+    <div class="experiences-stage">
+      <div class="experiences-carousel" id="experiencesCarousel">
+        <div id="experiencesSlides"></div>
+        <div class="experiences-controls">
+          <button class="experiences-nav" id="experiencesPrev" type="button" aria-label="Video anterior">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="experiences-nav" id="experiencesNext" type="button" aria-label="Video siguiente">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+        <button class="experiences-expand" id="experiencesExpand" type="button" aria-label="Ampliar video">
+          <i class="bi bi-arrows-fullscreen"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <section id="precios" class="border-top border-bottom">
     <div id="carruselPrecios" class="carousel slide" data-bs-interval="false" data-bs-touch="true">
       <div class="carousel-inner">
@@ -462,6 +488,29 @@
             <source media="(max-width: 768px)" srcset="assets/img/marco_dorado_transparente-mobile.webp">
             <img src="assets/img/marco_dorado_transparente.webp" alt="">
           </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade experiences-lightbox" id="experiencesLightbox" tabindex="-1"
+    aria-label="Videos ampliados de celebraciones en Beach House" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-0 border-0">
+        <button class="experiences-lightbox-close" type="button" data-bs-dismiss="modal"
+          aria-label="Cerrar vista ampliada">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <video id="experiencesLightboxVideo" playsinline muted controls></video>
+        <div class="experiences-lightbox-controls">
+          <button class="experiences-lightbox-nav" id="experiencesLightboxPrev" type="button"
+            aria-label="Video anterior">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="experiences-lightbox-nav" id="experiencesLightboxNext" type="button"
+            aria-label="Video siguiente">
+            <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
       </div>
     </div>
