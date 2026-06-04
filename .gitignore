@@ -6,3 +6,4 @@ target/
 beachhouse-api-backend/target/
 beachhouse-api-backend/.mvn/wrapper/maven-wrapper.jar
 beachhouse-app/dist/
+beachhouse-app/assets/video/*.MOV
