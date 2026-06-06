@@ -12,8 +12,50 @@ const galleryCatalog = [
         src: "psina parrilla.webp",
         mobileSrc: "psina parrilla-mobile.webp",
         alt: "Piscina privada con parrilla de Beach House",
-        title: "Piscina privada con parrilla",
+        title: "Piscina privada",
         description: "Un espacio refrescante para compartir, cocinar al aire libre y disfrutar el día con calma."
+      },
+      {
+        src: "piscina 2.webp",
+        mobileSrc: "piscina 2-mobile.webp",
+        alt: "Piscina privada de Beach House",
+        title: "Piscina privada",
+        description: "Un ambiente fresco para disfrutar el agua y relajarse sin prisas."
+      },
+      {
+        src: "piscina 3.webp",
+        mobileSrc: "piscina 3-mobile.webp",
+        alt: "Piscina privada iluminada de Beach House",
+        title: "Piscina privada",
+        description: "Una zona ideal para pasar momentos tranquilos cerca de la piscina."
+      },
+      {
+        src: "piscina 4.webp",
+        mobileSrc: "piscina 4-mobile.webp",
+        alt: "Vista de la piscina privada de Beach House",
+        title: "Piscina privada",
+        description: "Un rincon privado para refrescarse y compartir en buena compania."
+      }
+    ]
+  },
+  {
+    id: "patio",
+    label: "Patio",
+    icon: "bi-house-heart",
+    images: [
+      {
+        src: "patio.webp",
+        mobileSrc: "patio-mobile.webp",
+        alt: "Patio social de Beach House",
+        title: "Patio",
+        description: "Un espacio abierto para reunirse, conversar y disfrutar celebraciones al aire libre."
+      },
+      {
+        src: "patio 2.webp",
+        mobileSrc: "patio 2-mobile.webp",
+        alt: "Patio decorado de Beach House",
+        title: "Patio",
+        description: "Un ambiente versatil para compartir momentos especiales en grupo."
       }
     ]
   },
@@ -89,6 +131,13 @@ const galleryCatalog = [
         alt: "Cocina equipada de Beach House",
         title: "Cocina equipada",
         description: "Un espacio funcional con cocina, microondas y pequeños electrodomésticos para preparar lo necesario durante la estadía."
+      },
+      {
+        src: "cocina 2.webp",
+        mobileSrc: "cocina 2-mobile.webp",
+        alt: "Cocina equipada de Beach House",
+        title: "Cocina equipada",
+        description: "Un ambiente practico para organizar comidas y atender cada reunion con comodidad."
       }
     ]
   }
@@ -188,13 +237,22 @@ function initShuffleGallery() {
 
   if (!btnNext || !btnPrev || !carouselContainer || !galleryNav || !slidesContainer || !shuffleControls || !expandButton || !lightboxElement || !lightboxControls || !lightboxPrev || !lightboxNext || !lightboxImage) return;
 
-  let activeCategory = galleryCatalog[0];
-  let activeImages = activeCategory.images;
+  const gallerySequence = galleryCatalog.flatMap((category) =>
+    category.images.map((image, imageIndex) => ({
+      ...image,
+      categoryId: category.id,
+      imageIndex
+    }))
+  );
   let slides = [];
   let currentIndex = 0;
   let lightboxIndex = 0;
   let autoPlayInterval;
   let descriptionTimeout;
+
+  function currentGalleryItem() {
+    return gallerySequence[currentIndex];
+  }
 
   function renderCategoryNav() {
     galleryNav.innerHTML = galleryCatalog.map((category) => `
@@ -211,7 +269,7 @@ function initShuffleGallery() {
   }
 
   function renderSlides() {
-    slidesContainer.innerHTML = activeImages.map((image) => `
+    slidesContainer.innerHTML = gallerySequence.map((image) => `
       <div class="shuffle-slide">
         <picture>
           ${image.mobileSrc ? `<source media="(max-width: 768px)" srcset="${imageUrl(image.mobileSrc)}">` : ""}
@@ -219,7 +277,6 @@ function initShuffleGallery() {
         </picture>
         <div class="slide-info">
           <h3 class="font-pacifico text-gold">${image.title}</h3>
-          <p>${image.description}</p>
         </div>
       </div>
     `).join("");
@@ -227,15 +284,16 @@ function initShuffleGallery() {
   }
 
   function updateCategoryNav() {
+    const activeCategoryId = currentGalleryItem().categoryId;
     galleryNav.querySelectorAll("[data-gallery-category]").forEach((button) => {
-      const isActive = button.dataset.galleryCategory === activeCategory.id;
+      const isActive = button.dataset.galleryCategory === activeCategoryId;
       button.classList.toggle("active", isActive);
       button.setAttribute("aria-pressed", String(isActive));
     });
   }
 
   function updateControlVisibility() {
-    const hasMultipleImages = activeImages.length > 1;
+    const hasMultipleImages = gallerySequence.length > 1;
     shuffleControls.classList.toggle("d-none", !hasMultipleImages);
     lightboxControls.classList.toggle("d-none", !hasMultipleImages);
   }
@@ -260,6 +318,7 @@ function initShuffleGallery() {
     descriptionTimeout = window.setTimeout(() => {
       slides[currentIndex].classList.add("show-info");
     }, 1000);
+    updateCategoryNav();
   }
 
   function nextSlide() {
@@ -274,8 +333,8 @@ function initShuffleGallery() {
 
   function startAutoPlay() {
     stopAutoPlay();
-    if (activeImages.length < 2) return;
-    autoPlayInterval = window.setInterval(nextSlide, 4000);
+    if (gallerySequence.length < 2) return;
+    autoPlayInterval = window.setInterval(nextSlide, 2000);
   }
 
   function stopAutoPlay() {
@@ -283,7 +342,7 @@ function initShuffleGallery() {
   }
 
   function updateLightbox() {
-    const image = activeImages[lightboxIndex];
+    const image = gallerySequence[lightboxIndex];
 
     lightboxImage.src = imageUrl(image.mobileSrc && window.matchMedia("(max-width: 768px)").matches ? image.mobileSrc : image.src);
     lightboxImage.alt = image.alt;
@@ -302,25 +361,28 @@ function initShuffleGallery() {
   }
 
   function selectCategory(categoryId) {
-    const category = galleryCatalog.find((item) => item.id === categoryId);
-    if (!category) return;
+    const categoryIndex = gallerySequence.findIndex((item) => item.categoryId === categoryId);
+    if (categoryIndex === -1) return;
 
-    activeCategory = category;
-    activeImages = category.images;
-    currentIndex = 0;
-    lightboxIndex = 0;
-    renderSlides();
-    updateCategoryNav();
-    updateControlVisibility();
+    currentIndex = categoryIndex;
+    lightboxIndex = currentIndex;
     updateSlides();
     startAutoPlay();
   }
 
-  btnNext.addEventListener("click", nextSlide);
-  btnPrev.addEventListener("click", prevSlide);
-  carouselContainer.addEventListener("mouseenter", stopAutoPlay);
-  carouselContainer.addEventListener("mouseleave", startAutoPlay);
-  enableTouchSwipe(carouselContainer, nextSlide, prevSlide);
+  function goToNextSlide() {
+    nextSlide();
+    startAutoPlay();
+  }
+
+  function goToPrevSlide() {
+    prevSlide();
+    startAutoPlay();
+  }
+
+  btnNext.addEventListener("click", goToNextSlide);
+  btnPrev.addEventListener("click", goToPrevSlide);
+  enableTouchSwipe(carouselContainer, goToNextSlide, goToPrevSlide);
   expandButton.addEventListener("click", () => {
     lightboxIndex = currentIndex;
     updateLightbox();
@@ -339,7 +401,10 @@ function initShuffleGallery() {
   });
 
   renderCategoryNav();
-  selectCategory(activeCategory.id);
+  renderSlides();
+  updateControlVisibility();
+  updateSlides();
+  startAutoPlay();
 }
 
 function initExperiencesCarousel() {
@@ -720,6 +785,51 @@ function openReservationModal(packageName = "") {
   showBootstrapModal("reservationModal");
 }
 
+function initPricingCarouselTouchPause() {
+  const carouselElement = byId("carruselPrecios");
+  if (!carouselElement || !window.bootstrap) return;
+
+  const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement, {
+    interval: 3000,
+    ride: "carousel",
+    pause: false,
+    touch: true
+  });
+  let resumeTimer = null;
+
+  function isTouchPointer(event) {
+    return event.pointerType === "touch" || event.pointerType === "pen";
+  }
+
+  function clearResumeTimer() {
+    if (resumeTimer) {
+      window.clearTimeout(resumeTimer);
+      resumeTimer = null;
+    }
+  }
+
+  function scheduleResume() {
+    clearResumeTimer();
+    resumeTimer = window.setTimeout(() => {
+      carousel.cycle();
+      resumeTimer = null;
+    }, 650);
+  }
+
+  carouselElement.addEventListener("pointerdown", (event) => {
+    if (!isTouchPointer(event)) return;
+    clearResumeTimer();
+    carousel.pause();
+  }, { passive: true });
+
+  ["pointerup", "pointercancel", "pointerleave"].forEach((eventName) => {
+    carouselElement.addEventListener(eventName, (event) => {
+      if (!isTouchPointer(event)) return;
+      scheduleResume();
+    }, { passive: true });
+  });
+}
+
 function setupReservationFlow() {
   const reservationDate = byId("reservationDate");
   reservationDate.min = todayLocalIso();
@@ -754,5 +864,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroLightbox();
   initShuffleGallery();
   initExperiencesCarousel();
+  initPricingCarouselTouchPause();
   setupReservationFlow();
 });
