@@ -554,7 +554,7 @@ body.hero-lightbox-open .wa-fab {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url("../img/experiencias-estrellas-doradas.png") center / cover no-repeat;
+  background: url("../img/experiencias-fiesta-colorida-preview.png") center / 100% 100% no-repeat;
   content: "";
   pointer-events: none;
 }
@@ -609,27 +609,29 @@ body.hero-lightbox-open .wa-fab {
 .experiences-lightbox-close {
   display: grid;
   place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(17, 17, 17, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(17, 17, 17, 0.34);
   color: #ffffff;
   pointer-events: auto;
   backdrop-filter: blur(6px);
-  transition: border-color 0.25s ease, background-color 0.25s ease;
+  transition: opacity 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 
 .experiences-nav,
 .experiences-lightbox-nav {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
+  opacity: 0;
 }
 
 .experiences-expand {
   position: absolute;
   right: 0.65rem;
-  bottom: 3.5rem;
+  bottom: 0.75rem;
   z-index: 5;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
+  opacity: 0;
 }
 
 .experiences-nav:hover,
@@ -638,6 +640,18 @@ body.hero-lightbox-open .wa-fab {
 .experiences-lightbox-close:hover {
   border-color: var(--gold);
   background: var(--gold);
+}
+
+.experiences-carousel:hover .experiences-nav,
+.experiences-carousel:hover .experiences-expand,
+.experiences-carousel:focus-within .experiences-nav,
+.experiences-carousel:focus-within .experiences-expand,
+.experiences-carousel.controls-visible .experiences-nav,
+.experiences-carousel.controls-visible .experiences-expand,
+.experiences-lightbox .modal-content:hover .experiences-lightbox-nav,
+.experiences-lightbox .modal-content:focus-within .experiences-lightbox-nav,
+.experiences-lightbox.controls-visible .experiences-lightbox-nav {
+  opacity: 1;
 }
 
 .experiences-lightbox .modal-dialog {
@@ -845,8 +859,8 @@ body.hero-lightbox-open .wa-fab {
 
 .wa-fab {
   position: fixed;
-  right: 30px;
-  bottom: 30px;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
   z-index: 1100;
   display: flex;
   align-items: center;
@@ -1130,6 +1144,11 @@ body.hero-lightbox-open .wa-fab {
 }
 
 @media (max-width: 768px) {
+  .wa-fab {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
   .hero-modern {
     height: min(76svh, 600px);
     min-height: 540px;
@@ -1240,15 +1259,15 @@ body.hero-lightbox-open .wa-fab {
 
   .experiences-nav,
   .experiences-lightbox-nav {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
   }
 
   .experiences-expand {
     right: 0.55rem;
-    bottom: 3.3rem;
-    width: 40px;
-    height: 40px;
+    bottom: 0.65rem;
+    width: 36px;
+    height: 36px;
   }
 
   .experiences-lightbox .modal-dialog {

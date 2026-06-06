@@ -357,8 +357,9 @@ function initExperiencesCarousel() {
 
   slidesContainer.innerHTML = experienceVideos.map((video) => `
     <div class="experiences-slide">
-      <video src="${videoUrl(video.src)}" poster="${videoUrl(video.poster)}" aria-label="${video.alt}"
-        preload="metadata" playsinline muted controls></video>
+      <video data-src="${videoUrl(video.src)}" poster="${videoUrl(video.poster)}" aria-label="${video.alt}"
+        preload="none" playsinline muted controls controlslist="nofullscreen nodownload noremoteplayback"
+        disablepictureinpicture></video>
     </div>
   `).join("");
 
@@ -371,21 +372,90 @@ function initExperiencesCarousel() {
   let sharedMuted = true;
   let sharedVolume = 1;
   let isCarouselVisible = true;
+  let shouldAutoPlay = false;
+  let hasViewportAutoPlayed = false;
+  let wasManuallyPaused = false;
+  let isResettingVideo = false;
+  let isViewportAutoPlayAttempt = false;
+  let controlsRevealTimer = null;
+  let lightboxControlsRevealTimer = null;
+  let viewportAutoPlayTimer = null;
 
-  function resetVideo(video) {
+  function ensureVideoLoaded(video) {
+    if (!video.getAttribute("src")) {
+      video.src = video.dataset.src;
+      video.load();
+    }
+  }
+
+  function enableAudioFromUserGesture(video) {
+    sharedMuted = false;
+    video.muted = false;
+    video.volume = sharedVolume;
+  }
+
+  function resetVideo(video, unload = true) {
+    isResettingVideo = true;
     video.pause();
     try {
       video.currentTime = 0;
     } catch {
-      // Metadata can still be loading on the first render.
+      // The video may not have a source yet because loading is deferred.
     }
+
+    if (unload) {
+      video.removeAttribute("src");
+      video.load();
+    }
+    isResettingVideo = false;
   }
 
   function playVideo(video) {
+    ensureVideoLoaded(video);
     video.muted = isCarouselVisible ? sharedMuted : true;
     video.volume = sharedVolume;
     const playAttempt = video.play();
-    if (playAttempt) playAttempt.catch(() => {});
+    if (playAttempt) {
+      playAttempt
+        .then(() => {})
+        .catch(() => {
+          shouldAutoPlay = false;
+          isViewportAutoPlayAttempt = false;
+        });
+    }
+  }
+
+  function playVideoMutedFromViewport() {
+    const video = videos[currentIndex];
+    sharedMuted = true;
+    video.muted = true;
+    shouldAutoPlay = true;
+    isViewportAutoPlayAttempt = true;
+    playVideo(video);
+    revealControlsTemporarily();
+  }
+
+  function toggleVideoFromSurface(event, video) {
+    const rect = video.getBoundingClientRect();
+    const nativeControlsZone = 72;
+
+    if (rect.bottom - event.clientY <= nativeControlsZone) return;
+
+    if (video.paused) {
+      shouldAutoPlay = true;
+      wasManuallyPaused = false;
+      enableAudioFromUserGesture(video);
+      playVideo(video);
+      if (isLightboxOpen) revealLightboxControlsTemporarily();
+      else revealControlsTemporarily();
+      return;
+    }
+
+    shouldAutoPlay = false;
+    wasManuallyPaused = true;
+    video.pause();
+    if (isLightboxOpen) revealLightboxControlsTemporarily();
+    else revealControlsTemporarily();
   }
 
   function applyAudioState() {
@@ -411,6 +481,45 @@ function initExperiencesCarousel() {
     isSyncingAudio = false;
   }
 
+  function markPlaybackStarted(video) {
+    if (isResettingVideo) return;
+    shouldAutoPlay = true;
+    if (isViewportAutoPlayAttempt) {
+      isViewportAutoPlayAttempt = false;
+    } else if (isCarouselVisible) {
+      enableAudioFromUserGesture(video);
+    }
+    if (isLightboxOpen) revealLightboxControlsTemporarily();
+    else revealControlsTemporarily();
+  }
+
+  function markPlaybackPaused(video) {
+    if (isResettingVideo) return;
+    if (video.ended) return;
+    if ((isLightboxOpen && video === lightboxVideo) || (!isLightboxOpen && video === videos[currentIndex])) {
+      shouldAutoPlay = false;
+      wasManuallyPaused = true;
+      if (isLightboxOpen) revealLightboxControlsTemporarily();
+      else revealControlsTemporarily();
+    }
+  }
+
+  function revealControlsTemporarily() {
+    carousel.classList.add("controls-visible");
+    window.clearTimeout(controlsRevealTimer);
+    controlsRevealTimer = window.setTimeout(() => {
+      carousel.classList.remove("controls-visible");
+    }, 2800);
+  }
+
+  function revealLightboxControlsTemporarily() {
+    lightboxElement.classList.add("controls-visible");
+    window.clearTimeout(lightboxControlsRevealTimer);
+    lightboxControlsRevealTimer = window.setTimeout(() => {
+      lightboxElement.classList.remove("controls-visible");
+    }, 2800);
+  }
+
   function updateSlides() {
     slides.forEach((slide, index) => {
       const isActive = index === currentIndex;
@@ -418,7 +527,7 @@ function initExperiencesCarousel() {
       if (!isActive) resetVideo(videos[index]);
     });
 
-    if (!isLightboxOpen) playVideo(videos[currentIndex]);
+    if (!isLightboxOpen && shouldAutoPlay) playVideo(videos[currentIndex]);
   }
 
   function nextSlide() {
@@ -434,11 +543,10 @@ function initExperiencesCarousel() {
   function updateLightbox() {
     const item = experienceVideos[lightboxIndex];
     resetVideo(lightboxVideo);
-    lightboxVideo.src = videoUrl(item.src);
+    lightboxVideo.dataset.src = videoUrl(item.src);
     lightboxVideo.poster = videoUrl(item.poster);
     lightboxVideo.setAttribute("aria-label", item.alt);
-    lightboxVideo.load();
-    playVideo(lightboxVideo);
+    if (shouldAutoPlay) playVideo(lightboxVideo);
   }
 
   function nextLightboxSlide() {
@@ -453,10 +561,16 @@ function initExperiencesCarousel() {
 
   videos.forEach((video) => {
     video.addEventListener("ended", nextSlide);
+    video.addEventListener("pointerdown", () => ensureVideoLoaded(video), { passive: true });
+    video.addEventListener("click", (event) => toggleVideoFromSurface(event, video));
+    video.addEventListener("focus", () => ensureVideoLoaded(video));
+    video.addEventListener("play", () => markPlaybackStarted(video));
+    video.addEventListener("pause", () => markPlaybackPaused(video));
     video.addEventListener("volumechange", () => syncAudioState(video));
   });
   prevButton.addEventListener("click", prevSlide);
   nextButton.addEventListener("click", nextSlide);
+  carousel.addEventListener("pointerdown", revealControlsTemporarily, { passive: true });
   enableTouchSwipe(carousel, nextSlide, prevSlide);
   expandButton.addEventListener("click", () => {
     lightboxIndex = currentIndex;
@@ -465,8 +579,14 @@ function initExperiencesCarousel() {
   lightboxPrev.addEventListener("click", prevLightboxSlide);
   lightboxNext.addEventListener("click", nextLightboxSlide);
   lightboxVideo.addEventListener("ended", nextLightboxSlide);
+  lightboxVideo.addEventListener("pointerdown", () => ensureVideoLoaded(lightboxVideo), { passive: true });
+  lightboxVideo.addEventListener("click", (event) => toggleVideoFromSurface(event, lightboxVideo));
+  lightboxVideo.addEventListener("focus", () => ensureVideoLoaded(lightboxVideo));
+  lightboxVideo.addEventListener("play", () => markPlaybackStarted(lightboxVideo));
+  lightboxVideo.addEventListener("pause", () => markPlaybackPaused(lightboxVideo));
   lightboxVideo.addEventListener("volumechange", () => syncAudioState(lightboxVideo));
   enableTouchSwipe(lightboxElement, nextLightboxSlide, prevLightboxSlide);
+  lightboxElement.addEventListener("pointerdown", revealLightboxControlsTemporarily, { passive: true });
   lightboxElement.addEventListener("show.bs.modal", () => {
     isLightboxOpen = true;
     videos.forEach(resetVideo);
@@ -478,13 +598,24 @@ function initExperiencesCarousel() {
     resetVideo(lightboxVideo);
     lightboxVideo.removeAttribute("src");
     lightboxVideo.load();
+    lightboxElement.classList.remove("controls-visible");
     document.body.classList.remove("experiences-lightbox-open");
     updateSlides();
   });
   const visibilityObserver = new IntersectionObserver(([entry]) => {
-    isCarouselVisible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+    isCarouselVisible = entry.isIntersecting && entry.intersectionRatio >= 0.45;
+    window.clearTimeout(viewportAutoPlayTimer);
+
+    if (isCarouselVisible && !isLightboxOpen && !hasViewportAutoPlayed && !wasManuallyPaused && !navigator.connection?.saveData) {
+      viewportAutoPlayTimer = window.setTimeout(() => {
+        if (!isCarouselVisible || isLightboxOpen || hasViewportAutoPlayed || wasManuallyPaused) return;
+        hasViewportAutoPlayed = true;
+        playVideoMutedFromViewport();
+      }, 1000);
+    }
+
     applyAudioState();
-  }, { threshold: [0, 0.35] });
+  }, { threshold: [0, 0.45] });
   visibilityObserver.observe(carousel);
 
   updateSlides();
