@@ -94,11 +94,11 @@ const galleryCatalog = [
   }
 ];
 const experienceVideos = [
-  { src: "experiencia-01.mp4", poster: "experiencia-01-poster.webp", alt: "Decoracion de cumpleanos en Beach House" },
-  { src: "experiencia-02.mp4", poster: "experiencia-02-poster.webp", alt: "Bar preparado para una celebracion en Beach House" },
-  { src: "experiencia-03.mp4", poster: "experiencia-03-poster.webp", alt: "Invitados celebrando en Beach House" },
-  { src: "experiencia-04.mp4", poster: "experiencia-04-poster.webp", alt: "Fiesta decorada en la terraza de Beach House" },
-  { src: "experiencia-05.mp4", poster: "experiencia-05-poster.webp", alt: "Amigos disfrutando una celebracion en Beach House" }
+  { src: "experiencia-01.mp4", mobileSrc: "experiencia-01-mobile.mp4", poster: "experiencia-01-poster.webp", alt: "Decoracion de cumpleanos en Beach House" },
+  { src: "experiencia-02.mp4", mobileSrc: "experiencia-02-mobile.mp4", poster: "experiencia-02-poster.webp", alt: "Bar preparado para una celebracion en Beach House" },
+  { src: "experiencia-03.mp4", mobileSrc: "experiencia-03-mobile.mp4", poster: "experiencia-03-poster.webp", alt: "Invitados celebrando en Beach House" },
+  { src: "experiencia-04.mp4", mobileSrc: "experiencia-04-mobile.mp4", poster: "experiencia-04-poster.webp", alt: "Fiesta decorada en la terraza de Beach House" },
+  { src: "experiencia-05.mp4", mobileSrc: "experiencia-05-mobile.mp4", poster: "experiencia-05-poster.webp", alt: "Amigos disfrutando una celebracion en Beach House" }
 ];
 
 function whatsAppUrl(message = defaultMessage) {
@@ -357,7 +357,7 @@ function initExperiencesCarousel() {
 
   slidesContainer.innerHTML = experienceVideos.map((video) => `
     <div class="experiences-slide">
-      <video data-src="${videoUrl(video.src)}" poster="${videoUrl(video.poster)}" aria-label="${video.alt}"
+      <video poster="${videoUrl(video.poster)}" aria-label="${video.alt}"
         preload="none" playsinline muted controls controlslist="nofullscreen nodownload noremoteplayback"
         disablepictureinpicture></video>
     </div>
@@ -365,6 +365,8 @@ function initExperiencesCarousel() {
 
   const slides = Array.from(slidesContainer.querySelectorAll(".experiences-slide"));
   const videos = slides.map((slide) => slide.querySelector("video"));
+  const mobileVideoQuery = window.matchMedia("(max-width: 768px)");
+  videos.forEach((video, index) => assignVideoSource(video, index));
   let currentIndex = 0;
   let lightboxIndex = 0;
   let isLightboxOpen = false;
@@ -380,11 +382,52 @@ function initExperiencesCarousel() {
   let controlsRevealTimer = null;
   let lightboxControlsRevealTimer = null;
   let viewportAutoPlayTimer = null;
+  let lastTouchSurfaceToggleAt = 0;
+
+  function selectedVideoFilename(item) {
+    return mobileVideoQuery.matches ? item.mobileSrc : item.src;
+  }
+
+  function selectedVideoSrc(index) {
+    return videoUrl(selectedVideoFilename(experienceVideos[index]));
+  }
+
+  function assignVideoSource(video, index) {
+    video.dataset.src = selectedVideoSrc(index);
+  }
 
   function ensureVideoLoaded(video) {
     if (!video.getAttribute("src")) {
       video.src = video.dataset.src;
       video.load();
+    }
+  }
+
+  function preloadVideo(index) {
+    if (navigator.connection?.saveData) return;
+
+    const video = videos[index];
+    ensureVideoLoaded(video);
+  }
+
+  function preloadNextVideo() {
+    preloadVideo((currentIndex + 1) % videos.length);
+  }
+
+  function refreshVideoSources() {
+    videos.forEach((video, index) => {
+      const nextSource = selectedVideoSrc(index);
+      if (video.dataset.src === nextSource) return;
+
+      const wasActive = index === currentIndex;
+      const shouldResume = wasActive && shouldAutoPlay && !isLightboxOpen;
+      resetVideo(video);
+      video.dataset.src = nextSource;
+      if (shouldResume) playVideo(video);
+    });
+
+    if (isLightboxOpen) {
+      updateLightbox();
     }
   }
 
@@ -439,7 +482,7 @@ function initExperiencesCarousel() {
     const rect = video.getBoundingClientRect();
     const nativeControlsZone = 72;
 
-    if (rect.bottom - event.clientY <= nativeControlsZone) return;
+    if (rect.bottom - event.clientY <= nativeControlsZone) return false;
 
     if (video.paused) {
       shouldAutoPlay = true;
@@ -448,7 +491,7 @@ function initExperiencesCarousel() {
       playVideo(video);
       if (isLightboxOpen) revealLightboxControlsTemporarily();
       else revealControlsTemporarily();
-      return;
+      return true;
     }
 
     shouldAutoPlay = false;
@@ -456,6 +499,22 @@ function initExperiencesCarousel() {
     video.pause();
     if (isLightboxOpen) revealLightboxControlsTemporarily();
     else revealControlsTemporarily();
+    return true;
+  }
+
+  function handleVideoPointerUp(event, video) {
+    if (event.pointerType === "mouse") return;
+
+    if (toggleVideoFromSurface(event, video)) {
+      lastTouchSurfaceToggleAt = Date.now();
+      event.preventDefault();
+    }
+  }
+
+  function handleVideoClick(event, video) {
+    if (Date.now() - lastTouchSurfaceToggleAt < 350) return;
+
+    toggleVideoFromSurface(event, video);
   }
 
   function applyAudioState() {
@@ -491,6 +550,7 @@ function initExperiencesCarousel() {
     }
     if (isLightboxOpen) revealLightboxControlsTemporarily();
     else revealControlsTemporarily();
+    if (!isLightboxOpen) preloadNextVideo();
   }
 
   function markPlaybackPaused(video) {
@@ -543,7 +603,7 @@ function initExperiencesCarousel() {
   function updateLightbox() {
     const item = experienceVideos[lightboxIndex];
     resetVideo(lightboxVideo);
-    lightboxVideo.dataset.src = videoUrl(item.src);
+    lightboxVideo.dataset.src = videoUrl(selectedVideoFilename(item));
     lightboxVideo.poster = videoUrl(item.poster);
     lightboxVideo.setAttribute("aria-label", item.alt);
     if (shouldAutoPlay) playVideo(lightboxVideo);
@@ -562,7 +622,8 @@ function initExperiencesCarousel() {
   videos.forEach((video) => {
     video.addEventListener("ended", nextSlide);
     video.addEventListener("pointerdown", () => ensureVideoLoaded(video), { passive: true });
-    video.addEventListener("click", (event) => toggleVideoFromSurface(event, video));
+    video.addEventListener("pointerup", (event) => handleVideoPointerUp(event, video));
+    video.addEventListener("click", (event) => handleVideoClick(event, video));
     video.addEventListener("focus", () => ensureVideoLoaded(video));
     video.addEventListener("play", () => markPlaybackStarted(video));
     video.addEventListener("pause", () => markPlaybackPaused(video));
@@ -570,6 +631,7 @@ function initExperiencesCarousel() {
   });
   prevButton.addEventListener("click", prevSlide);
   nextButton.addEventListener("click", nextSlide);
+  mobileVideoQuery.addEventListener("change", refreshVideoSources);
   carousel.addEventListener("pointerdown", revealControlsTemporarily, { passive: true });
   enableTouchSwipe(carousel, nextSlide, prevSlide);
   expandButton.addEventListener("click", () => {
@@ -580,7 +642,8 @@ function initExperiencesCarousel() {
   lightboxNext.addEventListener("click", nextLightboxSlide);
   lightboxVideo.addEventListener("ended", nextLightboxSlide);
   lightboxVideo.addEventListener("pointerdown", () => ensureVideoLoaded(lightboxVideo), { passive: true });
-  lightboxVideo.addEventListener("click", (event) => toggleVideoFromSurface(event, lightboxVideo));
+  lightboxVideo.addEventListener("pointerup", (event) => handleVideoPointerUp(event, lightboxVideo));
+  lightboxVideo.addEventListener("click", (event) => handleVideoClick(event, lightboxVideo));
   lightboxVideo.addEventListener("focus", () => ensureVideoLoaded(lightboxVideo));
   lightboxVideo.addEventListener("play", () => markPlaybackStarted(lightboxVideo));
   lightboxVideo.addEventListener("pause", () => markPlaybackPaused(lightboxVideo));
@@ -617,6 +680,14 @@ function initExperiencesCarousel() {
     applyAudioState();
   }, { threshold: [0, 0.45] });
   visibilityObserver.observe(carousel);
+
+  const preloadObserver = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+
+    preloadVideo(currentIndex);
+    preloadObserver.disconnect();
+  }, { rootMargin: "700px 0px", threshold: 0 });
+  preloadObserver.observe(carousel);
 
   updateSlides();
 }
