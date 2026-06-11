@@ -10,6 +10,7 @@ const publicEntries = [
   "_redirects",
   "assets/css/main.css",
   "assets/js/main.js",
+  "assets/js/site-config.js",
   "assets/js/modal-manager.js",
   "assets/img",
   "assets/video"

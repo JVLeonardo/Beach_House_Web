@@ -46,7 +46,7 @@ Al crear o regenerar el proyecto desde Spring Initializr, usar:
 
 La API debe crecer con estos modulos:
 
-- `availability`: disponibilidad, lunes bloqueados, fechas pasadas y rangos reservados.
+- `availability`: disponibilidad, fechas pasadas, fechas bloqueadas y rangos reservados.
 - `booking`: solicitudes de reserva, estados y datos del cliente.
 - `package`: paquetes base como full day, 2D/1N y 3D/2N.
 - `promotion`: promociones activables con precio, fecha objetivo y tema visual.
@@ -69,7 +69,7 @@ PATCH  /api/admin/promotions/{id}/toggle
 
 ## 6. Regla Central de Disponibilidad
 
-Los lunes no son reservables. Esta regla debe implementarse en el dominio/backend, no solo en la interfaz. La UI puede ocultar o deshabilitar lunes, pero la API debe rechazar cualquier intento de reserva que incluya lunes.
+Los lunes son reservables. La disponibilidad debe rechazar fechas pasadas y fechas bloqueadas manualmente, sin aplicar cierres automaticos por dia de la semana.
 
 ## 7. Base de Datos
 

@@ -1,6 +1,5 @@
 package com.beachhouse.api.promotion;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -75,9 +74,6 @@ public class PromotionService {
         }
         if (targetDate.isBefore(LocalDate.now())) {
             throw new BadRequestException("No se puede activar una promocion para una fecha pasada");
-        }
-        if (targetDate.getDayOfWeek() == DayOfWeek.MONDAY) {
-            throw new BadRequestException("Los lunes no se aceptan reservas ni promociones");
         }
         boolean blocked = !blockedDateRepository.findByActiveTrueAndBlockedDateIn(List.of(targetDate)).isEmpty();
         if (blocked) {

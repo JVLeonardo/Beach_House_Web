@@ -44,9 +44,9 @@ El objetivo inmediato es que el cliente llegue mas informado a WhatsApp, pregunt
 
 ## 5. Reglas Operativas
 
-- Los lunes no se ofrecen reservas.
-- Los lunes quedan reservados para limpieza profunda, mantenimiento, inventario, revision administrativa y preparacion comercial.
-- Una reserva solo queda confirmada cuando el administrador registra garantia o adelanto.
+- Los lunes se ofrecen reservas y promociones igual que los demas dias, sujetos a disponibilidad.
+- Una reserva solo queda confirmada cuando el administrador valida el adelanto del 50% del alquiler.
+- La garantia se paga antes del ingreso y se devuelve despues de verificar los espacios.
 - Las fechas confirmadas no deben mostrarse como disponibles.
 - Las fechas pasadas no deben mostrarse como reservables.
 - Las promociones se activan y desactivan manualmente desde el administrador.
@@ -58,12 +58,11 @@ El objetivo inmediato es que el cliente llegue mas informado a WhatsApp, pregunt
 
 La disponibilidad debe calcularse con estas prioridades:
 
-1. Bloquear siempre los lunes.
-2. Bloquear fechas pasadas.
-3. Bloquear rangos de reservas confirmadas.
-4. Bloquear fechas cerradas manualmente por mantenimiento o decisiones administrativas.
-5. Permitir solicitudes solo cuando el rango completo esta disponible.
-6. Permitir promociones solo si la fecha objetivo esta disponible.
+1. Bloquear fechas pasadas.
+2. Bloquear rangos de reservas confirmadas.
+3. Bloquear fechas cerradas manualmente por mantenimiento o decisiones administrativas.
+4. Permitir solicitudes solo cuando el rango completo esta disponible.
+5. Permitir promociones solo si la fecha objetivo esta disponible.
 
 Una solicitud pendiente no necesariamente bloquea la fecha publicamente, salvo que el administrador decida hacerlo.
 

@@ -1,7 +1,10 @@
 import { hideInlineAlert, showBootstrapModal, showInlineAlert } from "./modal-manager.js";
-
-const whatsappPhone = "51943157950";
-const defaultMessage = "Hola Beach House, vi la web y deseo consultar disponibilidad para una reserva.";
+import {
+  generalWhatsAppMessage,
+  packageWhatsAppMessage,
+  trackingSource,
+  whatsAppUrl
+} from "./site-config.js";
 const galleryCatalog = [
   {
     id: "piscina",
@@ -149,10 +152,72 @@ const experienceVideos = [
   { src: "experiencia-04.mp4", mobileSrc: "experiencia-04-mobile.mp4", poster: "experiencia-04-poster.webp", alt: "Fiesta decorada en la terraza de Beach House" },
   { src: "experiencia-05.mp4", mobileSrc: "experiencia-05-mobile.mp4", poster: "experiencia-05-poster.webp", alt: "Amigos disfrutando una celebracion en Beach House" }
 ];
-
-function whatsAppUrl(message = defaultMessage) {
-  return `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
-}
+const packageCatalog = {
+  "half-day": {
+    number: "PAQUETE 1",
+    code: "P1",
+    title: "1/2 Dia",
+    reservationValue: "1/2 Dia",
+    checkIn: "11:30 am",
+    checkOut: "10:00 pm",
+    includes: ["Uso privado de la casa", "Piscina privada", "Parrilla", "Cocina equipada"],
+    spaces: ["Piscina", "Patio", "Terraza"],
+    guarantee: "S/ 350 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
+    people: "Hasta 15 personas.",
+    prices: [
+      { label: "Martes a jueves", value: "S/ 420" },
+      { label: "Viernes, domingo y lunes", value: "S/ 450" }
+    ]
+  },
+  "one-day": {
+    number: "PAQUETE 2",
+    code: "P2",
+    title: "1 Dia - 24 horas",
+    reservationValue: "24 horas",
+    checkIn: "11:30 am",
+    checkOut: "11:30 am del dia siguiente",
+    includes: ["Casa privada por 24 horas", "Una noche de alojamiento", "Habitaciones", "Cocina equipada"],
+    spaces: ["Piscina", "Patio", "Terraza", "Habitaciones"],
+    guarantee: "S/ 350 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
+    people: "Hasta 20 personas.",
+    prices: [
+      { label: "Martes a jueves", value: "S/ 600" },
+      { label: "Viernes, domingo y lunes", value: "S/ 680" }
+    ]
+  },
+  "two-days": {
+    number: "PAQUETE 3",
+    code: "P3",
+    title: "2 Dias / 1 Noche",
+    reservationValue: "2 dias, 1 noche",
+    checkIn: "11:30 am",
+    checkOut: "10:00 pm del segundo dia",
+    includes: ["Una noche de alojamiento", "Habitaciones", "Piscina privada", "Parrilla"],
+    spaces: ["Piscina", "Patio", "Terraza", "Cocina", "Habitaciones"],
+    guarantee: "S/ 450 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
+    people: "Hasta 20 personas.",
+    prices: [
+      { label: "Lunes a jueves", value: "S/ 850" },
+      { label: "Viernes a domingo", value: "S/ 980" }
+    ]
+  },
+  "three-days": {
+    number: "PAQUETE 4",
+    code: "P4",
+    title: "3 Dias / 2 Noches",
+    reservationValue: "3 dias, 2 noches",
+    checkIn: "11:30 am",
+    checkOut: "10:00 pm del tercer dia",
+    includes: ["Dos noches de alojamiento", "Habitaciones", "Cocina equipada", "Areas sociales"],
+    spaces: ["Piscina", "Patio", "Terraza", "Cocina", "Habitaciones", "Sala lounge"],
+    guarantee: "S/ 550 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
+    people: "Hasta 20 personas.",
+    prices: [
+      { label: "Lunes a jueves", value: "S/ 970" },
+      { label: "Viernes a domingo", value: "S/ 1,250" }
+    ]
+  }
+};
 
 function byId(id) {
   return document.getElementById(id);
@@ -197,10 +262,11 @@ function enableTouchSwipe(element, onSwipeLeft, onSwipeRight) {
 }
 
 function setStaticWhatsAppLinks() {
-  const defaultUrl = whatsAppUrl();
   ["footerWhatsapp", "floatWhatsapp"].forEach((id) => {
     const element = byId(id);
-    if (element) element.href = defaultUrl;
+    if (!element) return;
+    const source = trackingSource(element.dataset.source || id);
+    element.href = whatsAppUrl(generalWhatsAppMessage(source));
   });
 }
 
@@ -777,7 +843,10 @@ function validateReservationForm() {
   byId("reservationSubmit").disabled = !byId("reservationForm").checkValidity();
 }
 
-function openReservationModal(packageName = "") {
+let reservationSource = "web-general";
+
+function openReservationModal(packageName = "", source = "web-general") {
+  reservationSource = source;
   byId("reservationPackage").value = packageName;
   byId("reservationDate").value = "";
   byId("reservationSubmit").disabled = true;
@@ -790,7 +859,7 @@ function initPricingCarouselTouchPause() {
   if (!carouselElement || !window.bootstrap) return;
 
   const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement, {
-    interval: 3000,
+    interval: 5000,
     ride: "carousel",
     pause: false,
     touch: true
@@ -830,13 +899,121 @@ function initPricingCarouselTouchPause() {
   });
 }
 
+function setupPackageDetails() {
+  const modalElement = byId("packageDetailsModal");
+  const reserveButton = byId("packageDetailsReserve");
+  const carouselElement = byId("carruselPrecios");
+
+  if (!modalElement || !reserveButton || !carouselElement || !window.bootstrap) return;
+
+  const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+  const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement, {
+    interval: 5000,
+    ride: "carousel",
+    pause: false,
+    touch: true
+  });
+  let activePackage = null;
+  let pendingReservation = "";
+
+  function renderList(elementId, items) {
+    const list = byId(elementId);
+    const fragment = document.createDocumentFragment();
+
+    items.forEach((item) => {
+      const listItem = document.createElement("li");
+      const icon = document.createElement("i");
+      const text = document.createElement("span");
+      icon.className = "bi bi-check2";
+      text.textContent = item;
+      listItem.append(icon, text);
+      fragment.append(listItem);
+    });
+
+    list.replaceChildren(fragment);
+  }
+
+  function renderPrices(prices) {
+    const container = byId("packageDetailsPrices");
+    const fragment = document.createDocumentFragment();
+
+    prices.forEach((price) => {
+      const row = document.createElement("div");
+      const label = document.createElement("span");
+      const value = document.createElement("strong");
+      label.textContent = price.label;
+      value.textContent = price.value;
+      row.append(label, value);
+      fragment.append(row);
+    });
+
+    container.replaceChildren(fragment);
+  }
+
+  function openDetails(packageId) {
+    const packageData = packageCatalog[packageId];
+    if (!packageData) return;
+
+    activePackage = packageData;
+    byId("packageDetailsNumber").textContent = packageData.number;
+    byId("packageDetailsTitle").textContent = packageData.title;
+    byId("packageDetailsCheckIn").textContent = packageData.checkIn;
+    byId("packageDetailsCheckOut").textContent = packageData.checkOut;
+    byId("packageDetailsGuarantee").textContent = packageData.guarantee;
+    byId("packageDetailsPeople").textContent = packageData.people;
+    renderList("packageDetailsIncludes", packageData.includes);
+    renderList("packageDetailsSpaces", packageData.spaces);
+    renderPrices(packageData.prices);
+    modal.show();
+  }
+
+  document.querySelectorAll(".package-details-trigger").forEach((button) => {
+    button.addEventListener("click", () => openDetails(button.dataset.packageId));
+  });
+
+  reserveButton.addEventListener("click", () => {
+    if (!activePackage) return;
+    pendingReservation = activePackage.reservationValue;
+    modal.hide();
+  });
+
+  modalElement.addEventListener("show.bs.modal", () => {
+    carousel.pause();
+  });
+
+  modalElement.addEventListener("hidden.bs.modal", () => {
+    carousel.cycle();
+    if (!pendingReservation) return;
+
+    const packageName = pendingReservation;
+    pendingReservation = "";
+    openReservationModal(packageName, `package-details-${activePackage.code.toLowerCase()}`);
+  });
+}
+
 function setupReservationFlow() {
   const reservationDate = byId("reservationDate");
   reservationDate.min = todayLocalIso();
 
   document.querySelectorAll(".reserve-trigger").forEach((button) => {
     button.addEventListener("click", () => {
-      openReservationModal(button.dataset.package || "");
+      const packageName = button.dataset.package || "";
+      const buttonSource = button.dataset.source || "web-general";
+
+      if (!packageName) {
+        const source = trackingSource(buttonSource);
+        window.open(
+          whatsAppUrl(generalWhatsAppMessage(source)),
+          "_blank",
+          "noopener,noreferrer"
+        );
+        return;
+      }
+
+      openReservationModal(
+        packageName,
+        buttonSource
+      );
     });
   });
 
@@ -854,7 +1031,8 @@ function setupReservationFlow() {
 
     const packageType = byId("reservationPackage").value;
     const formattedDate = formatReservationDate(reservationDate.value);
-    const message = `Hola Beach House, vi su pagina web y deseo consultar la disponibilidad del paquete "${packageType}" para el ${formattedDate}. Podrian ayudarme a confirmar la reserva?`;
+    const source = trackingSource(reservationSource);
+    const message = packageWhatsAppMessage(packageType, formattedDate, source);
     window.open(whatsAppUrl(message), "_blank", "noopener,noreferrer");
   });
 }
@@ -865,5 +1043,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initShuffleGallery();
   initExperiencesCarousel();
   initPricingCarouselTouchPause();
+  setupPackageDetails();
   setupReservationFlow();
 });

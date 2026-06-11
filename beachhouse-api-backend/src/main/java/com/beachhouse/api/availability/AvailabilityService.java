@@ -1,6 +1,5 @@
 package com.beachhouse.api.availability;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -81,9 +80,6 @@ public class AvailabilityService {
     private AvailabilityDayResponse toAvailabilityDay(LocalDate date, LocalDate today, BlockedDate blockedDate) {
         if (date.isBefore(today)) {
             return new AvailabilityDayResponse(date, false, "Fecha pasada");
-        }
-        if (date.getDayOfWeek() == DayOfWeek.MONDAY) {
-            return new AvailabilityDayResponse(date, false, "Lunes cerrado por limpieza y administracion");
         }
         if (blockedDate != null) {
             return new AvailabilityDayResponse(date, false, blockedDate.getReason());

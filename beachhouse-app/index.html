@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beach House | Balneario Santa Rosa</title>
   <meta name="description"
-    content="Casa privada en Santa Rosa para full day, cumpleanos, aniversarios, vacaciones y reuniones con piscina, parrilla y vista al mar.">
+    content="Visita la página web de Beach House y descubre nuestros paquetes, promociones, fotografías y mucho más.">
   <meta property="og:title" content="Beach House | Balneario Santa Rosa">
   <meta property="og:description"
-    content="Casa privada cerca al mar para full day, celebraciones y escapadas con piscina, parrilla y azotea.">
+    content="Visita la página web de Beach House y descubre nuestros paquetes, promociones, fotografías y mucho más.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_PE">
   <meta property="og:image" content="assets/img/hero01.webp">
@@ -50,7 +50,7 @@
             <img src="assets/img/tiktok-logo.webp" alt="" aria-hidden="true">TikTok
           </a>
           <button class="btn btn-gold px-4 text-uppercase fw-bold rounded-0 reserve-trigger" id="topBookingCta"
-            type="button">
+            data-source="navbar" type="button">
             <i class="bi bi-calendar-check me-2"></i>Reservar
           </button>
         </div>
@@ -74,8 +74,7 @@
             href="https://maps.google.com/?q=-11.794161,-77.173981"
             target="_blank" rel="noopener noreferrer" aria-label="Ver ubicacion de Beach House en Google Maps">
             <i class="bi bi-geo-alt-fill text-gold me-2"></i>
-            <span class="text-uppercase text-white small fw-semibold letter-spacing-2">Balneario Santa Rosa, Lima
-              Norte</span>
+            <span class="text-white small fw-semibold">Clic para ver Ubicación - Balneario Santa Rosa</span>
           </a>
 
           <h1 class="hero-title font-pacifico text-white mb-3">
@@ -91,7 +90,8 @@
               <i class="bi bi-box-seam me-2"></i>Ver Paquetes
             </a>
             <button id="heroBookingCta" type="button"
-              class="btn btn-outline-light btn-lg border-2 rounded-0 fw-bold hero-action reserve-trigger">
+              class="btn btn-outline-light btn-lg border-2 rounded-0 fw-bold hero-action reserve-trigger"
+              data-source="hero">
               <i class="bi bi-calendar-check me-2"></i>Reservar Ahora
             </button>
           </div>
@@ -105,9 +105,9 @@
   </section>
 
   <section id="la-casa" class="py-5 bg-light">
-    <div class="container mb-4 text-center">
-      <h2 class="display-5 fw-bold mb-0 text-dark">Galeria de la <span
-          class="font-pacifico text-gold fw-normal">Beach House</span></h2>
+    <div class="container section-heading mb-4">
+      <span class="section-signature font-pacifico text-gold">Beach House</span>
+      <h2 class="section-title display-5 fw-bold mb-0 text-dark">GALERIA - FOTOS</h2>
     </div>
 
     <div class="container">
@@ -138,9 +138,9 @@
   </section>
 
   <section id="experiencias" class="experiences-section py-5">
-    <div class="container mb-4 text-center">
-      <h2 class="display-5 fw-bold mb-2 text-dark">Celebra en <span
-          class="font-pacifico text-gold fw-normal">Beach House</span></h2>
+    <div class="container section-heading mb-4">
+      <span class="section-signature font-pacifico text-gold">Beach House</span>
+      <h2 class="section-title display-5 fw-bold mb-2 text-dark">GALERIA - VIDEOS</h2>
       <p class="experiences-intro mb-0 mx-auto">Momentos especiales, reuniones y celebraciones que se disfrutan mejor
         cerca al mar.</p>
     </div>
@@ -163,48 +163,48 @@
     </div>
   </section>
 
-  <section id="precios" class="border-top border-bottom">
-    <div id="carruselPrecios" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"
+  <section id="precios" class="pricing-section border-top border-bottom">
+    <div class="container section-heading pricing-heading">
+      <span class="section-signature font-pacifico text-gold">Beach House</span>
+      <h2 class="section-title display-5 fw-bold mb-0 text-dark">PAQUETES</h2>
+    </div>
+    <div id="carruselPrecios" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000"
       data-bs-pause="false" data-bs-touch="true">
       <div class="carousel-inner">
         <div class="carousel-item active pricing-item">
           <picture>
             <source media="(max-width: 768px)" srcset="assets/img/psina%20parrilla-mobile.webp">
-            <img src="assets/img/psina parrilla.webp" class="pricing-bg" alt="Paquete full day">
+            <img src="assets/img/psina parrilla.webp" class="pricing-bg" alt="Paquete 1/2 Dia">
           </picture>
           <div class="pricing-fade"></div>
 
           <div class="container position-relative z-2 h-100 d-flex align-items-center">
             <div class="row w-100">
               <div class="col-lg-5 col-md-7 pricing-copy">
-                <span class="text-gold fw-bold text-uppercase letter-spacing-2">Nuevo paquete</span>
-                <h2 class="package-title fw-bold mt-2 mb-3 text-dark">Full day - 10 horas</h2>
+                <span class="package-number text-gold fw-bold text-uppercase">PAQUETE 1</span>
+                <h2 class="package-title fw-bold mt-2 mb-3 text-dark">1/2 Dia</h2>
 
                 <div class="package-price mb-4">
                   <div>
-                    <span>Lunes a jueves</span>
+                    <span>Martes a jueves</span>
                     <strong>Desde S/ 420</strong>
                   </div>
                   <div>
-                    <span>Viernes y domingo (sabado no disponible)</span>
+                    <span>Viernes, domingo y lunes (sabado no disponible)</span>
                     <strong>Desde S/ 450</strong>
                   </div>
                 </div>
 
-                <ul class="list-unstyled mb-4 package-features">
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2 bg-gold text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">De 11:30 am a 10:00 pm</span>
-                  </li>
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2 bg-gold text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Salida el mismo dia</span>
-                  </li>
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-people bg-dark text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Hasta 15 personas</span>
-                  </li>
-                </ul>
-                <p class="guarantee-note mb-4"><i class="bi bi-shield-check me-2"></i>Garantia reembolsable: S/ 350</p>
-                <button class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta reserve-trigger"
-                  data-package="Full day" type="button">Reservar Ahora</button>
+                <div class="package-meta">
+                  <p class="people-note"><i class="bi bi-people"></i><span>Hasta 15 personas</span></p>
+                  <p class="guarantee-note"><i class="bi bi-shield-check"></i><span>Garantia reembolsable: S/ 350</span></p>
+                </div>
+                <div class="package-actions">
+                  <button class="btn btn-outline-dark btn-lg rounded-0 fw-bold border-2 packageCta package-details-trigger"
+                    data-package-id="half-day" type="button">Ver Detalles</button>
+                  <button class="btn btn-gold btn-lg rounded-0 fw-bold packageCta reserve-trigger"
+                    data-package="1/2 Dia" data-source="package-p1" type="button">Reservar Ahora</button>
+                </div>
               </div>
             </div>
           </div>
@@ -219,34 +219,30 @@
           <div class="container position-relative z-2 h-100 d-flex align-items-center">
             <div class="row w-100">
               <div class="col-lg-5 col-md-7 pricing-copy">
-                <span class="text-gold fw-bold text-uppercase letter-spacing-2">Modalidad</span>
-                <h2 class="package-title fw-bold mt-2 mb-3 text-dark">1 dia - 24 horas</h2>
+                <span class="package-number text-gold fw-bold text-uppercase">PAQUETE 2</span>
+                <h2 class="package-title fw-bold mt-2 mb-3 text-dark">1 Dia - 24 horas</h2>
 
                 <div class="package-price mb-4">
                   <div>
-                    <span>Lunes a jueves</span>
+                    <span>Martes a jueves</span>
                     <strong>Desde S/ 600</strong>
                   </div>
                   <div>
-                    <span>Viernes y domingo (sabado no disponible)</span>
+                    <span>Viernes, domingo y lunes (sabado no disponible)</span>
                     <strong>Desde S/ 680</strong>
                   </div>
                 </div>
 
-                <ul class="list-unstyled mb-4 package-features">
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2 bg-gold text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Casa privada por 24 horas</span>
-                  </li>
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2 bg-gold text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Piscina, parrilla y azotea</span>
-                  </li>
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-people bg-dark text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Hasta 20 personas</span>
-                  </li>
-                </ul>
-                <p class="guarantee-note mb-4"><i class="bi bi-shield-check me-2"></i>Garantia reembolsable: S/ 350</p>
-                <button class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta reserve-trigger"
-                  data-package="24 horas" type="button">Reservar Ahora</button>
+                <div class="package-meta">
+                  <p class="people-note"><i class="bi bi-people"></i><span>Hasta 20 personas</span></p>
+                  <p class="guarantee-note"><i class="bi bi-shield-check"></i><span>Garantia reembolsable: S/ 350</span></p>
+                </div>
+                <div class="package-actions">
+                  <button class="btn btn-outline-dark btn-lg rounded-0 fw-bold border-2 packageCta package-details-trigger"
+                    data-package-id="one-day" type="button">Ver Detalles</button>
+                  <button class="btn btn-gold btn-lg rounded-0 fw-bold packageCta reserve-trigger"
+                    data-package="24 horas" data-source="package-p2" type="button">Reservar Ahora</button>
+                </div>
               </div>
             </div>
           </div>
@@ -263,8 +259,8 @@
             <div class="row w-100">
               <div class="col-lg-5 col-md-7 pricing-copy">
                 <span class="badge bg-dark text-white rounded-0 px-3 py-2 mb-2">Mas popular</span><br>
-                <span class="text-gold fw-bold text-uppercase letter-spacing-2">Modalidad</span>
-                <h2 class="package-title fw-bold mt-2 mb-3 text-dark">2 dias / 1 noche</h2>
+                <span class="package-number text-gold fw-bold text-uppercase">PAQUETE 3</span>
+                <h2 class="package-title fw-bold mt-2 mb-3 text-dark">2 Dias / 1 Noche</h2>
 
                 <div class="package-price mb-4">
                   <div>
@@ -277,20 +273,16 @@
                   </div>
                 </div>
 
-                <ul class="list-unstyled mb-4 package-features">
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2 bg-gold text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Una noche incluida</span>
-                  </li>
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2 bg-gold text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Ideal para celebraciones</span>
-                  </li>
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-people bg-dark text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Hasta 20 personas</span>
-                  </li>
-                </ul>
-                <p class="guarantee-note mb-4"><i class="bi bi-shield-check me-2"></i>Garantia reembolsable: S/ 450</p>
-                <button class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta reserve-trigger"
-                  data-package="2 dias, 1 noche" type="button">Reservar Ahora</button>
+                <div class="package-meta">
+                  <p class="people-note"><i class="bi bi-people"></i><span>Hasta 20 personas</span></p>
+                  <p class="guarantee-note"><i class="bi bi-shield-check"></i><span>Garantia reembolsable: S/ 450</span></p>
+                </div>
+                <div class="package-actions">
+                  <button class="btn btn-outline-dark btn-lg rounded-0 fw-bold border-2 packageCta package-details-trigger"
+                    data-package-id="two-days" type="button">Ver Detalles</button>
+                  <button class="btn btn-gold btn-lg rounded-0 fw-bold packageCta reserve-trigger"
+                    data-package="2 dias, 1 noche" data-source="package-p3" type="button">Reservar Ahora</button>
+                </div>
               </div>
             </div>
           </div>
@@ -306,8 +298,8 @@
           <div class="container position-relative z-2 h-100 d-flex align-items-center">
             <div class="row w-100">
               <div class="col-lg-5 col-md-7 pricing-copy">
-                <span class="text-gold fw-bold text-uppercase letter-spacing-2">Modalidad</span>
-                <h2 class="package-title fw-bold mt-2 mb-3 text-dark">3 dias / 2 noches</h2>
+                <span class="package-number text-gold fw-bold text-uppercase">PAQUETE 4</span>
+                <h2 class="package-title fw-bold mt-2 mb-3 text-dark">3 Dias / 2 Noches</h2>
 
                 <div class="package-price mb-4">
                   <div>
@@ -320,20 +312,16 @@
                   </div>
                 </div>
 
-                <ul class="list-unstyled mb-4 package-features">
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2 bg-gold text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Dos noches incluidas</span>
-                  </li>
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2 bg-gold text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Mas tiempo para descansar</span>
-                  </li>
-                  <li class="mb-3 d-flex align-items-center"><i class="bi bi-people bg-dark text-white p-1 me-3"></i>
-                    <span class="fs-5 text-dark">Hasta 20 personas</span>
-                  </li>
-                </ul>
-                <p class="guarantee-note mb-4"><i class="bi bi-shield-check me-2"></i>Garantia reembolsable: S/ 550</p>
-                <button class="btn btn-outline-dark btn-lg px-5 rounded-0 fw-bold border-2 packageCta reserve-trigger"
-                  data-package="3 dias, 2 noches" type="button">Reservar Ahora</button>
+                <div class="package-meta">
+                  <p class="people-note"><i class="bi bi-people"></i><span>Hasta 20 personas</span></p>
+                  <p class="guarantee-note"><i class="bi bi-shield-check"></i><span>Garantia reembolsable: S/ 550</span></p>
+                </div>
+                <div class="package-actions">
+                  <button class="btn btn-outline-dark btn-lg rounded-0 fw-bold border-2 packageCta package-details-trigger"
+                    data-package-id="three-days" type="button">Ver Detalles</button>
+                  <button class="btn btn-gold btn-lg rounded-0 fw-bold packageCta reserve-trigger"
+                    data-package="3 dias, 2 noches" data-source="package-p4" type="button">Reservar Ahora</button>
+                </div>
               </div>
             </div>
           </div>
@@ -354,13 +342,16 @@
 
   <section id="contacto" class="py-5 text-center bg-white">
     <div class="container py-5">
+      <div class="section-heading contact-heading">
+        <span class="section-signature font-pacifico text-gold">Beach House</span>
+      </div>
       <h6 class="text-gold text-uppercase fw-bold mb-2">Contacto</h6>
       <h2 class="display-4 fw-bold text-dark mb-4">Asegura tu fecha <span
           class="font-pacifico text-gold fw-normal">hoy</span></h2>
       <p class="fs-5 text-secondary mb-5 mx-auto" style="max-width: 700px;">Nuestro equipo esta listo para confirmar tu
         reserva en el Balneario Santa Rosa por WhatsApp.</p>
       <button id="contactBookingCta" type="button"
-        class="btn btn-gold btn-lg px-5 py-3 fs-5 rounded-0 reserve-trigger">
+        class="btn btn-gold btn-lg px-5 py-3 fs-5 rounded-0 reserve-trigger" data-source="contact">
         <i class="bi bi-whatsapp me-2"></i>Reservar por WhatsApp
       </button>
     </div>
@@ -393,7 +384,7 @@
               rel="noopener noreferrer" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
             <a href="https://www.instagram.com/beach_house_santa_rosa/" target="_blank"
               rel="noopener noreferrer" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-            <a id="footerWhatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i
+            <a id="footerWhatsapp" data-source="footer" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i
                 class="bi bi-whatsapp"></i></a>
           </div>
         </div>
@@ -405,10 +396,70 @@
   </footer>
 
   <a id="floatWhatsapp" class="wa-fab"
-    href="https://wa.me/51943157950?text=Hola%20Beach%20House%2C%20vi%20la%20web%20y%20deseo%20consultar%20disponibilidad%20para%20una%20reserva."
+    data-source="floating-button" href="https://wa.me/51943157950"
     target="_blank" rel="noopener noreferrer" aria-label="Reservar por WhatsApp">
     <i class="bi bi-whatsapp"></i>
   </a>
+
+  <div class="modal fade package-details-modal" id="packageDetailsModal" tabindex="-1"
+    aria-labelledby="packageDetailsTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content rounded-0 border-0">
+        <div class="package-details-accent" aria-hidden="true"></div>
+        <div class="modal-header package-details-header">
+          <div>
+            <p class="package-details-number mb-1" id="packageDetailsNumber"></p>
+            <h2 class="modal-title package-details-title" id="packageDetailsTitle"></h2>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body package-details-body">
+          <div class="package-details-grid">
+            <section class="package-detail-block">
+              <h3><i class="bi bi-clock"></i>Check In / Check Out</h3>
+              <dl class="package-detail-times mb-0">
+                <div><dt>Hora de ingreso:</dt><dd id="packageDetailsCheckIn"></dd></div>
+                <div><dt>Hora de salida:</dt><dd id="packageDetailsCheckOut"></dd></div>
+              </dl>
+            </section>
+            <section class="package-detail-block">
+              <h3><i class="bi bi-stars"></i>Que incluye</h3>
+              <ul class="package-detail-list" id="packageDetailsIncludes"></ul>
+            </section>
+            <section class="package-detail-block">
+              <h3><i class="bi bi-house-heart"></i>Acceso a espacios</h3>
+              <ul class="package-detail-list" id="packageDetailsSpaces"></ul>
+            </section>
+            <section class="package-detail-block package-detail-facts">
+              <div>
+                <h3><i class="bi bi-shield-check"></i>Garantia</h3>
+                <p id="packageDetailsGuarantee"></p>
+              </div>
+              <div>
+                <h3><i class="bi bi-people"></i>Maximo personas</h3>
+                <p id="packageDetailsPeople"></p>
+                <small>En caso de desear mas personas, comunicarlo.</small>
+              </div>
+            </section>
+            <section class="package-detail-block">
+              <h3><i class="bi bi-geo-alt"></i>Ubicacion</h3>
+              <p class="mb-0">Calle 15, Lote 1A, Manzana 57<br>Balneario Santa Rosa, Lima Norte</p>
+            </section>
+            <section class="package-detail-block package-detail-price">
+              <h3><i class="bi bi-tag"></i>Precio Total</h3>
+              <div id="packageDetailsPrices"></div>
+            </section>
+          </div>
+        </div>
+        <div class="modal-footer package-details-footer">
+          <button class="btn btn-outline-dark rounded-0 px-4" type="button" data-bs-dismiss="modal">Cerrar</button>
+          <button class="btn btn-gold rounded-0 px-4 fw-bold" id="packageDetailsReserve" type="button">
+            <i class="bi bi-calendar-check me-2"></i>Reservar Ahora
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalTitle"
     aria-hidden="true">
@@ -428,10 +479,10 @@
               <label class="form-label fw-semibold" for="reservationPackage">Paquete</label>
               <select class="form-select rounded-0 py-3" id="reservationPackage" name="packageType" required>
                 <option value="" selected disabled>Selecciona un paquete</option>
-                <option value="24 horas">24 horas</option>
+                <option value="1/2 Dia">1/2 Dia</option>
+                <option value="24 horas">1 Dia - 24 horas</option>
                 <option value="2 dias, 1 noche">2 dias, 1 noche</option>
                 <option value="3 dias, 2 noches">3 dias, 2 noches</option>
-                <option value="Full day">Full day</option>
               </select>
             </div>
             <div class="mb-3">
