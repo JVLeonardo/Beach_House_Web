@@ -164,9 +164,10 @@ const packageCatalog = {
     spaces: ["Piscina", "Patio", "Terraza"],
     guarantee: "S/ 350 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
     people: "Hasta 15 personas.",
+    peopleNote: "En caso de desear mas personas, comunicarlo.",
     prices: [
-      { label: "Martes a jueves", value: "S/ 420" },
-      { label: "Viernes, domingo y lunes", value: "S/ 450" }
+      { label: "Lunes a jueves", value: "S/ 420" },
+      { label: "Viernes a domingo", value: "S/ 450" }
     ]
   },
   "one-day": {
@@ -179,10 +180,11 @@ const packageCatalog = {
     includes: ["Casa privada por 24 horas", "Una noche de alojamiento", "Habitaciones", "Cocina equipada"],
     spaces: ["Piscina", "Patio", "Terraza", "Habitaciones"],
     guarantee: "S/ 350 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
-    people: "Hasta 20 personas.",
+    people: "Hasta 17 personas.",
+    peopleNote: "En caso de desear de 3 a 5 personas mas, esta sujeto a coordinacion.",
     prices: [
-      { label: "Martes a jueves", value: "S/ 600" },
-      { label: "Viernes, domingo y lunes", value: "S/ 680" }
+      { label: "Lunes a jueves", value: "S/ 550" },
+      { label: "Viernes a domingo", value: "S/ 650" }
     ]
   },
   "two-days": {
@@ -196,6 +198,7 @@ const packageCatalog = {
     spaces: ["Piscina", "Patio", "Terraza", "Cocina", "Habitaciones"],
     guarantee: "S/ 450 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
     people: "Hasta 20 personas.",
+    peopleNote: "En caso de desear mas personas, comunicarlo.",
     prices: [
       { label: "Lunes a jueves", value: "S/ 850" },
       { label: "Viernes a domingo", value: "S/ 980" }
@@ -212,6 +215,7 @@ const packageCatalog = {
     spaces: ["Piscina", "Patio", "Terraza", "Cocina", "Habitaciones", "Sala lounge"],
     guarantee: "S/ 550 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
     people: "Hasta 20 personas.",
+    peopleNote: "En caso de desear mas personas, comunicarlo.",
     prices: [
       { label: "Lunes a jueves", value: "S/ 970" },
       { label: "Viernes a domingo", value: "S/ 1,250" }
@@ -961,6 +965,7 @@ function setupPackageDetails() {
     byId("packageDetailsCheckOut").textContent = packageData.checkOut;
     byId("packageDetailsGuarantee").textContent = packageData.guarantee;
     byId("packageDetailsPeople").textContent = packageData.people;
+    byId("packageDetailsPeopleNote").textContent = packageData.peopleNote;
     renderList("packageDetailsIncludes", packageData.includes);
     renderList("packageDetailsSpaces", packageData.spaces);
     renderPrices(packageData.prices);

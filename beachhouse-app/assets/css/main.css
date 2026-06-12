@@ -846,6 +846,80 @@ body.hero-lightbox-open .wa-fab {
   padding-inline: 1rem;
 }
 
+.package-details-trigger {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--ink) !important;
+  background: var(--ink);
+  color: #ffffff;
+  animation: details-button-nudge 3.8s ease-in-out infinite;
+  box-shadow: 0 10px 22px rgba(17, 17, 17, 0.18);
+  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.package-details-trigger::after {
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  left: -45%;
+  width: 28%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+  content: "";
+  pointer-events: none;
+  transform: skewX(-18deg);
+  animation: details-button-shine 3.8s ease-in-out infinite;
+}
+
+.package-details-trigger:hover,
+.package-details-trigger:focus-visible {
+  border-color: #2f2f2f !important;
+  background: #2f2f2f;
+  color: #ffffff;
+  animation-play-state: paused;
+  box-shadow: 0 14px 30px rgba(17, 17, 17, 0.28);
+  transform: translateY(-2px);
+}
+
+.package-details-trigger:hover::after,
+.package-details-trigger:focus-visible::after {
+  animation-play-state: paused;
+}
+
+@keyframes details-button-nudge {
+  0%,
+  72%,
+  100% {
+    transform: translateY(0);
+  }
+
+  80% {
+    transform: translateY(-2px);
+  }
+
+  88% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes details-button-shine {
+  0%,
+  64% {
+    left: -45%;
+  }
+
+  82%,
+  100% {
+    left: 125%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .package-details-trigger,
+  .package-details-trigger::after {
+    animation: none;
+  }
+}
+
 .pricing-bg {
   position: absolute;
   top: 0;
