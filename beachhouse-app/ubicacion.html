@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubicacion | Beach House Santa Rosa</title>
+  <meta name="description"
+    content="Conoce la ubicacion exacta de Beach House en Balneario Santa Rosa, Lima Norte, y revisa como llegar en transporte publico o movilidad propia.">
+  <meta property="og:title" content="Ubicacion | Beach House Santa Rosa">
+  <meta property="og:description"
+    content="Direccion, mapa y rutas para llegar a Beach House en Balneario Santa Rosa, Lima Norte.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_PE">
+  <meta property="og:image" content="/assets/img/hero01.webp">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body class="location-page">
+  <nav class="navbar navbar-expand-lg sticky-top navbar-modern py-3 shadow-sm bg-white">
+    <div class="container">
+      <a class="navbar-brand d-flex flex-column" href="/">
+        <span class="font-pacifico fs-2 mb-0 text-dark">Beach <span class="text-gold">House</span></span>
+        <span class="brand-subtext text-uppercase text-muted">Balneario Santa Rosa</span>
+      </a>
+
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menu">
+        <i class="bi bi-list fs-1 text-dark"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-4">
+          <li class="nav-item"><a class="nav-link nav-hover text-dark fw-medium text-uppercase"
+              href="/#la-casa">Espacios</a></li>
+          <li class="nav-item"><a class="nav-link nav-hover text-dark fw-medium text-uppercase"
+              href="/#precios">Paquetes</a></li>
+          <li class="nav-item"><a class="nav-link active text-gold fw-bold text-uppercase" href="/ubicacion"
+              aria-current="page">Ubicacion</a></li>
+          <li class="nav-item"><a class="nav-link nav-hover text-dark fw-medium text-uppercase"
+              href="/#contacto">Contacto</a></li>
+        </ul>
+        <div class="d-flex flex-column flex-lg-row gap-2">
+          <a class="btn btn-outline-dark px-4 text-uppercase fw-bold rounded-0 tiktok-nav-link"
+            href="https://www.tiktok.com/@beach.house256" target="_blank" rel="noopener noreferrer">
+            <img src="/assets/img/tiktok-logo.webp" alt="" aria-hidden="true">TikTok
+          </a>
+          <a class="btn btn-gold px-4 text-uppercase fw-bold rounded-0" href="/#precios">
+            <i class="bi bi-calendar-check me-2"></i>Reservar
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="location-hero">
+      <div class="container">
+        <p class="location-signature font-pacifico text-gold mb-2">Beach House</p>
+        <h1>UBICACION</h1>
+        <p class="location-lead mb-0">
+          Estamos en el distrito de Santa Rosa, Lima Norte, antes de llegar a Ancon cuando vienes desde el sur.
+        </p>
+      </div>
+    </header>
+
+    <section class="location-overview">
+      <div class="container">
+        <div class="location-address-band">
+          <div class="location-address-main">
+            <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+            <div>
+              <span>Direccion exacta</span>
+              <h2>Calle 15, Lote 1A, Manzana 57</h2>
+              <p>Balneario Santa Rosa, Lima Norte</p>
+            </div>
+          </div>
+          <div class="location-address-actions">
+            <a class="btn btn-dark rounded-0 fw-bold" href="https://maps.google.com/?q=-11.794161,-77.173981"
+              target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-map me-2"></i>Abrir en Google Maps
+            </a>
+            <a class="btn btn-gold rounded-0 fw-bold"
+              href="https://www.google.com/maps/dir/?api=1&destination=-11.794161,-77.173981" target="_blank"
+              rel="noopener noreferrer">
+              <i class="bi bi-sign-turn-right me-2"></i>Como llegar
+            </a>
+          </div>
+        </div>
+
+        <div class="location-facts" aria-label="Datos importantes de la ubicacion">
+          <div><i class="bi bi-building"></i><span>Distrito</span><strong>Santa Rosa</strong></div>
+          <div><i class="bi bi-compass"></i><span>Zona</span><strong>Lima Norte</strong></div>
+          <div><i class="bi bi-shield-check"></i><span>Referencia</span><strong>Cerca de la Comisaria</strong></div>
+          <div><i class="bi bi-signpost-split"></i><span>Acceso</span><strong>Arco y Plaza Miami</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="location-map-section">
+      <div class="container">
+        <div class="location-section-heading">
+          <p class="text-gold text-uppercase fw-bold mb-2">Mapa interactivo</p>
+          <h2>Ubica Beach House antes de salir</h2>
+          <p>Acerca, aleja y desplaza el mapa para reconocer el distrito y sus accesos principales.</p>
+        </div>
+
+        <div class="location-map-shell">
+          <div id="locationMap" class="location-map" aria-label="Mapa de la ubicacion de Beach House"></div>
+          <div class="location-map-fallback" id="locationMapFallback" hidden>
+            <i class="bi bi-map"></i>
+            <p>No fue posible cargar el mapa interactivo.</p>
+            <a href="https://maps.google.com/?q=-11.794161,-77.173981" target="_blank"
+              rel="noopener noreferrer">Abrir ubicacion en Google Maps</a>
+          </div>
+          <button class="location-map-expand" type="button" data-bs-toggle="modal" data-bs-target="#locationMapModal">
+            <i class="bi bi-arrows-fullscreen"></i><span>Ampliar mapa</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="location-directions">
+      <div class="container">
+        <div class="location-section-heading">
+          <p class="text-gold text-uppercase fw-bold mb-2">Guia de llegada</p>
+          <h2>Elige la ruta que mejor se adapte a ti</h2>
+        </div>
+
+        <div class="directions-grid">
+          <article class="direction-guide">
+            <div class="direction-guide-title">
+              <i class="bi bi-bus-front"></i>
+              <div>
+                <span>Desde distritos del sur</span>
+                <h3>Transporte publico</h3>
+              </div>
+            </div>
+            <ol>
+              <li>Tomar un bus que llegue al Arco de Santa Rosa o al semaforo ubicado en el acceso al distrito.</li>
+              <li>Al bajar, tomar uno de los colectivos con direccion a La Arboleda.</li>
+              <li>Indicar al conductor que te diriges a la Comisaria de Santa Rosa.</li>
+              <li>Bajar junto a la tranquera cercana a la comisaria.</li>
+              <li>Ubicar la subida del lado derecho y caminar unos metros hasta Beach House Santa Rosa.</li>
+            </ol>
+          </article>
+
+          <article class="direction-guide">
+            <div class="direction-guide-title">
+              <i class="bi bi-car-front"></i>
+              <div>
+                <span>Vehiculo particular</span>
+                <h3>Movilidad propia</h3>
+              </div>
+            </div>
+            <ol>
+              <li>Llegar al distrito de Santa Rosa y ubicar el arco de ingreso.</li>
+              <li>Continuar de frente hasta Plaza Miami.</li>
+              <li>Dirigirse hacia la Comisaria de Santa Rosa.</li>
+              <li>Al llegar a la tranquera, tomar la subida ubicada a la derecha.</li>
+              <li>Continuar por la subida hasta llegar a Beach House.</li>
+            </ol>
+          </article>
+        </div>
+
+        <aside class="location-travel-note">
+          <i class="bi bi-info-circle"></i>
+          <p class="mb-0">
+            Antes de salir, revisa el trafico, la disponibilidad del transporte y la ruta actualizada en Maps. Si
+            necesitas orientacion durante el trayecto, comunicate con nosotros por WhatsApp.
+          </p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-4">
+          <div class="footer-brand">Beach <span>House</span></div>
+          <p>Casa privada en Santa Rosa para celebraciones, escapadas y momentos junto al mar.</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h3>Ubicacion</h3>
+          <p>Calle 15, Lote 1A, Manzana 57<br>Balneario Santa Rosa, Lima Norte</p>
+          <a href="https://maps.google.com/?q=-11.794161,-77.173981" target="_blank" rel="noopener noreferrer">
+            Ver en Google Maps
+          </a>
+        </div>
+        <div class="col-sm-6 col-lg-2">
+          <h3>Consultas</h3>
+          <p>Martes a domingo<br>8:00 am - 10:00 pm</p>
+        </div>
+        <div class="col-lg-3">
+          <h3>Siguenos</h3>
+          <div class="social-links">
+            <a href="https://www.tiktok.com/@beach.house256" target="_blank" rel="noopener noreferrer"
+              aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61573368521184" target="_blank"
+              rel="noopener noreferrer" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/beach_house_santa_rosa/" target="_blank"
+              rel="noopener noreferrer" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a id="locationFooterWhatsapp" data-source="location-footer" target="_blank" rel="noopener noreferrer"
+              aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Beach House - Balneario Santa Rosa.</span>
+      </div>
+    </div>
+  </footer>
+
+  <a id="locationFloatWhatsapp" class="wa-fab" data-source="location-floating-button" target="_blank"
+    rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+
+  <div class="modal fade location-map-modal" id="locationMapModal" tabindex="-1"
+    aria-labelledby="locationMapModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content rounded-0 border-0">
+        <div class="modal-header">
+          <div>
+            <p class="text-gold text-uppercase fw-bold small mb-1">Beach House Santa Rosa</p>
+            <h2 class="modal-title h4 fw-bold" id="locationMapModalTitle">Mapa ampliado</h2>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div id="locationMapExpanded" class="location-map-expanded" aria-label="Mapa ampliado de Beach House"></div>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-outline-dark rounded-0 fw-bold"
+            href="https://maps.google.com/?q=-11.794161,-77.173981" target="_blank" rel="noopener noreferrer">
+            Abrir en Google Maps
+          </a>
+          <a class="btn btn-gold rounded-0 fw-bold"
+            href="https://www.google.com/maps/dir/?api=1&destination=-11.794161,-77.173981" target="_blank"
+            rel="noopener noreferrer">
+            Como llegar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/assets/js/location.js"></script>
+</body>
+
+</html>

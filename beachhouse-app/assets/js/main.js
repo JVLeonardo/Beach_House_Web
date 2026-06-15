@@ -125,6 +125,55 @@ const galleryCatalog = [
     ]
   },
   {
+    id: "salon",
+    label: "Sal\u00f3n",
+    icon: "bi-lamp",
+    images: [
+      {
+        src: "Sala1.webp",
+        mobileSrc: "Sala1-mobile.webp",
+        alt: "Salon principal de Beach House",
+        title: "Sal\u00f3n",
+        description: "Un ambiente comodo y luminoso para reunirse y compartir."
+      },
+      {
+        src: "Sala2.webp",
+        mobileSrc: "Sala2-mobile.webp",
+        alt: "Vista interior del salon de Beach House",
+        title: "Sal\u00f3n",
+        description: "Un espacio acogedor para conversar y disfrutar momentos en grupo."
+      }
+    ]
+  },
+  {
+    id: "comedor",
+    label: "Comedor",
+    icon: "bi-table",
+    images: [
+      {
+        src: "Comedor1.webp",
+        mobileSrc: "Comedor1-mobile.webp",
+        alt: "Comedor principal de Beach House",
+        title: "Comedor",
+        description: "Un comedor amplio para disfrutar cada encuentro alrededor de la mesa."
+      },
+      {
+        src: "Comedor2.webp",
+        mobileSrc: "Comedor2-mobile.webp",
+        alt: "Vista interior del comedor de Beach House",
+        title: "Comedor",
+        description: "Un ambiente funcional y agradable para compartir comidas en grupo."
+      },
+      {
+        src: "Comedor3.webp",
+        mobileSrc: "Comedor3-mobile.webp",
+        alt: "Espacio de comedor preparado en Beach House",
+        title: "Comedor",
+        description: "Un espacio preparado para celebrar y disfrutar con comodidad."
+      }
+    ]
+  },
+  {
     id: "cocina",
     label: "Cocina",
     icon: "bi-cup-hot",
