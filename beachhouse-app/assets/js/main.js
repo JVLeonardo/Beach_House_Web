@@ -246,11 +246,11 @@ const packageCatalog = {
     includes: ["Una noche de alojamiento", "Habitaciones", "Piscina privada", "Parrilla"],
     spaces: ["Piscina", "Patio", "Terraza", "Cocina", "Habitaciones"],
     guarantee: "S/ 450 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
-    people: "Hasta 20 personas.",
+    people: "Hasta 18 personas.",
     peopleNote: "En caso de desear mas personas, comunicarlo.",
     prices: [
-      { label: "Lunes a jueves", value: "S/ 850" },
-      { label: "Viernes a domingo", value: "S/ 980" }
+      { label: "Lunes a jueves", value: "S/ 800" },
+      { label: "Viernes a domingo", value: "S/ 900" }
     ]
   },
   "three-days": {
@@ -263,11 +263,11 @@ const packageCatalog = {
     includes: ["Dos noches de alojamiento", "Habitaciones", "Cocina equipada", "Areas sociales"],
     spaces: ["Piscina", "Patio", "Terraza", "Cocina", "Habitaciones", "Sala lounge"],
     guarantee: "S/ 550 reembolsables al finalizar la estadia, previa verificacion de los espacios.",
-    people: "Hasta 20 personas.",
+    people: "Hasta 18 personas.",
     peopleNote: "En caso de desear mas personas, comunicarlo.",
     prices: [
-      { label: "Lunes a jueves", value: "S/ 970" },
-      { label: "Viernes a domingo", value: "S/ 1,250" }
+      { label: "Lunes a jueves", value: "S/ 950" },
+      { label: "Viernes a domingo", value: "S/ 1,150" }
     ]
   }
 };
