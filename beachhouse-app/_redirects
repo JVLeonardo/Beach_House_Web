@@ -1,5 +1,7 @@
 /ubicacion                    /ubicacion.html  200
 /ubicacion/                   /ubicacion.html  200
+/nosotros                     /nosotros.html   200
+/nosotros/                    /nosotros.html   200
 /admin.html                   /404.html  404!
 /assets/js/auth.js            /404.html  404!
 /assets/js/api.js             /404.html  404!
