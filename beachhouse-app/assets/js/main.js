@@ -368,6 +368,8 @@ function initShuffleGallery() {
   let lightboxIndex = 0;
   let autoPlayInterval;
   let descriptionTimeout;
+  let galleryTouchStart = null;
+  let suppressGalleryClickUntil = 0;
 
   function currentGalleryItem() {
     return gallerySequence[currentIndex];
@@ -465,8 +467,12 @@ function initShuffleGallery() {
 
     lightboxImage.src = imageUrl(image.mobileSrc && window.matchMedia("(max-width: 768px)").matches ? image.mobileSrc : image.src);
     lightboxImage.alt = image.alt;
-    byId("galleryLightboxTitle").textContent = image.title;
-    byId("galleryLightboxDescription").textContent = image.description;
+  }
+
+  function openLightbox() {
+    lightboxIndex = currentIndex;
+    updateLightbox();
+    bootstrap.Modal.getOrCreateInstance(lightboxElement).show();
   }
 
   function nextLightboxSlide() {
@@ -501,12 +507,31 @@ function initShuffleGallery() {
 
   btnNext.addEventListener("click", goToNextSlide);
   btnPrev.addEventListener("click", goToPrevSlide);
-  enableTouchSwipe(carouselContainer, goToNextSlide, goToPrevSlide);
-  expandButton.addEventListener("click", () => {
-    lightboxIndex = currentIndex;
-    updateLightbox();
-    bootstrap.Modal.getOrCreateInstance(lightboxElement).show();
+  carouselContainer.addEventListener("touchstart", (event) => {
+    const touch = event.changedTouches[0];
+    galleryTouchStart = { x: touch.clientX, y: touch.clientY };
+  }, { passive: true });
+  carouselContainer.addEventListener("touchend", (event) => {
+    if (!galleryTouchStart) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - galleryTouchStart.x;
+    const deltaY = touch.clientY - galleryTouchStart.y;
+    galleryTouchStart = null;
+
+    if (Math.abs(deltaX) >= 45 && Math.abs(deltaX) >= Math.abs(deltaY) * 1.25) {
+      suppressGalleryClickUntil = Date.now() + 350;
+    }
+  }, { passive: true });
+  carouselContainer.addEventListener("click", (event) => {
+    if (Date.now() < suppressGalleryClickUntil) return;
+    if (event.target.closest("button")) return;
+    if (!event.target.closest(".shuffle-slide.active")) return;
+
+    openLightbox();
   });
+  enableTouchSwipe(carouselContainer, goToNextSlide, goToPrevSlide);
+  expandButton.addEventListener("click", openLightbox);
   lightboxPrev.addEventListener("click", prevLightboxSlide);
   lightboxNext.addEventListener("click", nextLightboxSlide);
   enableTouchSwipe(lightboxElement, nextLightboxSlide, prevLightboxSlide);
@@ -1053,6 +1078,11 @@ function setupReservationFlow() {
     button.addEventListener("click", () => {
       const packageName = button.dataset.package || "";
       const buttonSource = button.dataset.source || "web-general";
+
+      if (button.dataset.guidedReservation === "true") {
+        openReservationModal("", buttonSource);
+        return;
+      }
 
       if (!packageName) {
         const source = trackingSource(buttonSource);

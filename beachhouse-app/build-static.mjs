@@ -16,7 +16,9 @@ const publicEntries = [
   "assets/js/about.js",
   "assets/js/site-config.js",
   "assets/js/modal-manager.js",
+  "assets/js/legal.js",
   "assets/img",
+  "assets/legal",
   "assets/video"
 ];
 

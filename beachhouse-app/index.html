@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beach House | Balneario Santa Rosa</title>
   <meta name="description"
-    content="Haz clic para revisar las fotos, videos, precios y ubicación de la Beach House Santa Rosa.">
+    content="HAZ CLIC PARA REVISAR LAS FOTOS, VIDEOS, PRECIOS y UBICACION DE LA BEACH HOUSE SANTA ROSA.">
   <meta property="og:title" content="Beach House | Balneario Santa Rosa">
   <meta property="og:description"
-    content="Haz clic para revisar las fotos, videos, precios y ubicación de la Beach House Santa Rosa.">
+    content="HAZ CLIC PARA REVISAR LAS FOTOS, VIDEOS, PRECIOS Y UBICACION DE LA BEACH HOUSE SANTA ROSA.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://beachhouse-web.netlify.app">
   <meta property="og:locale" content="es_PE">
@@ -18,7 +18,7 @@
   <meta property="og:image:height" content="941">
   <meta property="og:image:alt" content="Fachada de Beach House Santa Rosa">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Beach House | Balneario Santa Rosa">
+  <meta name="twitter:title" content="Beach House | Balneario Santa Rosa"> 
   <meta name="twitter:description"
     content="Haz clic para revisar las fotos, videos, precios y ubicación de la Beach House Santa Rosa.">
   <meta name="twitter:image" content="https://beachhouse-web.netlify.app/assets/img/hero01.webp">
@@ -28,7 +28,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/main.css"> 
 </head>
 
 <body>
@@ -65,7 +65,7 @@
             <img src="assets/img/tiktok-logo.webp" alt="" aria-hidden="true">TikTok
           </a>
           <button class="btn btn-gold px-4 text-uppercase fw-bold rounded-0 reserve-trigger" id="topBookingCta"
-            data-source="navbar" type="button">
+            data-source="navbar" data-guided-reservation="true" type="button">
             <i class="bi bi-calendar-check me-2"></i>Reservar
           </button>
         </div>
@@ -86,8 +86,7 @@
       <div class="row w-100 mt-3 pt-1">
         <div class="col-lg-8 col-md-10">
           <a class="hero-badge mb-4 d-inline-block p-2 border border-light border-opacity-25 text-decoration-none"
-            href="https://maps.google.com/?q=-11.794161,-77.173981"
-            target="_blank" rel="noopener noreferrer" aria-label="Ver ubicacion de Beach House en Google Maps">
+            href="/ubicacion.html" aria-label="Ver la ubicacion detallada de Beach House">
             <i class="bi bi-geo-alt-fill text-gold me-2"></i>
             <span class="text-white small fw-semibold">Clic para ver Ubicación - Balneario Santa Rosa</span>
           </a>
@@ -106,7 +105,7 @@
             </a>
             <button id="heroBookingCta" type="button"
               class="btn btn-outline-light btn-lg border-2 rounded-0 fw-bold hero-action reserve-trigger"
-              data-source="hero">
+              data-source="hero" data-guided-reservation="true">
               <i class="bi bi-calendar-check me-2"></i>Reservar Ahora
             </button>
           </div>
@@ -354,6 +353,19 @@
     </div>
   </section>
 
+  <section id="ubicacion" class="location-cta-section text-center">
+    <div class="container py-5">
+      <div class="section-heading location-cta-heading">
+        <span class="section-signature font-pacifico text-gold">Beach House</span>
+        <h2 class="section-title display-5 fw-bold mb-0 text-dark">UBICACION</h2>
+      </div>
+      <p class="location-cta-copy mx-auto">Encuentra la ruta, referencias y opciones para llegar cómodamente a Beach House Santa Rosa.</p>
+      <a class="btn btn-gold fw-bold location-cta-button home-primary-cta" href="/ubicacion.html">
+        <i class="bi bi-geo-alt"></i>Ver ubicacion y como llegar
+      </a>
+    </div>
+  </section>
+
   <section id="contacto" class="py-5 text-center bg-white">
     <div class="container py-5">
       <div class="section-heading contact-heading">
@@ -365,8 +377,8 @@
       <p class="fs-5 text-secondary mb-5 mx-auto" style="max-width: 700px;">Nuestro equipo esta listo para confirmar tu
         reserva en el Balneario Santa Rosa por WhatsApp.</p>
       <button id="contactBookingCta" type="button"
-        class="btn btn-gold btn-lg px-5 py-3 fs-5 rounded-0 reserve-trigger" data-source="contact">
-        <i class="bi bi-whatsapp me-2"></i>Reservar por WhatsApp
+        class="btn btn-gold fw-bold reserve-trigger home-primary-cta" data-source="contact" data-guided-reservation="true">
+        <i class="bi bi-whatsapp"></i>Reservar por WhatsApp
       </button>
     </div>
   </section>
@@ -386,11 +398,17 @@
           </a>
         </div>
         <div class="col-sm-6 col-lg-2">
-          <h3>Consultas</h3>
-          <p>Martes a domingo<br>8:00 am - 10:00 pm</p>
+          <h3>Legalidad</h3>
+          <div class="footer-legal-links" aria-label="Informacion legal">
+            <button class="footer-legal-link" type="button" data-bs-toggle="modal" data-bs-target="#termsModal"><i class="bi bi-file-earmark-text" aria-hidden="true"></i><span>Terminos</span></button>
+            <button class="footer-legal-link" type="button" data-bs-toggle="modal" data-bs-target="#privacyModal"><i class="bi bi-shield-lock" aria-hidden="true"></i><span>Privacidad</span></button>
+            <button class="footer-legal-link" type="button" data-bs-toggle="modal" data-bs-target="#guaranteeModal"><i class="bi bi-shield-check" aria-hidden="true"></i><span>Garantia</span></button>
+            <button class="footer-legal-link" type="button" data-bs-toggle="modal" data-bs-target="#companyModal"><i class="bi bi-building" aria-hidden="true"></i><span>Empresa</span></button>
+            <button class="footer-legal-link footer-contract-link" type="button" data-bs-toggle="modal" data-bs-target="#contractModal"><i class="bi bi-file-earmark-check" aria-hidden="true"></i><span>Contrato</span></button>
+          </div>
         </div>
         <div class="col-lg-3">
-          <h3>Siguenos</h3>
+          <h3>Redes sociales</h3>
           <div class="social-links">
             <a href="https://www.tiktok.com/@beach.house256" target="_blank" rel="noopener noreferrer"
               aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
@@ -519,7 +537,7 @@
     </div>
   </div>
 
-  <div class="modal fade gallery-lightbox" id="galleryLightbox" tabindex="-1" aria-labelledby="galleryLightboxTitle"
+  <div class="modal fade gallery-lightbox" id="galleryLightbox" tabindex="-1" aria-label="Galeria ampliada de Beach House"
     aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content rounded-0 border-0">
@@ -536,10 +554,6 @@
               <button class="gallery-lightbox-nav" id="galleryLightboxNext" type="button" aria-label="Imagen siguiente">
                 <i class="bi bi-chevron-right"></i>
               </button>
-            </div>
-            <div class="gallery-lightbox-copy">
-              <h2 class="font-pacifico text-gold" id="galleryLightboxTitle"></h2>
-              <p class="mb-0" id="galleryLightboxDescription"></p>
             </div>
           </div>
           <picture class="gallery-frame-overlay" aria-hidden="true">
@@ -591,6 +605,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="assets/js/legal.js"></script>
   <script type="module" src="assets/js/main.js"></script>
 </body>
 
